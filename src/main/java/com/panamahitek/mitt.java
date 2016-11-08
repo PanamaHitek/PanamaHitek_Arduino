@@ -42,19 +42,25 @@ import jssc.SerialPortException;
 public class PanamaHitek_MultiMessage {
 
     //Variables 
-    private static int mensajes = 0;
-    private static int lecturas = 0;
+    private static int inputMesages = 0;
     private static List<String> inputBuffer;
-    private PanamaHitek_Arduino ino;
+    private final PanamaHitek_Arduino arduinoObject;
 
-    /*Esta clase ha sido diseñada para hacer lectura de múltiples datos, por ejemplo
-     de sensores conectados a Arduino sin tener que llevar a cabo complicadas secuencias lógicas
-     para discernir entre una lectura y otra.
+    /**
+     * Esta clase ha sido diseñada para hacer lectura de múltiples datos, por
+     * ejemplo de sensores conectados a Arduino sin tener que llevar a cabo
+     * complicadas secuencias lógicas para discernir entre una lectura y otra.
+     *
+     * @param inputMessages Cantidad de mesajes simultáneos que se espera
+     * recibir. Por ejemplo, si se desea recibir humedad y temperatura a la vez,
+     * el valor de este parámetro es 2
+     * @param arduinoObject Un objeto de la clase PanamaHitek_Arduino con el
+     * cual se ha iniciado una conexión con Arduino
      */
-    public PanamaHitek_MultiMessage(int messages, PanamaHitek_Arduino InputObject) {
-        this.ino = InputObject;
-        mensajes = messages;
-        inputBuffer = new ArrayList<String>();
+    public PanamaHitek_MultiMessage(int inputMessages, PanamaHitek_Arduino arduinoObject) {
+        this.arduinoObject = arduinoObject;
+        inputMesages = inputMessages;
+        inputBuffer = new ArrayList<>();
 
     }
 
@@ -65,15 +71,17 @@ public class PanamaHitek_MultiMessage {
      *
      * @return TRUE si se ha terminado de leer datos, FALSE si aún no se
      * completa la lectura.
+     * @throws com.panamahitek.ArduinoException
+     * @throws jssc.SerialPortException
      */
     public boolean dataReceptionCompleted() throws ArduinoException, SerialPortException {
         String str = "";
         int i = 0;
 
-        if (ino.getInputBytesAvailable() > 0) {
-            while (i < mensajes) {
-                if (ino.getInputBytesAvailable() > 0) {
-                    byte[] buffer = ino.receiveData();
+        if (arduinoObject.getInputBytesAvailable() > 0) {
+            while (i < inputMesages) {
+                if (arduinoObject.getInputBytesAvailable() > 0) {
+                    byte[] buffer = arduinoObject.receiveData();
                     int bufferLenth = buffer.length;
                     for (int j = 0; j < bufferLenth; j++) {
                         int n = buffer[j];
@@ -105,7 +113,6 @@ public class PanamaHitek_MultiMessage {
      * @return un String con la información solicitada
      */
     public String getMessage(int index) {
-
         String Output = inputBuffer.get(index);
         return Output;
     }
@@ -116,7 +123,7 @@ public class PanamaHitek_MultiMessage {
      * determinada lectura
      */
     public List<String> getMessageList() {
-        return inputBuffer.subList(0, mensajes);
+        return inputBuffer;
     }
 
     /**
@@ -124,8 +131,6 @@ public class PanamaHitek_MultiMessage {
      * para prepararse para una nueva lectura
      */
     public void flushBuffer() {
-        for (int i = 0; i < mensajes; i++) {
-            inputBuffer.remove(0);
-        }
+        inputBuffer.clear();
     }
 }
