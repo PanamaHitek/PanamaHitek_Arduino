@@ -39,7 +39,7 @@ import jssc.SerialPortException;
  * @author Antony García González, de Proyecto Panama Hitek. Visita
  * http://panamahitek.com
  */
-public class mitt {
+public class PanamaHitek_MultiMessage {
 
     //Variables 
     private static int inputMesages = 0;
@@ -57,7 +57,7 @@ public class mitt {
      * @param arduinoObject Un objeto de la clase PanamaHitek_Arduino con el
      * cual se ha iniciado una conexión con Arduino
      */
-    public mitt(int inputMessages, PanamaHitek_Arduino arduinoObject) {
+    public PanamaHitek_MultiMessage(int inputMessages, PanamaHitek_Arduino arduinoObject) {
         this.arduinoObject = arduinoObject;
         inputMesages = inputMessages;
         inputBuffer = new ArrayList<>();
