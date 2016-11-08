@@ -114,7 +114,7 @@ public class PanamaHitek_Arduino {
      * @since v1.2.0 
      */
     private void PanamaHitek() {
-        System.out.println("PanamaHitek_Arduino Library, version 2.7.0");
+        System.out.println("PanamaHitek_Arduino Library, version 2.7.3");
         System.out.println("===============================");
         System.out.println("Library created by Antony Garcia Gonzalez");
         System.out.println("Student of Panama's Tecnological University and the creator of panamahitek.com ");

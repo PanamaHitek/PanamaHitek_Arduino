@@ -3,15 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.panamahitek</groupId>
     <artifactId>PanamaHitek_Arduino</artifactId>
-    <version>2.7.2</version>
+    <version>2.7.3</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        
-    </properties>
-    
-  
-
+        <maven.compiler.target>1.8</maven.compiler.target>        
+    </properties> 
 </project>
