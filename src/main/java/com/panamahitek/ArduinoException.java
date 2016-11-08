@@ -5,11 +5,11 @@
  * Está protegido bajo la licencia LGPL v 2.1, cuya copia se puede encontrar en
  * el siguiente enlace: http://www.gnu.org/licenses/lgpl.txt
  *
- * Para su funcionamiento utiliza el código de la librería JSSC (anteriormente RXTX) que ha
- * permanecido intacto sin modificación alguna de parte de nuestro equipo
- * creativo. Agradecemos al creador de la librería JSSC, Alexey Sokolov por esta 
- * herramienta tan poderosa y eficaz que ha hecho posible el mejoramiento de nuestra 
- * librería.
+ * Para su funcionamiento utiliza el código de la librería JSSC (anteriormente
+ * RXTX) que ha permanecido intacto sin modificación alguna de parte de nuestro
+ * equipo creativo. Agradecemos al creador de la librería JSSC, Alexey Sokolov
+ * por esta herramienta tan poderosa y eficaz que ha hecho posible el
+ * mejoramiento de nuestra librería.
  *
  * Esta librería es de código abierto y ha sido diseñada para que los usuarios,
  * desde principiantes hasta expertos puedan contar con las herramientas
@@ -30,6 +30,7 @@
  * Si desea contactarnos escríbanos a creativeteam@panamahitek.com
  */
 package com.panamahitek;
+
 /**
  * @author Antony García González, de Proyecto Panama Hitek. Visita
  * http://panamahitek.com
@@ -42,7 +43,7 @@ public class ArduinoException extends Exception {
 
     /**
      * Mensajes a desplegar ante las diferentes excepciones que se pueden dar
-     * durante la ejecución del código 
+     * durante la ejecución del código
      */
     final public static String TYPE_PORT_ALREADY_OPENED = "El puerto que intenta abrir está siendo utilizado por otro dispositivo";
     final public static String TYPE_PORT_NOT_OPENED = "Puerto no abierto";
@@ -59,6 +60,12 @@ public class ArduinoException extends Exception {
     final public static String TYPE_RECEIVE_DATA = "No se puede utilizar el método receiveData() si se ha iniciado la conexión Arduino con el método ArduinoTX(), el cual es sólo para recibir datos";
     final public static String TYPE_NO_EVENT_LISTENER = "No se ha agregado un EventListener a la clase PanamaHitek_Arduino";
 
+    /**
+     *
+     * @param portName Nombre del puerto COM
+     * @param methodName Método que dispara la excepción
+     * @param exceptionType Tipo de excepción
+     */
     public ArduinoException(String portName, String methodName, String exceptionType) {
         super("Nomrbe del puerto - " + portName + "; Nombre del método - " + methodName + "; Tipo de excepción - " + exceptionType + ".");
         this.portName = portName;
