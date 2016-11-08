@@ -60,8 +60,9 @@
  * lists of ports, October 2000. */
 /* Joseph Goldstone <joseph@lp.com> reorganized to support registered ports,
  * known ports, and scanned ports, July 2001 */
-package com.gnu.io;
+package gnu.io;
 
+import gnu.io.Drivers;
 import java.util.*;
 import java.io.*;
 import java.util.StringTokenizer;

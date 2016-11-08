@@ -55,36 +55,33 @@
 |   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 |   All trademarks belong to their respective owners.
 --------------------------------------------------------------------------*/
-package com.gnu.io;
+package gnu.io;
 import java.util.*;
 
 /**
-* The port requested is currently in use
+* Exception thrown when a method does not support the requested functionality.
 * @author Trent Jarvi
 * @version %I%, %G%
 * @since JDK1.0
 */
 
-
-public class PortInUseException extends Exception
+public class UnSupportedLoggerException extends Exception
 {
 /**
-the owner of the port requested.
+* create an instances with no message about why the Exception was thrown.
+* @since JDK1.0
 */
-	public String currentOwner;
-/**
-* create a instance of the Exception and store the current owner
-*
-* @param str	detailed information about the current owner
-*/
-	PortInUseException( String str )
-	{
-		super( str );
-		currentOwner=str;
-	}
-	public PortInUseException()
+	public UnSupportedLoggerException()
 	{
 		super();
 	}
+/**
+* create an instance with a message about why the Exception was thrown.
+* @param str	A detailed message explaining the reason for the Exception.
+* @since JDK1.0
+*/
+	public UnSupportedLoggerException( String str )
+	{
+		super( str );
+	}
 }
-

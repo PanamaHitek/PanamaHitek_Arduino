@@ -55,7 +55,7 @@
 |   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 |   All trademarks belong to their respective owners.
 --------------------------------------------------------------------------*/
-package com.gnu.io;
+package gnu.io;
 import java.io.*;
 import java.util.*;
 

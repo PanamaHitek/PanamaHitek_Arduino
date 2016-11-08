@@ -29,11 +29,11 @@
  */
 package com.panamahitek;
 
-import com.gnu.io.CommPortIdentifier;
-import com.gnu.io.PortInUseException;
-import com.gnu.io.SerialPort;
-import com.gnu.io.SerialPortEventListener;
-import com.gnu.io.Drivers;
+import gnu.io.CommPortIdentifier;
+import gnu.io.PortInUseException;
+import gnu.io.SerialPort;
+import gnu.io.SerialPortEventListener;
+import gnu.io.Drivers;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -106,7 +106,7 @@ public class PanamaHitek_Arduino {
                         + " forman parte fundamental del funcionamiento de esta librería.");
             }
         }
-
+ 
     }
 
     /**
@@ -127,8 +127,8 @@ public class PanamaHitek_Arduino {
      * Método para establecer la paridad en la conexión con el Puerto Serie. La
      * paridad por defecto es "Sin Paridad"
      *
-     * @param input_Parity <br>0 = Sin Paridad <br>1 = Paridad Impar <br>2 =
-     * Paridad Par <br>3 = Paridad Marcada <br>4 = Paridad Espaciada
+     * @param input_Parity 0 = Sin Paridad, 1 = Paridad Impar, 2 =
+     * Paridad Par, 3 = Paridad Marcada, 4 = Paridad Espaciada
      *
      * @since v2.6.0
      */
@@ -171,9 +171,9 @@ public class PanamaHitek_Arduino {
      * Método para establecer el StopBit
      *
      * @param Bits Se establecen los StopBits
-     * <br> 1 = 1 StopBit
-     * <br> 2 = 2 StopBits
-     * <br> 3 = 1.5 StopBits
+     *  1 = 1 StopBit
+     *  2 = 2 StopBits
+     *  3 = 1.5 StopBits
      * @since v2.6.0
      */
     public void setStopBits(int Bits) {
@@ -191,7 +191,7 @@ public class PanamaHitek_Arduino {
      * Método para establecer el TimeOut
      *
      * @param time
-     * <br> Valor tipo entero, dado en milisegundos
+     * Valor tipo entero, dado en milisegundos
      * @since v2.6.0
      */
     public void setTimeOut(int time) {
@@ -367,7 +367,7 @@ public class PanamaHitek_Arduino {
      *
      */
     public void arduinoRXTX(String PORT_NAME, int DATA_RATE, SerialPortEventListener events) throws Exception {
-
+        System.out.println("+++"+this.getClass().getName());
         try {
 
             if (Connection.equals("")) {

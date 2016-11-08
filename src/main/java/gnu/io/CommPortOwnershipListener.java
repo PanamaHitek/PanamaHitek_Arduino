@@ -55,7 +55,7 @@
 |   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 |   All trademarks belong to their respective owners.
 --------------------------------------------------------------------------*/
-package com.gnu.io;
+package gnu.io;
 import java.util.*;
 
 /**
@@ -64,8 +64,11 @@ import java.util.*;
 * @since JDK1.0
 */
 
-
-public interface SerialPortEventListener extends EventListener
+public interface CommPortOwnershipListener extends EventListener
 {
-	public abstract void serialEvent( SerialPortEvent ev );
+	public static final int PORT_OWNED               =1;
+	public static final int PORT_UNOWNED             =2;
+	public static final int PORT_OWNERSHIP_REQUESTED =3;
+
+	public abstract void ownershipChange( int type );
 }

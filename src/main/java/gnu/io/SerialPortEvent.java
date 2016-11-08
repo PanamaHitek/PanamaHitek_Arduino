@@ -55,33 +55,50 @@
 |   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 |   All trademarks belong to their respective owners.
 --------------------------------------------------------------------------*/
-package com.gnu.io;
+package gnu.io;
 import java.util.*;
 
 /**
-* Exception thrown when a method does not support the requested functionality.
 * @author Trent Jarvi
 * @version %I%, %G%
 * @since JDK1.0
 */
 
-public class UnSupportedLoggerException extends Exception
+public class SerialPortEvent extends EventObject
 {
-/**
-* create an instances with no message about why the Exception was thrown.
-* @since JDK1.0
-*/
-	public UnSupportedLoggerException()
+	public static final int DATA_AVAILABLE      =1;
+	public static final int OUTPUT_BUFFER_EMPTY =2;
+	public static final int CTS                 =3;
+	public static final int DSR                 =4;
+	public static final int RI                  =5;
+	public static final int CD                  =6;
+	public static final int OE                  =7;
+	public static final int PE                  =8;
+	public static final int FE                  =9;
+	public static final int BI                 =10;
+
+	private boolean OldValue;
+	private boolean NewValue;
+	private int eventType;
+	/*public int eventType           =0; depricated */
+
+	public SerialPortEvent(SerialPort srcport, int eventtype, boolean oldvalue, boolean newvalue)
 	{
-		super();
+		super( srcport );	
+		OldValue=oldvalue;
+		NewValue=newvalue;
+		eventType=eventtype;
 	}
-/**
-* create an instance with a message about why the Exception was thrown.
-* @param str	A detailed message explaining the reason for the Exception.
-* @since JDK1.0
-*/
-	public UnSupportedLoggerException( String str )
+	public int getEventType()
 	{
-		super( str );
+		return(eventType);
+	}
+	public boolean getNewValue()
+	{
+		return( NewValue );
+	}
+	public boolean getOldValue()
+	{
+		return( OldValue );
 	}
 }

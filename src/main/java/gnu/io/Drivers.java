@@ -1,6 +1,7 @@
-package com.gnu.io;
+package gnu.io;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class Drivers {
         boolean Output = false;
         String osArch = System.getProperty("sun.arch.data.model");
         String path = "";
+
         if (osArch.equals("32")) {
             path = "C:/JavaRXTX/x86/rxtxSerial.dll";
             if (new File(path).exists()) {
@@ -40,13 +42,16 @@ public class Drivers {
                 Output = false;
             }
         } else if (osArch.equals("64")) {
+
             path = "C:/JavaRXTX/x64/rxtxSerial.dll";
             if (new File(path).exists()) {
                 Output = true;
             } else {
                 Output = false;
             }
+
         }
+
         return Output;
     }
 
@@ -67,8 +72,11 @@ public class Drivers {
 
     private void createFiles() {
         System.out.print("Copiando ficheros... ");
-        InputStream dllInFile64 = Drivers.class.getResourceAsStream("/com.rxtxDrivers64/rxtxSerial.dll");
-        InputStream dllInFile86 = Drivers.class.getResourceAsStream("/com.rxtxDrivers86/rxtxSerial.dll");
+
+        InputStream dllInFile64 = null;
+        InputStream dllInFile86 = null;
+        dllInFile64 = ClassLoader.class.getResourceAsStream("/rxtxDrivers/x64.dll");
+        dllInFile86 = ClassLoader.class.getResourceAsStream("/rxtxDrivers/x86.dll");
 
         byte[] buf = new byte[2048];
         int r;
@@ -85,7 +93,9 @@ public class Drivers {
                 }
                 dllOutFile.close();
             }
+
             if (!new File("C:/JavaRXTX/x86/rxtxSerial.dll").exists()) {
+
                 dllOutFile = new FileOutputStream("C:/JavaRXTX/x86/rxtxSerial.dll");
 
                 r = dllInFile86.read(buf);
@@ -95,9 +105,8 @@ public class Drivers {
                 }
                 dllOutFile.close();
             }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Drivers.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+
+        } catch (Exception ex) {
             Logger.getLogger(Drivers.class.getName()).log(Level.SEVERE, null, ex);
         }
 

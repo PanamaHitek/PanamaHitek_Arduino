@@ -55,72 +55,36 @@
 |   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 |   All trademarks belong to their respective owners.
 --------------------------------------------------------------------------*/
-package com.gnu.io;
-
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.IOException;
+package gnu.io;
+import java.util.*;
 
 /**
+* The port requested is currently in use
 * @author Trent Jarvi
 * @version %I%, %G%
 * @since JDK1.0
 */
 
 
+public class PortInUseException extends Exception
+{
 /**
-  * CommPort
-  */
-public abstract class CommPort extends Object {
-	protected String name;
-	private final static boolean debug = false;
-
-	public abstract void enableReceiveFraming( int f ) 
-		throws UnsupportedCommOperationException;
-	public abstract void disableReceiveFraming();
-	public abstract boolean isReceiveFramingEnabled();
-	public abstract int getReceiveFramingByte();
-	public abstract void disableReceiveTimeout();
-	public abstract void enableReceiveTimeout( int time )
-		throws UnsupportedCommOperationException;
-	public abstract boolean isReceiveTimeoutEnabled();
-	public abstract int getReceiveTimeout();
-	public abstract void enableReceiveThreshold( int thresh )
-		throws UnsupportedCommOperationException;
-	public abstract void disableReceiveThreshold();
-	public abstract int getReceiveThreshold();
-	public abstract boolean isReceiveThresholdEnabled();
-	public abstract void setInputBufferSize( int size );
-	public abstract int getInputBufferSize();
-	public abstract void setOutputBufferSize( int size );
-	public abstract int getOutputBufferSize();
-	public void close() 
+the owner of the port requested.
+*/
+	public String currentOwner;
+/**
+* create a instance of the Exception and store the current owner
+*
+* @param str	detailed information about the current owner
+*/
+	PortInUseException( String str )
 	{
-		if (debug) System.out.println("CommPort:close()");
-
-		try
-		{
-			CommPortIdentifier cp = 
-				CommPortIdentifier.getPortIdentifier(this);
-			if ( cp != null )
-				cp.getPortIdentifier(this).internalClosePort();
-		}
-		catch (NoSuchPortException e)
-		{
-		}
-	};
-
-	public abstract InputStream getInputStream() throws IOException;
-	public abstract OutputStream getOutputStream() throws IOException;
-
-	public String getName()
-	{
-		if (debug) System.out.println("CommPort:getName()");
-		return( name );
+		super( str );
+		currentOwner=str;
 	}
-	public String toString()
+	public PortInUseException()
 	{
-		if (debug) System.out.println("CommPort:toString()");
-		return( name );
+		super();
 	}
 }
+

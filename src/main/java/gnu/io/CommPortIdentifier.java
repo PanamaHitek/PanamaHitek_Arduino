@@ -55,8 +55,9 @@
  |   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  |   All trademarks belong to their respective owners.
  --------------------------------------------------------------------------*/
-package com.gnu.io;
+package gnu.io;
 
+import gnu.io.Drivers;
 import java.io.FileDescriptor;
 import java.util.HashMap;
 import java.util.Vector;
@@ -431,7 +432,7 @@ public class CommPortIdentifier extends Object /* extends Vector? */ {
     private boolean HideOwnerEvents;
 
     public CommPort open(String TheOwner, int i)
-            throws com.gnu.io.PortInUseException {
+            throws gnu.io.PortInUseException {
         if (debug) {
             System.out.println("CommPortIdentifier:open(" + TheOwner + ", " + i + ")");
         }
@@ -467,7 +468,7 @@ public class CommPortIdentifier extends Object /* extends Vector? */ {
             }
         }
         if (!isAvailable) {
-            throw new com.gnu.io.PortInUseException(getCurrentOwner());
+            throw new gnu.io.PortInUseException(getCurrentOwner());
         }
         //At this point, the CommPortIdentifier is owned by us.
         try {
@@ -478,7 +479,7 @@ public class CommPortIdentifier extends Object /* extends Vector? */ {
                 fireOwnershipEvent(CommPortOwnershipListener.PORT_OWNED);
                 return commport;
             } else {
-                throw new com.gnu.io.PortInUseException(
+                throw new gnu.io.PortInUseException(
                         native_psmisc_report_owner(PortName));
             }
         } finally {

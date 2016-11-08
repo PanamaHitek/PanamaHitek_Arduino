@@ -55,25 +55,17 @@
 |   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 |   All trademarks belong to their respective owners.
 --------------------------------------------------------------------------*/
-package com.gnu.io;
+package gnu.io;
 import java.util.*;
 
 /**
-* The requested Port does not exist
 * @author Trent Jarvi
 * @version %I%, %G%
 * @since JDK1.0
 */
 
-public class NoSuchPortException extends Exception
-{
-	NoSuchPortException( String str )
-	{
-		super( str );
-	}
-	public NoSuchPortException()
-	{
-		super();
-	}
-}
 
+public interface SerialPortEventListener extends EventListener
+{
+	public abstract void serialEvent( SerialPortEvent ev );
+}

@@ -55,8 +55,9 @@
  |   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  |   All trademarks belong to their respective owners.
  --------------------------------------------------------------------------*/
-package com.gnu.io;
+package gnu.io;
 
+import gnu.io.Drivers;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
@@ -66,7 +67,7 @@ import java.lang.Math;
 /**
  * An extension of gnu.io.SerialPort
  *
- * @see com.gnu.io.SerialPort
+ * @see gnu.io.SerialPort
  */
 final public class RXTXPort extends SerialPort {
     /* I had a report that some JRE's complain when MonitorThread
@@ -113,7 +114,7 @@ final public class RXTXPort extends SerialPort {
      *
      * @param name the name of the device to open
      * @throws PortInUseException Se lanza esta excepción cuando el puerto se encuentra en uso
-     * @see com.gnu.io.SerialPort
+     * @see gnu.io.SerialPort
      */
     public RXTXPort(String name) throws PortInUseException {
         if (debug) {
@@ -222,7 +223,7 @@ final public class RXTXPort extends SerialPort {
      * @param s stopbits
      * @param p parity
      * @throws UnsupportedCommOperationException
-     * @see com.gnu.io.UnsupportedCommOperationException
+     * @see gnu.io.UnsupportedCommOperationException
      *
      * If speed is not a predifined speed it is assumed to be the actual speed
      * desired.
@@ -1975,7 +1976,7 @@ final public class RXTXPort extends SerialPort {
      * @param p parity
      *
      * @throws UnsupportedCommOperationException Triggers if port operation is not allowed
-     * @see com.gnu.io.UnsupportedCommOperationException
+     * @see gnu.io.UnsupportedCommOperationException
      */
     public static void staticSetSerialPortParams(String f, int b, int d,
             int s, int p)
