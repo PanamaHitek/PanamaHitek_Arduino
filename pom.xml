@@ -3,14 +3,23 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.panamahitek</groupId>
     <artifactId>PanamaHitek_Arduino</artifactId>
-    <version>2.8.0</version>
+    <version>2.8.1</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>        
     </properties>
-    <build>
+    
+       <dependencies>            
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>3.15</version>
+            </dependency>            
+        </dependencies>
+    
+    <build>  
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
