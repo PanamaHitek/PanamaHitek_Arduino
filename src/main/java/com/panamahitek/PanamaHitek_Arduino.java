@@ -72,6 +72,7 @@ public class PanamaHitek_Arduino {
         System.out.println("You can find all the information about this library at http://panamahitek.com");
     }
 
+    
     /**
      * Método para establecer la paridad en la conexión con el Puerto Serie. La
      * paridad por defecto es "Sin Paridad"
@@ -519,7 +520,5 @@ public class PanamaHitek_Arduino {
         } else {
             throw new ArduinoException(portName, "getEventListener()", ArduinoException.TYPE_NO_EVENT_LISTENER);
         }
-
     }
-
 }
