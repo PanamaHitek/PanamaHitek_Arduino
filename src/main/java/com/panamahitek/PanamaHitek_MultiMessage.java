@@ -75,7 +75,7 @@ public class PanamaHitek_MultiMessage {
      * @throws jssc.SerialPortException
      */
     public boolean dataReceptionCompleted() throws ArduinoException, SerialPortException {
-        String str = "";
+           String str = "";
         int i = 0;
 
         if (arduinoObject.getInputBytesAvailable() > 0) {
