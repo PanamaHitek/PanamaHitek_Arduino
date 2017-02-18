@@ -61,7 +61,6 @@ public class PanamaHitek_MultiMessage {
         this.arduinoObject = arduinoObject;
         inputMesages = inputMessages;
         inputBuffer = new ArrayList<>();
-
     }
 
     /**
