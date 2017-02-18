@@ -64,14 +64,13 @@ public class PanamaHitek_Arduino {
      * Los créditos que se imprimen en cada ejecución de la libreria
      */
     private void PanamaHitek() {
-        System.out.println("PanamaHitek_Arduino Library, version 2.8.2");
+        System.out.println("PanamaHitek_Arduino Library, version 2.8.3");
         System.out.println("==============================================");
         System.out.println("Created by Antony Garcia Gonzalez");
         System.out.println("Electromechanic Engineer and creator of Project Panama Hitek");
         System.out.println("This library has been created from Java Simple Serial Connector, by Alexey Sokolov");
         System.out.println("You can find all the information about this library at http://panamahitek.com");
     }
-
     
     /**
      * Método para establecer la paridad en la conexión con el Puerto Serie. La
@@ -148,7 +147,7 @@ public class PanamaHitek_Arduino {
      * @since v2.6.0
      */
     public void setTimeOut(int time) {
-        TIMEOUT = time;
+        this.TIMEOUT = time;
     }
 
     /**
