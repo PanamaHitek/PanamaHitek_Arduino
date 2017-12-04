@@ -401,6 +401,13 @@ public class singleDialPlot extends JPanel {
         singleDialPlot.plot.setMinorDivisions(minorDivisions);
     }
 
+     /**
+     * Distribucion de los colores segun porcentaje
+     * @param firstArea Porcentaje del area verde
+     * @param secondArea Porcentaje del area amarilla
+     * @param thirdArea Porcentaje del area roja
+     * @throws Exception Se dispara si la suma de los porcentajes no totaliza 100
+     */
     public void setColorDistribuition(int firstArea, int secondArea, int thirdArea) throws Exception {
         int total = firstArea + secondArea + thirdArea;
         if (total != 100) {
