@@ -9,10 +9,11 @@ import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
 /**
- * @author Antony Garcia Gonzalez Un codigo que permite recibir datos desde el
- * Arduino
+ * @author Antony Garcia Gonzalez
+ * <br>Un codigo que permite recibir datos desde el Arduino. Debe ser utilizado
+ * con el codigo single_data_send.ino corriendo en el Arduino
  */
-public class testRx {
+public class rxSimple {
 //Se crea una variable tipo PanamaHitek_Arduino
 
     static PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
@@ -36,9 +37,9 @@ public class testRx {
                     System.out.println("Mensaje recibido --> " + msg);
                 }
             } catch (SerialPortException ex) {
-                Logger.getLogger(testRx.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(rxSimple.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ArduinoException ex) {
-                Logger.getLogger(testRx.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(rxSimple.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     };
@@ -48,9 +49,9 @@ public class testRx {
             //Se inicializa la conexion con el Arduino en el puerto COM5
             ino.arduinoRX("COM5", 9600, listener);
         } catch (ArduinoException ex) {
-            Logger.getLogger(testRx.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(rxSimple.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SerialPortException ex) {
-            Logger.getLogger(testRx.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(rxSimple.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

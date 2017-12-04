@@ -1,46 +1,53 @@
 package com.panamahitek.examples.liveplots;
 
 import com.panamahitek.ArduinoException;
-import com.panamahitek.liveinterfaces.dualDialPlot;
+import com.panamahitek.PanamaHitek_Arduino;
+import com.panamahitek.liveinterfaces.singleDialPlot;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
 /**
- *
+ * *
  * @author Antony Garcia Este ejemplo permite graficar datos recibidos desde
  * Arduino en la forma de un reloj analogico simple, de una sola aguja. Los
- * datos son recibidos y graficados automaticamente la clase singleDialPlot, sin
- * que el usuario tenga que hacer nada mas que inicializar la clase.
+ * datos son recibidos y deben ser insertados en la grafica de forma manual
  *
- * Utilizar con el ejemplo double_data_send.ino corriendo en el Arduino
+ * Utilizar con el ejemplo single_data_send.ino corriendo en el Arduino
  */
-public class automaticDualDialPlot extends javax.swing.JFrame {
+public class manualSingleDialPlot extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public automaticDualDialPlot() {
+    public manualSingleDialPlot() {
         initComponents();
         //Se crea una grafica con los titulos especificados
-        dualDialPlot dial = new dualDialPlot("Grafico de prueba", "Temperatura");
-        //Limite inferior y superior los medidores analogos
-        dial.setPlotBottonLimitValues(0, 0);
-        dial.setPlotTopLimitValues(100, 100);
-        //Cantidad de divisiones (rayitas) de los graficos
-        dial.setPlotMinorDivisions(10, 10);
-        dial.setPlotMajorDivisions(20, 10);
+        singleDialPlot dial = new singleDialPlot(singleDialPlot.HORIZONTAL_DIAL_PLOT, "Grafico de prueba", "Temperatura");
+        //Limite inferior y superior del medidor analogico
+        dial.setPlotLimitValues(0, 100);
         //Se agrega el grafico al panel insertado en el JFrame
         dial.insertToPanel(jPanel1);
-
+        //Se crea una instancia de la libreria PanamaHitek_Arduino
+        PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
+        //Se crea un listener para "escuchar" el puerto serie
+        SerialPortEventListener event = (SerialPortEvent serialPortEvent) -> {
+            try {
+                //Se recibe la informacion y se inserta en la grafica
+                if (ino.isMessageAvailable()) {
+                    dial.setValue(Double.parseDouble(ino.printMessage()));
+                }
+            } catch (SerialPortException | ArduinoException ex) {
+                Logger.getLogger(manualSingleDialPlot.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        };
         try {
-            /*
-            Le damos "permiso" a la clase singleDialPlot de manejar la conexion con el Arduino, 
-            utilizando el puerto COM5 y una velocidad de transmision de datos de 115200 baudios
-             */
-            dial.createArduinoFollowUp("COM20", 9600);
+            //Instruccion que crea la conexion con el Arduino en el puerto COM20
+            ino.arduinoRX("COM20", 9600, event);
         } catch (ArduinoException | SerialPortException ex) {
-            Logger.getLogger(automaticDualDialPlot.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manualSingleDialPlot.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,20 +114,27 @@ public class automaticDualDialPlot extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(automaticDualDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manualSingleDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(automaticDualDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manualSingleDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(automaticDualDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manualSingleDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(automaticDualDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manualSingleDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-  
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new automaticDualDialPlot().setVisible(true);
+                new manualSingleDialPlot().setVisible(true);
             }
         });
     }
