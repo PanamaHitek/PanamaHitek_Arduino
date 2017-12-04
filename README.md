@@ -5,8 +5,11 @@ Ingeniero Electromecánico e Investigador dentro de la Universidad Tecnológica 
 Fundador y Co-propietario del sitio web htp://panamahitek.com junto a Kiara Navarro y el Panama Hitek Creative Team
 
 email: antony.garcia.gonzalez@gmail.com
+
 whatsapp: +50767347398
+
 facebook: http://facebook.com/panamahitek
+
 twitter: @panamahitek
 
 La librería incluye tres clases, la clase PanamaHitek_Arduino, la clase PanamaHitek_MultiMessage y la nueva PanamaHitek_SpreadsheetHandler.
