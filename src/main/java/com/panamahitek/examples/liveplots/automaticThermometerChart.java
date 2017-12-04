@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import jssc.SerialPortException;
 
 /**
- * *
+ * 
  * @author Antony Garcia Este ejemplo permite graficar datos recibidos desde
  * Arduino en la forma de un termometro. Los datos son recibidos y graficados
  * automaticamente la clase thermometerChart, sin que el usuario tenga que hacer
@@ -22,7 +22,7 @@ public class automaticThermometerChart extends javax.swing.JFrame {
      */
     public automaticThermometerChart() {
         initComponents();
-        //Se crea una grafica con los titulos especificados
+        //Se crea una grafica con el titulo especificado
         thermometerChart thermometer = new thermometerChart("Grafico de prueba");
         //Se establecen los limtes del termometro
         thermometer.setChartLimitValues(0, 100);
