@@ -233,6 +233,7 @@ public class SerialPort {
      * parameter <b>"PURGE_RXCLEAR | PURGE_TXCLEAR"</b>.
      * <br><b>Note: </b>some devices or drivers may not support this function
      *
+     * @param flags default
      * @return If the operation is successfully completed, the method returns true, otherwise false. 
      *
      * @throws SerialPortException
@@ -256,6 +257,7 @@ public class SerialPort {
      * For example if messages about data receipt and CTS and DSR status changing
      * shall be received, it is required to set the mask - <b>"MASK_RXCHAR | MASK_CTS | MASK_DSR"</b>
      * 
+     * @param mask default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      *
      * @throws SerialPortException
@@ -316,6 +318,7 @@ public class SerialPort {
     /**
      * Change RTS line state. Set "true" for switching ON and "false" for switching OFF RTS line
      *
+     * @param enabled default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      *
      * @throws SerialPortException
@@ -328,6 +331,7 @@ public class SerialPort {
     /**
      * Change DTR line state. Set "true" for switching ON and "false" for switching OFF DTR line
      *
+     * @param enabled default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      *
      * @throws SerialPortException
@@ -340,6 +344,7 @@ public class SerialPort {
     /**
      * Write byte array to port
      *
+     * @param buffer default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      * 
      * @throws SerialPortException
@@ -352,6 +357,7 @@ public class SerialPort {
     /**
      * Write single byte to port
      *
+     * @param singleByte default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      *
      * @throws SerialPortException
@@ -366,6 +372,7 @@ public class SerialPort {
     /**
      * Write String to port
      *
+     * @param string default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      *
      * @throws SerialPortException
@@ -380,6 +387,8 @@ public class SerialPort {
     /**
      * Write String to port
      *
+     * @param string default
+     * @param charsetName default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      *
      * @throws SerialPortException
@@ -394,6 +403,7 @@ public class SerialPort {
     /**
      * Write int value (in range from 0 to 255 (0x00 - 0xFF)) to port
      *
+     * @param singleInt default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      *
      * @throws SerialPortException
@@ -408,6 +418,7 @@ public class SerialPort {
     /**
      * Write int array (in range from 0 to 255 (0x00 - 0xFF)) to port
      *
+     * @param buffer default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      *
      * @throws SerialPortException
@@ -476,6 +487,7 @@ public class SerialPort {
      * Read Hex string from port with setted separator (example if separator is "::": FF::0A::FF)
      *
      * @param byteCount count of bytes for reading
+     * @param separator default
      *
      * @return byte array with "byteCount" length converted to Hexadecimal String
      *
@@ -631,6 +643,7 @@ public class SerialPort {
      * Read Hex string from port with setted separator (example if separator is "::": FF::0A::FF)
      *
      * @param byteCount count of bytes for reading
+     * @param separator default
      * @param timeout timeout in milliseconds
      *
      * @return byte array with "byteCount" length converted to Hexadecimal String
@@ -741,6 +754,7 @@ public class SerialPort {
     /**
      * Read all available bytes from port like a Hex String with setted separator
      *
+     * @param separator default
      * @return If input buffer is empty <b>null</b> will be returned, else byte array with all data from port converted to Hex String
      *
      * @throws SerialPortException
@@ -824,6 +838,7 @@ public class SerialPort {
      * Set flow control mode. For required mode use variables with prefix <b>"FLOWCONTROL_"</b>.
      * Example of hardware flow control mode(RTS/CTS): setFlowControlMode(FLOWCONTROL_RTSCTS_IN | FLOWCONTROL_RTSCTS_OUT);
      *
+     * @param mask default
      * @return If the operation is successfully completed, the method returns true, otherwise false
      *
      * @throws SerialPortException
@@ -972,6 +987,7 @@ public class SerialPort {
      * be in charge for handling of occurred events. This method will independently
      * set the mask in <b>"MASK_RXCHAR"</b> state if it was not set beforehand
      *
+     * @param listener default
      * @throws SerialPortException
      */
     public void addEventListener(SerialPortEventListener listener) throws SerialPortException {
@@ -984,6 +1000,8 @@ public class SerialPort {
      * charge for handling of occurred events. Also events mask shall be sent to
      * this method, to do it use variables with prefix <b>"MASK_"</b> for example <b>"MASK_RXCHAR"</b>
      *
+     * @param listener default
+     * @param mask default
      * @see #setEventsMask(int) setEventsMask(int mask)
      *
      * @throws SerialPortException

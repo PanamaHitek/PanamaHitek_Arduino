@@ -27,6 +27,7 @@ package jssc;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -229,18 +230,18 @@ public class SerialNativeInterface {
                 output.close();
                 input.close();
                 returnValue = true;
-            } catch (Exception ex) {
+            } catch (IOException ex) {
                 try {
                     output.close();
                     if (libFile.exists()) {
                         libFile.delete();
                     }
-                } catch (Exception ex_out) {
+                } catch (IOException ex_out) {
                     //Do nothing
                 }
                 try {
                     input.close();
-                } catch (Exception ex_in) {
+                } catch (IOException ex_in) {
                     //Do nothing
                 }
             }
@@ -251,7 +252,7 @@ public class SerialNativeInterface {
     /**
      * Get OS type (OS_LINUX || OS_WINDOWS || OS_SOLARIS)
      *
-     * @return 
+     * @return default
      * @since 0.8
      */
     public static int getOsType() {
@@ -262,7 +263,7 @@ public class SerialNativeInterface {
      * Get jSSC version. The version of library is <b>Base Version</b> +
      * <b>Minor Suffix</b>
      *
-     * @return 
+     * @return  default
      * @since 0.8
      */
     public static String getLibraryVersion() {
@@ -272,7 +273,7 @@ public class SerialNativeInterface {
     /**
      * Get jSSC Base Version
      *
-     * @return 
+     * @return  default
      * @since 0.9.0
      */
     public static String getLibraryBaseVersion() {
@@ -283,7 +284,7 @@ public class SerialNativeInterface {
      * Get jSSC minor suffix. For example in version 0.8.1 - <b>1</b> is a minor
      * suffix
      *
-     * @return 
+     * @return default
      * @since 0.9.0
      */
     public static String getLibraryMinorSuffix() {

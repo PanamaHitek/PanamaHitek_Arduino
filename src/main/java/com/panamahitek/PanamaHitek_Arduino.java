@@ -67,7 +67,7 @@ public class PanamaHitek_Arduino {
         System.out.println("PanamaHitek_Arduino Library, version 2.8.3");
         System.out.println("==============================================");
         System.out.println("Created by Antony Garcia Gonzalez");
-        System.out.println("Electromechanic Engineer and creator of Project Panama Hitek");
+        System.out.println("Electromechanical Engineer and creator of Project Panama Hitek");
         System.out.println("This library has been created from Java Simple Serial Connector, by Alexey Sokolov");
         System.out.println("You can find all the information about this library at http://panamahitek.com");
     }

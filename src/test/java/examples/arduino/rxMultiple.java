@@ -1,4 +1,4 @@
-package com.panamahitek.examples.RX;
+package examples.arduino;
 
 import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;

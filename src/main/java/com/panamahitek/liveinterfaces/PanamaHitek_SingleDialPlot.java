@@ -1,3 +1,34 @@
+/**
+ * Este código ha sido construido por Antony García González y el Equipo
+ * Creativo de Panama Hitek.
+ *
+ * Está protegido bajo la licencia LGPL v 2.1, cuya copia se puede encontrar en
+ * el siguiente enlace: http://www.gnu.org/licenses/lgpl.txt
+ *
+ * Para su funcionamiento utiliza el código de la librería JSSC (anteriormente
+ * RXTX) que ha permanecido intacto sin modificación alguna de parte de nuestro
+ * equipo creativo. Agradecemos al creador de la librería JSSC, Alexey Sokolov
+ * por esta herramienta tan poderosa y eficaz que ha hecho posible el
+ * mejoramiento de nuestra librería.
+ *
+ * Esta librería es de código abierto y ha sido diseñada para que los usuarios,
+ * desde principiantes hasta expertos puedan contar con las herramientas
+ * apropiadas para el desarrollo de sus proyectos, de una forma sencilla y
+ * agradable.
+ *
+ * Se espera que se en cualquier uso de este código se reconozca su procedencia.
+ * Este algoritmo fue diseñado en la República de Panamá por Antony García
+ * Gónzález, estudiante de la Universidad de Panamá en la carrera de
+ * Licenciatura en Ingeniería Electromecánica, desde el año 2013 hasta el
+ * presente. Su diseñador forma parte del Equipo Creativo de Panama Hitek, una
+ * organización sin fines de lucro dedicada a la enseñanza del desarrollo de
+ * software y hardware a través de su sitio web oficial http://panamahitek.com
+ *
+ * Solamente deseamos que se reconozca esta compilación de código como un
+ * trabajo hecho por panameños para Panamá y el mundo.
+ *
+ * Si desea contactarnos escríbanos a creativeteam@panamahitek.com
+ */
 package com.panamahitek.liveinterfaces;
 
 import com.panamahitek.ArduinoException;
@@ -21,10 +52,13 @@ import org.jfree.ui.StandardGradientPaintTransformer;
  * Esta clase construye un grafico tipo reloj en la que se pueden graficar datos
  * recibidos desde Arduino en tiempo real
  *
- * @author Antony Garcia
+ * 
+ * @author Antony García González, de Proyecto Panama Hitek. Visita
+ * http://panamahitek.com
+
  * @since 3.0.0
  */
-public class singleDialPlot extends JPanel {
+public class PanamaHitek_SingleDialPlot extends JPanel {
 
     public final static int ROUND_DIAL_PLOT = 1;
     public final static int HORIZONTAL_DIAL_PLOT = 2;
@@ -312,13 +346,13 @@ public class singleDialPlot extends JPanel {
     private void build() {
         switch (PLOT_SELECTION) {
             case 1:
-                singleDialPlot.plot.buildPlot1();
+                PanamaHitek_SingleDialPlot.plot.buildPlot1();
                 break;
             case 2:
-                singleDialPlot.plot.buildPlot2();
+                PanamaHitek_SingleDialPlot.plot.buildPlot2();
                 break;
             case 3:
-                singleDialPlot.plot.buildPlot3();
+                PanamaHitek_SingleDialPlot.plot.buildPlot3();
                 break;
         }
     }
@@ -330,7 +364,7 @@ public class singleDialPlot extends JPanel {
      */
     public JPanel getPlotPanel() {
         build();
-        return singleDialPlot.plot;
+        return PanamaHitek_SingleDialPlot.plot;
     }
 
     /**
@@ -341,7 +375,7 @@ public class singleDialPlot extends JPanel {
      */
     public void insertToPanel(JPanel panel) {
         build();
-        singleDialPlot.plot.setBounds(0, 0, panel.getWidth(), panel.getHeight());
+        PanamaHitek_SingleDialPlot.plot.setBounds(0, 0, panel.getWidth(), panel.getHeight());
         panel.add(plot);
     }
 
@@ -351,7 +385,7 @@ public class singleDialPlot extends JPanel {
      * @param value Valor que se desea mostrar
      */
     public void setValue(double value) {
-        singleDialPlot.plot.getDataset().setValue(value);
+        PanamaHitek_SingleDialPlot.plot.getDataset().setValue(value);
     }
 
     /**
@@ -360,7 +394,7 @@ public class singleDialPlot extends JPanel {
      * @param title Titulo del grafico
      */
     public void setPlotTitle(String title) {
-        singleDialPlot.plot.setPlotTitle(title);
+        PanamaHitek_SingleDialPlot.plot.setPlotTitle(title);
     }
 
     /**
@@ -369,7 +403,7 @@ public class singleDialPlot extends JPanel {
      * @param variableName Nombre de la variable
      */
     public void setPlotVariableName(String variableName) {
-        singleDialPlot.plot.setVariableName(variableName);
+        PanamaHitek_SingleDialPlot.plot.setVariableName(variableName);
     }
 
     /**
@@ -379,8 +413,8 @@ public class singleDialPlot extends JPanel {
      * @param maxValue Valor maximo
      */
     public void setPlotLimitValues(int minValue, int maxValue) {
-        singleDialPlot.plot.setPlotBottonLimit(minValue);
-        singleDialPlot.plot.setPlotTopLimit(maxValue);
+        PanamaHitek_SingleDialPlot.plot.setPlotBottonLimit(minValue);
+        PanamaHitek_SingleDialPlot.plot.setPlotTopLimit(maxValue);
     }
 
     /**
@@ -389,7 +423,7 @@ public class singleDialPlot extends JPanel {
      * @param majorDivisions Cantidad de divisiones
      */
     public void setPlotMajorDivisions(int majorDivisions) {
-        singleDialPlot.plot.setMajorDivisions(majorDivisions);
+        PanamaHitek_SingleDialPlot.plot.setMajorDivisions(majorDivisions);
     }
 
     /**
@@ -398,7 +432,7 @@ public class singleDialPlot extends JPanel {
      * @param minorDivisions Cantidad de divisiones
      */
     public void setPlotMinorDivisions(int minorDivisions) {
-        singleDialPlot.plot.setMinorDivisions(minorDivisions);
+        PanamaHitek_SingleDialPlot.plot.setMinorDivisions(minorDivisions);
     }
 
      /**
@@ -413,9 +447,9 @@ public class singleDialPlot extends JPanel {
         if (total != 100) {
             throw new Exception("La suma de los 3 porcentajes debe totalizar 100%");
         }
-        singleDialPlot.plot.setGreenSlice(firstArea * 0.01);
-        singleDialPlot.plot.setYellowSlice(secondArea * 0.01);
-        singleDialPlot.plot.setRedSlice(thirdArea * 0.01);
+        PanamaHitek_SingleDialPlot.plot.setGreenSlice(firstArea * 0.01);
+        PanamaHitek_SingleDialPlot.plot.setYellowSlice(secondArea * 0.01);
+        PanamaHitek_SingleDialPlot.plot.setRedSlice(thirdArea * 0.01);
     }
 
     /**
@@ -433,7 +467,7 @@ public class singleDialPlot extends JPanel {
      * @throws SerialPortException Posibles excepciones
      */
     public void createArduinoFollowUp(String PORT_NAME, int DATA_RATE) throws ArduinoException, SerialPortException {
-        singleDialPlot.ino = new PanamaHitek_Arduino();
+        PanamaHitek_SingleDialPlot.ino = new PanamaHitek_Arduino();
         SerialPortEventListener listener;
         listener = (SerialPortEvent serialPortEvent) -> {
             try {
@@ -441,17 +475,17 @@ public class singleDialPlot extends JPanel {
                     setValue(Double.parseDouble(ino.printMessage()));
                 }
             } catch (SerialPortException | ArduinoException ex) {
-                Logger.getLogger(singleDialPlot.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PanamaHitek_SingleDialPlot.class.getName()).log(Level.SEVERE, null, ex);
             }
         };
-        singleDialPlot.ino.arduinoRX(PORT_NAME, DATA_RATE, listener);
+        PanamaHitek_SingleDialPlot.ino.arduinoRX(PORT_NAME, DATA_RATE, listener);
     }
 
     /**
      * Detiene el modo followUp de Arduino, cerrando la conexion con el puerto
      * serie
      *
-     * @throws ArduinoException
+     * @throws ArduinoException default
      */
     public void stopArduinoFollowUp() throws ArduinoException {
         ino.killArduinoConnection();
@@ -466,9 +500,9 @@ public class singleDialPlot extends JPanel {
      * <br>2 - Grafico Horizontal
      * <br>3 - Grafico Vertical
      */
-    public singleDialPlot(int plotType) {
-        singleDialPlot.plot = new plotPanel();
-        singleDialPlot.PLOT_SELECTION = plotType;
+    public PanamaHitek_SingleDialPlot(int plotType) {
+        PanamaHitek_SingleDialPlot.plot = new plotPanel();
+        PanamaHitek_SingleDialPlot.PLOT_SELECTION = plotType;
     }
 
     /**
@@ -481,10 +515,10 @@ public class singleDialPlot extends JPanel {
      * <br>2 - Grafico Horizontal
      * <br>3 - Grafico Vertical
      */
-    public singleDialPlot(int plotType, String plotTitle) {
-        singleDialPlot.plot = new plotPanel();
-        singleDialPlot.plot.setPlotTitle(plotTitle);
-        singleDialPlot.PLOT_SELECTION = plotType;
+    public PanamaHitek_SingleDialPlot(int plotType, String plotTitle) {
+        PanamaHitek_SingleDialPlot.plot = new plotPanel();
+        PanamaHitek_SingleDialPlot.plot.setPlotTitle(plotTitle);
+        PanamaHitek_SingleDialPlot.PLOT_SELECTION = plotType;
     }
 
     /**
@@ -498,11 +532,11 @@ public class singleDialPlot extends JPanel {
      * <br>2 - Grafico Horizontal
      * <br>3 - Grafico Vertical
      */
-    public singleDialPlot(int plotType, String plotTitle, String variableName) {
-        singleDialPlot.plot = new plotPanel();
-        singleDialPlot.plot.setPlotTitle(plotTitle);
-        singleDialPlot.plot.setVariableName(variableName);
-        singleDialPlot.PLOT_SELECTION = plotType;
+    public PanamaHitek_SingleDialPlot(int plotType, String plotTitle, String variableName) {
+        PanamaHitek_SingleDialPlot.plot = new plotPanel();
+        PanamaHitek_SingleDialPlot.plot.setPlotTitle(plotTitle);
+        PanamaHitek_SingleDialPlot.plot.setVariableName(variableName);
+        PanamaHitek_SingleDialPlot.PLOT_SELECTION = plotType;
     }
 
 }

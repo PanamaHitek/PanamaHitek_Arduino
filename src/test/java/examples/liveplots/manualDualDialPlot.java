@@ -1,9 +1,9 @@
-package com.panamahitek.examples.liveplots;
+package examples.liveplots;
 
 import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
 import com.panamahitek.PanamaHitek_MultiMessage;
-import com.panamahitek.liveinterfaces.dualDialPlot;
+import com.panamahitek.liveinterfaces.PanamaHitek_DualDialPlot;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jssc.SerialPortEvent;
@@ -11,10 +11,11 @@ import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
 /**
+ * Este ejemplo permite graficar datos recibidos desde Arduino en la forma de un
+ * reloj analogico simple, de una sola aguja. Los datos son recibidos y
+ * graficados manualmente en la grafica.
  *
- * @author Antony Garcia Este ejemplo permite graficar datos recibidos desde
- * Arduino en la forma de un reloj analogico simple, de una sola aguja. Los
- * datos son recibidos y graficados manualmente en la grafica.
+ * @author Antony Garcia
  *
  * Utilizar con el ejemplo double_data_send.ino corriendo en el Arduino
  */
@@ -26,7 +27,7 @@ public class manualDualDialPlot extends javax.swing.JFrame {
     public manualDualDialPlot() {
         initComponents();
         //Se crea una grafica con los titulos especificados
-        dualDialPlot dial = new dualDialPlot("Grafico de prueba", "Temperatura");
+        PanamaHitek_DualDialPlot dial = new PanamaHitek_DualDialPlot("Grafico de prueba", "Temperatura");
         //Limite inferior y superior los medidores analogos
         dial.setPlotBottonLimitValues(0, 0);
         dial.setPlotTopLimitValues(100, 100);
