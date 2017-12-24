@@ -1,15 +1,16 @@
 package examples.liveplots;
 
-import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
 import com.panamahitek.PanamaHitek_DataBuffer;
 import com.panamahitek.PanamaHitek_MultiMessage;
 import com.panamahitek.liveinterfaces.PanamaHitek_TimeLineChart;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
-import jssc.SerialPortException;
 
 /**
  *
@@ -24,6 +25,7 @@ public class ManualTimeLine extends javax.swing.JFrame {
 
     public ManualTimeLine() {
         initComponents();
+
         try {
             ino = new PanamaHitek_Arduino();
             multi = new PanamaHitek_MultiMessage(2, ino);
@@ -37,7 +39,7 @@ public class ManualTimeLine extends javax.swing.JFrame {
                     try {
 
                         if (multi.dataReceptionCompleted()) {
-              
+
                             buffer.addValue(1, multi.getMessage(0));
                             buffer.addValue(2, multi.getMessage(1));
                             buffer.printRow();

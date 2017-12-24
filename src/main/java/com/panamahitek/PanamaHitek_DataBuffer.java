@@ -55,6 +55,11 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.panamahitek.events.DataInsertionListener;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 /**
  * Esta clase ha sido diseñada para gestionar el almacenamiento de datos en
@@ -63,7 +68,7 @@ import java.text.SimpleDateFormat;
  * @author Antony García González, de Proyecto Panama Hitek. Visita
  * http://panamahitek.com
  */
-public class PanamaHitek_DataBuffer implements Runnable {
+public class PanamaHitek_DataBuffer {
 
     private List<List<Object>> mainBuffer;
     private List<String> variableList;
@@ -80,8 +85,28 @@ public class PanamaHitek_DataBuffer implements Runnable {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     private ArrayList listeners;
 
-    private Thread tableHandler;
-    private static boolean tableUpdate = false;
+
+    TableModelListener listener = new TableModelListener() {
+        @Override
+        public void tableChanged(TableModelEvent tme) {
+
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.submit(() -> {
+                try {
+                    Thread.sleep(10);
+                    table.repaint();
+                    table.getTableHeader().repaint();
+                    table.scrollRectToVisible(table.getCellRect(table.getRowCount(), 0, true));
+                    table.repaint();
+                    table.getTableHeader().repaint();
+                    executor.shutdown();
+                    executor.awaitTermination(100, TimeUnit.MILLISECONDS);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(PanamaHitek_DataBuffer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        }
+    };
 
     /**
      * Constructor de la clase
@@ -174,14 +199,8 @@ public class PanamaHitek_DataBuffer implements Runnable {
                 row[i] = mainBuffer.get(i).get(ROW_COUNT - 1);
             }
             ((DefaultTableModel) table.getModel()).addRow(row);
-            tableUpdate = true;
-
-            /*
-            table.scrollRectToVisible(table.getCellRect(table.getRowCount() - 1, 0, true));
-            table.repaint();
-            table.getTableHeader().repaint();
-             */
         }
+
         if (listenerFlag) {
             triggerDataInsertionEvent();
         }
@@ -323,8 +342,7 @@ public class PanamaHitek_DataBuffer implements Runnable {
         scroll.setBounds(0, 0, panel.getWidth(), panel.getHeight());
         tableFlag = true;
         panel.add(scroll);
-        tableHandler = new Thread(this);
-        tableHandler.start();
+
     }
 
     /**
@@ -354,6 +372,7 @@ public class PanamaHitek_DataBuffer implements Runnable {
     private void buildTable() {
         if (!tableFlag) {
             table = new JTable();
+
             String[] headerTitles = new String[variableList.size()];
             Object[][] tableContent = new Object[mainBuffer.get(0).size()][variableList.size()];
 
@@ -367,6 +386,7 @@ public class PanamaHitek_DataBuffer implements Runnable {
             DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
             renderer.setHorizontalAlignment(0);
             table.getTableHeader().setReorderingAllowed(false);
+            ((DefaultTableModel) table.getModel()).addTableModelListener(listener);
         }
     }
 
@@ -432,18 +452,4 @@ public class PanamaHitek_DataBuffer implements Runnable {
         return timeColumn;
     }
 
-    @Override
-    public void run() {
-        Thread ct = Thread.currentThread();
-        while (ct == tableHandler) {
-  
-            if (tableUpdate) {
-                System.out.println("is in");
-                table.scrollRectToVisible(table.getCellRect(table.getRowCount() - 1, 0, true));
-                table.repaint();
-                table.getTableHeader().repaint();
-                tableUpdate = false;
-            }
-        }
-    }
 }
