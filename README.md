@@ -13,15 +13,15 @@ facebook: http://facebook.com/panamahitek
 twitter: @panamahitek
 
 La librería incluye 3 clases principales. 
-- La clase PanamaHitek_Arduino es la encargada de manejar todas las conexiones y la comunicación con Arduino.
-- La clase PanamaHitek_MultiMessage incluye las herramientas necesarias para recibir múltiples mensajes de forma simultánea en Java.
-- La clase PanamaHitek_DataBuffer almacena datos de forma ordenada, permite la visualización en una tabla y la exportación de datos a MS Excel (archivo .xlsx)
+- La clase **PanamaHitek_Arduino** es la encargada de manejar todas las conexiones y la comunicación con Arduino.
+- La clase **PanamaHitek_MultiMessage** incluye las herramientas necesarias para recibir múltiples mensajes de forma simultánea en Java.
+- La clase **PanamaHitek_DataBuffer** almacena datos de forma ordenada, permite la visualización en una tabla y la exportación de datos a MS Excel (archivo .xlsx)
 
 Adicionalmente cuenta con 4 clases dedicadas a la gestión de gráficos en tiempo real, a través de la utilización de las dependencias de JFreeCharts.
-- PanamaHitek_DualDialChart permite hacer graficas tipo reloj analógico con dos agujas
-- PanamaHitek_SingleDialChart permite hacer graficas tipo reloj analógico con una aguja
-- PanamaHitek_ThermometerChart permite hacer graficas tipo termómetro
-- PanamaHitek_TimeLineChart permite hacer gráficas de línea de múltiples datos en función del tiempo
+- **PanamaHitek_DualDialChart** permite hacer graficas tipo reloj analógico con dos agujas
+- **PanamaHitek_SingleDialChart** permite hacer graficas tipo reloj analógico con una aguja
+- **PanamaHitek_ThermometerChart** permite hacer graficas tipo termómetro
+- **PanamaHitek_TimeLineChart** permite hacer gráficas de línea de múltiples datos en función del tiempo
 
 Desde la versión 2.8.0 se ha descontinuado el uso de RXTX en favor de Java Simple Serial Connector (Alexey Sokolov, 
 https://github.com/scream3r/java-simple-serial-connector)
@@ -29,6 +29,7 @@ https://github.com/scream3r/java-simple-serial-connector)
 Versión 3.0.0
 ---------------------
 La nueva y mejorada version de la librería. Se ha agregado nuevos recursos que permiten almacenar datos recibidos y exportarlos en hojas de cálculo de MS Excel o graficarlos en tiempo real con la ayuda de las librerías POI y JFreeCharts.
+También se ha agregado ejemplos de uso de las principales características de la librería.
 
 Versión 2.8.1
 ---------------------
