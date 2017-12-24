@@ -86,7 +86,7 @@ public class PanamaHitek_DataBuffer {
     private ArrayList listeners;
 
 
-    TableModelListener listener = new TableModelListener() {
+    TableModelListener tableModelListener = new TableModelListener() {
         @Override
         public void tableChanged(TableModelEvent tme) {
 
@@ -386,7 +386,7 @@ public class PanamaHitek_DataBuffer {
             DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
             renderer.setHorizontalAlignment(0);
             table.getTableHeader().setReorderingAllowed(false);
-            ((DefaultTableModel) table.getModel()).addTableModelListener(listener);
+            ((DefaultTableModel) table.getModel()).addTableModelListener(tableModelListener);
         }
     }
 

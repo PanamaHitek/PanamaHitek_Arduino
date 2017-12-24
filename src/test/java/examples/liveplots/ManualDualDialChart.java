@@ -1,3 +1,34 @@
+/**
+ * Este código ha sido construido por Antony García González y el Equipo
+ * Creativo de Panama Hitek.
+ *
+ * Está protegido bajo la licencia LGPL v 2.1, cuya copia se puede encontrar en
+ * el siguiente enlace: http://www.gnu.org/licenses/lgpl.txt
+ *
+ * Para su funcionamiento utiliza el código de la librería JSSC (anteriormente
+ * RXTX) que ha permanecido intacto sin modificación alguna de parte de nuestro
+ * equipo creativo. Agradecemos al creador de la librería JSSC, Alexey Sokolov
+ * por esta herramienta tan poderosa y eficaz que ha hecho posible el
+ * mejoramiento de nuestra librería.
+ *
+ * Esta librería es de código abierto y ha sido diseñada para que los usuarios,
+ * desde principiantes hasta expertos puedan contar con las herramientas
+ * apropiadas para el desarrollo de sus proyectos, de una forma sencilla y
+ * agradable.
+ *
+ * Se espera que se en cualquier uso de este código se reconozca su procedencia.
+ * Este algoritmo fue diseñado en la República de Panamá por Antony García
+ * Gónzález, estudiante de la Universidad de Panamá en la carrera de
+ * Licenciatura en Ingeniería Electromecánica, desde el año 2013 hasta el
+ * presente. Su diseñador forma parte del Equipo Creativo de Panama Hitek, una
+ * organización sin fines de lucro dedicada a la enseñanza del desarrollo de
+ * software y hardware a través de su sitio web oficial http://panamahitek.com
+ *
+ * Solamente deseamos que se reconozca esta compilación de código como un
+ * trabajo hecho por panameños para Panamá y el mundo.
+ *
+ * Si desea contactarnos escríbanos a creativeteam@panamahitek.com
+ */
 package examples.liveplots;
 
 import com.panamahitek.ArduinoException;

@@ -69,12 +69,13 @@ public class PanamaHitek_TimeLineChart extends JPanel {
     private PanamaHitek_DataBuffer buffer;
     private List<Integer> indexList;
 
-    private DataInsertionListener listener = new DataInsertionListener() {
+    private DataInsertionListener dataInsertionListener = new DataInsertionListener() {
         @Override
         public void onDataInsertion(DataInsertionEvent ev) {
             for (int i = 0; i < indexList.size(); i++) {
                 int index = indexList.get(i);
-                chart.getDataSeriesList().get(i).add(new Millisecond(
+
+                chart.getDataSeriesList().get(index).add(new Millisecond(
                         Integer.parseInt(new SimpleDateFormat("SSS").format(new Date())),
                         Integer.parseInt(new SimpleDateFormat("ss").format(new Date())),
                         Integer.parseInt(new SimpleDateFormat("mm").format(new Date())),
@@ -83,6 +84,7 @@ public class PanamaHitek_TimeLineChart extends JPanel {
                         Integer.parseInt(new SimpleDateFormat("MM").format(new Date())),
                         Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()))),
                         Double.parseDouble(String.valueOf(buffer.getMainBuffer().get(index).get(buffer.getRowCount() - 1))));
+
             }
         }
     };
@@ -120,49 +122,55 @@ public class PanamaHitek_TimeLineChart extends JPanel {
 
             TimeSeriesCollection seriesCollector = new TimeSeriesCollection();
             if (itemCount > 0) {
-                dataSeries.forEach(i -> i.setMaximumItemCount(itemCount));
-            }
-            dataSeries.forEach(i -> seriesCollector.addSeries(i));
-            jfreechart = ChartFactory.createTimeSeriesChart(chartTitle, xAxisName, yAxisName, seriesCollector, true, true, false);
-            xyplot = (XYPlot) jfreechart.getPlot();
-            xyplot.setDomainPannable(true);
-            xyplot.setRangePannable(false);
-            xyplot.setDomainCrosshairVisible(true);
-            xyplot.setRangeCrosshairVisible(true);
-            xyplot.setBackgroundPaint(backgroundColor);
-            xyplot.setRangeGridlinePaint(gridLineColor);
-            xyplot.setRangeGridlinesVisible(gridLines);
 
-            org.jfree.chart.renderer.xy.XYItemRenderer xyitemrenderer = xyplot.getRenderer();
-            if (xyitemrenderer instanceof XYLineAndShapeRenderer) {
-                XYLineAndShapeRenderer xylineandshaperenderer = (XYLineAndShapeRenderer) xyitemrenderer;
-                xylineandshaperenderer.setBaseShapesVisible(false);
-            }
-            dateaxis = (DateAxis) xyplot.getDomainAxis();
-            dateaxis.setDateFormatOverride(dateFormat);
-
-            //Marcas en los puntos-lineas
-            if (linesMarks) {
-                xylineandshaperenderer = (XYLineAndShapeRenderer) xyplot.getRenderer();
-                xylineandshaperenderer.setBaseShapesVisible(true);
-                xylineandshaperenderer.setLegendItemToolTipGenerator(new StandardXYSeriesLabelGenerator("Tooltip {0}"));
-            }
-
-            XYItemRenderer xyir = this.jfreechart.getXYPlot().getRenderer();
-            int colorIndex = 0;
-            for (int i = 0; i < colorList.size(); i++) {
-                if (colorList != null) {
-                    if (i == dateIndex) {
-                        colorIndex--;
-                    } else {
-                        xyir.setSeriesPaint(colorIndex, colorList.get(i));
-                        xyir.setSeriesStroke(colorIndex, new BasicStroke(2));
+                dataSeries.forEach(i -> {
+                    if (i != null) {
+                        seriesCollector.addSeries(i);
+                        i.setMaximumItemCount(itemCount);
                     }
+                });
+                jfreechart = ChartFactory.createTimeSeriesChart(chartTitle, xAxisName, yAxisName, seriesCollector, true, true, false);
+                xyplot = (XYPlot) jfreechart.getPlot();
+                xyplot.setDomainPannable(true);
+                xyplot.setRangePannable(false);
+                xyplot.setDomainCrosshairVisible(true);
+                xyplot.setRangeCrosshairVisible(true);
+                xyplot.setBackgroundPaint(backgroundColor);
+                xyplot.setRangeGridlinePaint(gridLineColor);
+                xyplot.setRangeGridlinesVisible(gridLines);
+
+                org.jfree.chart.renderer.xy.XYItemRenderer xyitemrenderer = xyplot.getRenderer();
+                if (xyitemrenderer instanceof XYLineAndShapeRenderer) {
+                    XYLineAndShapeRenderer xylineandshaperenderer = (XYLineAndShapeRenderer) xyitemrenderer;
+                    xylineandshaperenderer.setBaseShapesVisible(false);
                 }
-                colorIndex++;
+                dateaxis = (DateAxis) xyplot.getDomainAxis();
+                dateaxis.setDateFormatOverride(dateFormat);
+
+                //Marcas en los puntos-lineas
+                if (linesMarks) {
+                    xylineandshaperenderer = (XYLineAndShapeRenderer) xyplot.getRenderer();
+                    xylineandshaperenderer.setBaseShapesVisible(true);
+                    xylineandshaperenderer.setLegendItemToolTipGenerator(new StandardXYSeriesLabelGenerator("Tooltip {0}"));
+                }
+
+                XYItemRenderer xyir = this.jfreechart.getXYPlot().getRenderer();
+                int colorIndex = 0;
+                for (int i = 0; i < colorList.size(); i++) {
+                    if (colorList != null) {
+                        if (i == dateIndex) {
+                            colorIndex--;
+                        } else {
+                            xyir.setSeriesPaint(colorIndex, colorList.get(i));
+                            xyir.setSeriesStroke(colorIndex, strokeList.get(i));
+                        }
+                    }
+                    colorIndex++;
+                }
+                add(new ChartPanel(jfreechart));
             }
-            add(new ChartPanel(jfreechart));
         }
+        
 
         public void buildChart() {
             createChart();
@@ -184,19 +192,19 @@ public class PanamaHitek_TimeLineChart extends JPanel {
             this.chartTitle = chartTitle;
         }
 
-        public String getxAxisName() {
+        public String getXAxisName() {
             return xAxisName;
         }
 
-        public void setxAxisName(String xAxisName) {
+        public void setXAxisName(String xAxisName) {
             this.xAxisName = xAxisName;
         }
 
-        public String getyAxisName() {
+        public String getYAxisName() {
             return yAxisName;
         }
 
-        public void setyAxisName(String yAxisName) {
+        public void setYAxisName(String yAxisName) {
             this.yAxisName = yAxisName;
         }
 
@@ -358,6 +366,7 @@ public class PanamaHitek_TimeLineChart extends JPanel {
                 this.chart.setDateIndex(i);
                 if (!dateFound) {
                     dateFound = true;
+                    chart.addDataSeries(null);
                 } else {
                     throw new Exception("Objeto PanamaHitek_DataBuffer no válido."
                             + " Contiene dos columnas con objetos de la clase Date. "
@@ -377,7 +386,8 @@ public class PanamaHitek_TimeLineChart extends JPanel {
             chart.setSeriesColor(null);
             chart.setSeriesStroke(null);
         }
-        buffer.addEventListener(listener);
+
+        buffer.addEventListener(dataInsertionListener);
     }
 
     /**
@@ -406,7 +416,7 @@ public class PanamaHitek_TimeLineChart extends JPanel {
         chart.addDataSeries(new TimeSeries(buffer.getVariableList().get(index)));
         chart.setSeriesColor(null);
         chart.setSeriesStroke(null);
-        buffer.addEventListener(listener);
+        buffer.addEventListener(dataInsertionListener);
     }
 
     /**
@@ -441,7 +451,7 @@ public class PanamaHitek_TimeLineChart extends JPanel {
             chart.setSeriesStroke(null);
             chart.addDataSeries(new TimeSeries(buffer.getVariableList().get(indexList.get(i))));
         }
-        buffer.addEventListener(listener);
+        buffer.addEventListener(dataInsertionListener);
     }
 
     /**
@@ -502,8 +512,9 @@ public class PanamaHitek_TimeLineChart extends JPanel {
      * establece un indice negativo
      */
     public void setLineColor(int serieIndex, Color color) throws Exception {
-        if ((serieIndex > (this.chart.getDataSeriesList().size() - 1)) || (serieIndex < 0)) {
-            throw new Exception("El parametro seriesIndex no puede ser mayor a la cantidad de series de datos declaradas");
+
+        if ((serieIndex > (this.chart.getDataSeriesList().size())) || (serieIndex < 0)) {
+            throw new Exception("El parametro seriesIndex no puede ser mayor a la cantidad de series de datos declarados");
         }
         this.chart.setSeriesColor(serieIndex, color);
     }
@@ -577,6 +588,15 @@ public class PanamaHitek_TimeLineChart extends JPanel {
      */
     public void setLinesMarksVisible(boolean visible) {
         this.chart.setLinesMarks(visible);
+    }
+
+    public void setChartTitle(String title) {
+        this.chart.setChartTitle(title);
+    }
+
+    public void setAxisTitle(String titleAxisX, String titleAxisY) {
+        this.chart.setXAxisName(titleAxisX);
+        this.chart.setYAxisName(titleAxisY);
     }
 
     /**
