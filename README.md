@@ -1,6 +1,7 @@
 Librería PanamaHitek_Arduino, versión 3.0.0
 
-Por Antony García González 
+Por Antony García González
+
 Ingeniero Electromecánico e Investigador dentro de la Universidad Tecnológica de Panamá 
 Fundador y Co-propietario del sitio web htp://panamahitek.com junto a Kiara Navarro y el Panama Hitek Creative Team
 
