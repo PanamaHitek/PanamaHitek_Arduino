@@ -31,6 +31,7 @@
  */
 package com.panamahitek;
 
+import com.panamahitek.events.DataInsertionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -38,6 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -51,6 +53,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import com.panamahitek.events.DataInsertionListener;
+import java.text.SimpleDateFormat;
 
 /**
  * Esta clase ha sido diseñada para gestionar el almacenamiento de datos en
@@ -59,7 +63,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author Antony García González, de Proyecto Panama Hitek. Visita
  * http://panamahitek.com
  */
-public class PanamaHitek_DataBuffer {
+public class PanamaHitek_DataBuffer implements Runnable {
 
     private List<List<Object>> mainBuffer;
     private List<String> variableList;
@@ -69,7 +73,15 @@ public class PanamaHitek_DataBuffer {
     private JTable table;
     private JScrollPane scroll;
     private boolean tableFlag = false;
-    int n = 0;
+
+    private boolean listenerFlag = false;
+    private boolean timeFlag = false;
+    private int timeColumn = 0;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+    private ArrayList listeners;
+
+    private Thread tableHandler;
+    private static boolean tableUpdate = false;
 
     /**
      * Constructor de la clase
@@ -78,6 +90,7 @@ public class PanamaHitek_DataBuffer {
         mainBuffer = new ArrayList<>();
         variableList = new ArrayList<>();
         classList = new ArrayList<>();
+        listeners = new ArrayList();
     }
 
     /**
@@ -94,11 +107,43 @@ public class PanamaHitek_DataBuffer {
         mainBuffer.add(list);
     }
 
+    /**
+     * Permite agregar una columna de registro de tiempo al buffer de datos
+     *
+     * @param index El índice (posicion) de la columna de tiempo
+     * @param variableName El nombre que se desea asignar a la variable
+     */
+    public void addTimeColumn(int index, String variableName) {
+        variableList.add(index, variableName);
+        classList.add(new Date());
+        List<Object> list = new ArrayList<>();
+        this.timeColumn = index;
+        this.timeFlag = true;
+        mainBuffer.add(list);
+    }
+
+    /**
+     * Permite establecer el formato de la fecha. Por ejemplo, si se quiere que
+     * la fecha tenga el formato de hora, minutos y segundos, se debe enviar
+     * como parámetro new SimpleDateFormat("HH:mm:ss")
+     *
+     * @param format Formato que se desea establecer
+     *
+     * @see SimpleDateFormat
+     */
+    public void addDateFormat(SimpleDateFormat format) {
+        this.dateFormat = format;
+    }
+
     /*
      * Provoca un salto de línea en el buffer de datos. Se utiliza cuando se 
      * haya terminado de guardar la información para un instante dado
      */
     public void printRow() {
+
+        if (timeFlag) {
+            mainBuffer.get(timeColumn).add(ROW_COUNT, dateFormat.format(new Date()));
+        }
         ROW_COUNT++;
         for (int i = 0; i < mainBuffer.size(); i++) {
             if (mainBuffer.get(i).size() != ROW_COUNT) {
@@ -109,7 +154,7 @@ public class PanamaHitek_DataBuffer {
                     } else if ((columnValue instanceof Boolean) || (columnValue.equals(Boolean.class))) {
                         mainBuffer.get(i).add(null);
                     } else if ((columnValue instanceof Date) || (columnValue.equals(Date.class))) {
-                        mainBuffer.get(i).add(null);
+                        mainBuffer.get(i).add(dateFormat.format(new Date()));
                     } else if ((columnValue instanceof Integer) || (columnValue.equals(Integer.class))) {
                         mainBuffer.get(i).add(0);
                     } else if ((columnValue instanceof Long) || (columnValue.equals(Long.class))) {
@@ -122,21 +167,25 @@ public class PanamaHitek_DataBuffer {
                 }
             }
         }
+
         if (tableFlag) {
             Object[] row = new Object[variableList.size()];
             for (int i = 0; i < variableList.size(); i++) {
                 row[i] = mainBuffer.get(i).get(ROW_COUNT - 1);
             }
             ((DefaultTableModel) table.getModel()).addRow(row);
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(PanamaHitek_DataBuffer.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            tableUpdate = true;
+
+            /*
             table.scrollRectToVisible(table.getCellRect(table.getRowCount() - 1, 0, true));
             table.repaint();
             table.getTableHeader().repaint();
+             */
         }
+        if (listenerFlag) {
+            triggerDataInsertionEvent();
+        }
+
     }
 
     /**
@@ -153,6 +202,7 @@ public class PanamaHitek_DataBuffer {
             throw new Exception("El parametro 'column' no puede ser mayor a la "
                     + "cantidad de columnas declaradas");
         }
+
         mainBuffer.get(column).add(ROW_COUNT, value);
     }
 
@@ -193,7 +243,6 @@ public class PanamaHitek_DataBuffer {
             if (!path.endsWith(".xlsx")) {
                 path += ".xlsx";
             }
-
             FileOutputStream outputStream = new FileOutputStream(path);
             XSSFWorkbook workbook = buildSpreadsheet();
             workbook.write(outputStream);
@@ -245,7 +294,7 @@ public class PanamaHitek_DataBuffer {
                     } else if ((value instanceof Boolean) || (value.equals(Boolean.class))) {
                         cell.setCellValue((Boolean) mainBuffer.get(j).get(i - 1));
                     } else if ((value instanceof Date) || (value.equals(Date.class))) {
-                        cell.setCellValue((Date) mainBuffer.get(j).get(i - 1));
+                        cell.setCellValue((String) mainBuffer.get(j).get(i - 1));
                     } else if ((value instanceof Integer) || (value.equals(Integer.class))) {
                         cell.setCellValue((Integer) mainBuffer.get(j).get(i - 1));
                     } else if ((value instanceof Long) || (value.equals(Long.class))) {
@@ -274,6 +323,8 @@ public class PanamaHitek_DataBuffer {
         scroll.setBounds(0, 0, panel.getWidth(), panel.getHeight());
         tableFlag = true;
         panel.add(scroll);
+        tableHandler = new Thread(this);
+        tableHandler.start();
     }
 
     /**
@@ -319,4 +370,80 @@ public class PanamaHitek_DataBuffer {
         }
     }
 
+    /**
+     * Agrega el evento DataInsertionListener
+     *
+     * @param listener Instancia de la clase DataInsertionListener
+     */
+    public void addEventListener(DataInsertionListener listener) {
+        listeners.add(listener);
+        listenerFlag = true;
+    }
+
+    /**
+     * Elimina el eventListener
+     */
+    public void removeEventListener() {
+        listeners.remove(listeners.size() - 1);
+        listenerFlag = false;
+    }
+
+    /**
+     * Disparador de evento onDataInsertion
+     */
+    private void triggerDataInsertionEvent() {
+        ListIterator li = listeners.listIterator();
+        while (li.hasNext()) {
+            DataInsertionListener listener = (DataInsertionListener) li.next();
+            DataInsertionEvent readerEvObj = new DataInsertionEvent(this, this);
+            (listener).onDataInsertion(readerEvObj);
+        }
+    }
+
+    /**
+     *
+     * @return Lista de clases almacenadas en las columnas del databuffer
+     */
+    public List<Object> getClassList() {
+        return classList;
+    }
+
+    /**
+     *
+     * @return Lista de los nombres de las columnas declaradas
+     */
+    public List<String> getVariableList() {
+        return variableList;
+    }
+
+    /**
+     *
+     * @return Buffer de datos
+     */
+    public List<List<Object>> getMainBuffer() {
+        return mainBuffer;
+    }
+
+    /**
+     *
+     * @return Indice de la columna de tiwmpo
+     */
+    public int getTimeColumn() {
+        return timeColumn;
+    }
+
+    @Override
+    public void run() {
+        Thread ct = Thread.currentThread();
+        while (ct == tableHandler) {
+  
+            if (tableUpdate) {
+                System.out.println("is in");
+                table.scrollRectToVisible(table.getCellRect(table.getRowCount() - 1, 0, true));
+                table.repaint();
+                table.getTableHeader().repaint();
+                tableUpdate = false;
+            }
+        }
+    }
 }

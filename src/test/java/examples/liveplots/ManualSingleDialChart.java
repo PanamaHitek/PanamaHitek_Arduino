@@ -2,8 +2,7 @@ package examples.liveplots;
 
 import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
-import com.panamahitek.PanamaHitek_MultiMessage;
-import com.panamahitek.liveinterfaces.PanamaHitek_DualDialPlot;
+import com.panamahitek.liveinterfaces.PanamaHitek_SingleDialChart;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jssc.SerialPortEvent;
@@ -12,66 +11,45 @@ import jssc.SerialPortException;
 
 /**
  * Este ejemplo permite graficar datos recibidos desde Arduino en la forma de un
- * reloj analogico simple, de una sola aguja. Los datos son recibidos y
- * graficados manualmente en la grafica.
+ * reloj analogico simple, de una sola aguja. Los datos son recibidos y deben
+ * ser insertados en la grafica de forma manual
  *
  * @author Antony Garcia
  *
- * Utilizar con el ejemplo double_data_send.ino corriendo en el Arduino
+ * Utilizar con el ejemplo single_data_send.ino corriendo en el Arduino
  */
-public class manualDualDialPlot extends javax.swing.JFrame {
+public class ManualSingleDialChart extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public manualDualDialPlot() {
+    public ManualSingleDialChart() {
         initComponents();
         //Se crea una grafica con los titulos especificados
-        PanamaHitek_DualDialPlot dial = new PanamaHitek_DualDialPlot("Grafico de prueba", "Temperatura");
-        //Limite inferior y superior los medidores analogos
-        dial.setPlotBottonLimitValues(0, 0);
-        dial.setPlotTopLimitValues(100, 100);
-        //Cantidad de divisiones (rayitas) de los graficos
-        dial.setPlotMinorDivisions(10, 10);
-        dial.setPlotMajorDivisions(20, 10);
+        PanamaHitek_SingleDialChart dial = new PanamaHitek_SingleDialChart(PanamaHitek_SingleDialChart.HORIZONTAL_DIAL_CHART, "Grafico de prueba", "Temperatura");
+        //Limite inferior y superior del medidor analogico
+        dial.setChartLimitValues(0, 100);
         //Se agrega el grafico al panel insertado en el JFrame
         dial.insertToPanel(jPanel1);
-
         //Se crea una instancia de la libreria PanamaHitek_Arduino
         PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
-        /**
-         * Es necesario crear una instancia de la clase para manejar varios
-         * mensajes a la vez, inducando que se van a recibir datos de dos
-         * sensores simultaneos.
-         */
-        PanamaHitek_MultiMessage multi = new PanamaHitek_MultiMessage(2, ino);
         //Se crea un listener para "escuchar" el puerto serie
         SerialPortEventListener event = (SerialPortEvent serialPortEvent) -> {
             try {
                 //Se recibe la informacion y se inserta en la grafica
-                if (multi.dataReceptionCompleted()) {
-                    /**
-                     * Se reciben los datos de los sensores 0 y 1 y se insertan
-                     * en la grafica. El primer sensor ira al circulo exterior y
-                     * el segundo sensor al circulo interior
-                     */
-                    dial.setValue(Double.parseDouble(multi.getMessage(0)),
-                            Double.parseDouble(multi.getMessage(1)));
-                    //Se limpia el buffer
-                    multi.flushBuffer();
+                if (ino.isMessageAvailable()) {
+                    dial.setValue(Double.parseDouble(ino.printMessage()));
                 }
-
             } catch (SerialPortException | ArduinoException ex) {
-                Logger.getLogger(manualSingleDialPlot.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ManualSingleDialChart.class.getName()).log(Level.SEVERE, null, ex);
             }
         };
         try {
             //Instruccion que crea la conexion con el Arduino en el puerto COM20
             ino.arduinoRX("COM20", 9600, event);
         } catch (ArduinoException | SerialPortException ex) {
-            Logger.getLogger(manualSingleDialPlot.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManualSingleDialChart.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     /**
@@ -137,14 +115,42 @@ public class manualDualDialPlot extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(manualDualDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManualSingleDialChart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(manualDualDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManualSingleDialChart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(manualDualDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManualSingleDialChart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(manualDualDialPlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManualSingleDialChart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -153,7 +159,7 @@ public class manualDualDialPlot extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new manualDualDialPlot().setVisible(true);
+                new ManualSingleDialChart().setVisible(true);
             }
         });
     }

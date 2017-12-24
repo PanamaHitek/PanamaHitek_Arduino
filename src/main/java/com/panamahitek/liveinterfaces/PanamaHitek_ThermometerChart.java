@@ -50,7 +50,7 @@ import org.jfree.data.general.DefaultValueDataset;
  * Esta clase construye un grafico tipo reloj en la que se pueden graficar datos
  * recibidos desde Arduino en tiempo real
  *
- * 
+ *
  * @author Antony García González, de Proyecto Panama Hitek. Visita
  * http://panamahitek.com
  * @since 3.0.0
@@ -61,8 +61,8 @@ public class PanamaHitek_ThermometerChart extends JPanel {
     public final static int HORIZONTAL_DIAL_PLOT = 2;
     public final static int VERTICAL_DIAL_PLOT = 3;
 
-    private static chartPanel chart;
-    private static PanamaHitek_Arduino ino = null;
+    private chartPanel chart;
+    private PanamaHitek_Arduino ino = null;
 
     private class chartPanel extends JPanel {
 
@@ -242,7 +242,7 @@ public class PanamaHitek_ThermometerChart extends JPanel {
     }
 
     private void build() {
-        PanamaHitek_ThermometerChart.chart.buildPlot1();
+        this.chart.buildPlot1();
     }
 
     /**
@@ -252,7 +252,7 @@ public class PanamaHitek_ThermometerChart extends JPanel {
      */
     public JPanel getPlotPanel() {
         build();
-        return PanamaHitek_ThermometerChart.chart;
+        return this.chart;
     }
 
     /**
@@ -262,8 +262,8 @@ public class PanamaHitek_ThermometerChart extends JPanel {
      * @param maxValue Valor maximo
      */
     public void setChartLimitValues(int minValue, int maxValue) {
-        PanamaHitek_ThermometerChart.chart.setPlotBottonLimit(minValue);
-        PanamaHitek_ThermometerChart.chart.setPlotTopLimit(maxValue);
+        this.chart.setPlotBottonLimit(minValue);
+        this.chart.setPlotTopLimit(maxValue);
     }
 
     /**
@@ -280,9 +280,9 @@ public class PanamaHitek_ThermometerChart extends JPanel {
         if (total != 100) {
             throw new Exception("La suma de los 3 porcentajes debe totalizar 100%");
         }
-        PanamaHitek_ThermometerChart.chart.setGreenSlice(firstArea * 0.01);
-        PanamaHitek_ThermometerChart.chart.setYellowSlice(secondArea * 0.01);
-        PanamaHitek_ThermometerChart.chart.setRedSlice(thirdArea * 0.01);
+        this.chart.setGreenSlice(firstArea * 0.01);
+        this.chart.setYellowSlice(secondArea * 0.01);
+        this.chart.setRedSlice(thirdArea * 0.01);
     }
 
     /**
@@ -293,7 +293,7 @@ public class PanamaHitek_ThermometerChart extends JPanel {
      */
     public void insertToPanel(JPanel panel) {
         build();
-        PanamaHitek_ThermometerChart.chart.setBounds(0, 0, panel.getWidth(), panel.getHeight());
+        this.chart.setBounds(0, 0, panel.getWidth(), panel.getHeight());
         panel.add(chart);
     }
 
@@ -313,7 +313,7 @@ public class PanamaHitek_ThermometerChart extends JPanel {
      *
      */
     public void setThermometerUnit(int unit) {
-        PanamaHitek_ThermometerChart.chart.setUnit(unit);
+        this.chart.setUnit(unit);
     }
 
     /**
@@ -322,7 +322,7 @@ public class PanamaHitek_ThermometerChart extends JPanel {
      * @param value Valor que se desea mostrar
      */
     public void setValue(double value) {
-        PanamaHitek_ThermometerChart.chart.getDataset().setValue(value);
+        this.chart.getDataset().setValue(value);
     }
 
     /**
@@ -340,7 +340,7 @@ public class PanamaHitek_ThermometerChart extends JPanel {
      * @throws SerialPortException Posibles excepciones
      */
     public void createArduinoFollowUp(String PORT_NAME, int DATA_RATE) throws ArduinoException, SerialPortException {
-        PanamaHitek_ThermometerChart.ino = new PanamaHitek_Arduino();
+        this.ino = new PanamaHitek_Arduino();
         SerialPortEventListener listener;
         listener = (SerialPortEvent serialPortEvent) -> {
             try {
@@ -351,7 +351,7 @@ public class PanamaHitek_ThermometerChart extends JPanel {
                 Logger.getLogger(PanamaHitek_ThermometerChart.class.getName()).log(Level.SEVERE, null, ex);
             }
         };
-        PanamaHitek_ThermometerChart.ino.arduinoRX(PORT_NAME, DATA_RATE, listener);
+        this.ino.arduinoRX(PORT_NAME, DATA_RATE, listener);
     }
 
     /**
@@ -370,7 +370,7 @@ public class PanamaHitek_ThermometerChart extends JPanel {
      *
      */
     public PanamaHitek_ThermometerChart() {
-        PanamaHitek_ThermometerChart.chart = new chartPanel();
+        this.chart = new chartPanel();
     }
 
     /**
@@ -381,8 +381,8 @@ public class PanamaHitek_ThermometerChart extends JPanel {
      *
      */
     public PanamaHitek_ThermometerChart(String plotTitle) {
-        PanamaHitek_ThermometerChart.chart = new chartPanel();
-        PanamaHitek_ThermometerChart.chart.setPlotTitle(plotTitle);
+        this.chart = new chartPanel();
+        this.chart.setPlotTitle(plotTitle);
 
     }
 

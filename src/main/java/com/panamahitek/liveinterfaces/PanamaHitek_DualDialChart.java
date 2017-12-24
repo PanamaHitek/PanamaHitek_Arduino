@@ -52,35 +52,35 @@ import org.jfree.ui.StandardGradientPaintTransformer;
  * Esta clase construye un grafico tipo reloj en la que se pueden graficar datos
  * recibidos desde Arduino en tiempo real
  *
- * 
+ *
  * @author Antony García González, de Proyecto Panama Hitek. Visita
  * http://panamahitek.com
  * @since 3.0.0
  */
-public class PanamaHitek_DualDialPlot extends JPanel {
+public class PanamaHitek_DualDialChart extends JPanel {
 
     public final static int OUTER_DIAL = 1;
     public final static int INNER_DIAL = 2;
     public final static int LEFT_DIAL = 1;
     public final static int RIGHT_DIAL = 2;
 
-    private static plotPanel plot;
-    private static PanamaHitek_Arduino ino = null;
-    private static PanamaHitek_MultiMessage multi;
+    private chartPanel chart;
+    private PanamaHitek_Arduino ino = null;
+    private PanamaHitek_MultiMessage multi;
 
-    private class plotPanel extends JPanel {
+    private class chartPanel extends JPanel {
 
         //Dataset donde se guardan los datos
         private DefaultValueDataset dataset1;
         private DefaultValueDataset dataset2;
         //Titulo de la grafica
-        private String plotTitle = "Default Title";
+        private String chartTitle = "Default Title";
         //Nombre de la variable a graficar
         private String variableName = "Default Variable Name";
-        private int plotOuterBottonLimit = 0; //Limite inferior de la grafica
-        private int plotOuterTopLimit = 100; //Limite superior de la grafica
-        private int plotInnerBottonLimit = 0;
-        private int plotInnerTopLimit = 100;
+        private int chartOuterBottonLimit = 0; //Limite inferior de la grafica
+        private int chartOuterTopLimit = 100; //Limite superior de la grafica
+        private int chartInnerBottonLimit = 0;
+        private int chartInnerTopLimit = 100;
         private int outerMinorDivisions = 4; //Divisiones menores
         private int outerMajorDivisions = 20;//Divisiones mayores
         private int innerMinorDivisions = 4; //Divisiones menores
@@ -102,12 +102,12 @@ public class PanamaHitek_DualDialPlot extends JPanel {
             this.dataset2 = dataset2;
         }
 
-        public String getPlotTitle() {
-            return plotTitle;
+        public String getChartTitle() {
+            return chartTitle;
         }
 
-        public void setPlotTitle(String plotTitle) {
-            this.plotTitle = plotTitle;
+        public void setChartTitle(String chartTitle) {
+            this.chartTitle = chartTitle;
         }
 
         public String getVariableName() {
@@ -118,36 +118,36 @@ public class PanamaHitek_DualDialPlot extends JPanel {
             this.variableName = variableName;
         }
 
-        public int getPlotOuterBottonLimit() {
-            return plotOuterBottonLimit;
+        public int getChartOuterBottonLimit() {
+            return chartOuterBottonLimit;
         }
 
-        public void setPlotOuterBottonLimit(int plotOuterBottonLimit) {
-            this.plotOuterBottonLimit = plotOuterBottonLimit;
+        public void setChartOuterBottonLimit(int chartOuterBottonLimit) {
+            this.chartOuterBottonLimit = chartOuterBottonLimit;
         }
 
-        public int getPlotOuterTopLimit() {
-            return plotOuterTopLimit;
+        public int getChartOuterTopLimit() {
+            return chartOuterTopLimit;
         }
 
-        public void setPlotOuterTopLimit(int plotOuterTopLimit) {
-            this.plotOuterTopLimit = plotOuterTopLimit;
+        public void setChartOuterTopLimit(int chartOuterTopLimit) {
+            this.chartOuterTopLimit = chartOuterTopLimit;
         }
 
-        public int getPlotInnerBottonLimit() {
-            return plotInnerBottonLimit;
+        public int getChartInnerBottonLimit() {
+            return chartInnerBottonLimit;
         }
 
-        public void setPlotInnerBottonLimit(int plotInnerBottonLimit) {
-            this.plotInnerBottonLimit = plotInnerBottonLimit;
+        public void setChartInnerBottonLimit(int chartInnerBottonLimit) {
+            this.chartInnerBottonLimit = chartInnerBottonLimit;
         }
 
-        public int getPlotInnerTopLimit() {
-            return plotInnerTopLimit;
+        public int getChartInnerTopLimit() {
+            return chartInnerTopLimit;
         }
 
-        public void setPlotInnerTopLimit(int plotInnerTopLimit) {
-            this.plotInnerTopLimit = plotInnerTopLimit;
+        public void setChartInnerTopLimit(int chartInnerTopLimit) {
+            this.chartInnerTopLimit = chartInnerTopLimit;
         }
 
         public int getOuterMinorDivisions() {
@@ -182,12 +182,12 @@ public class PanamaHitek_DualDialPlot extends JPanel {
             this.innerMajorDivisions = innerMajorDivisions;
         }
 
-        public plotPanel() {
+        public chartPanel() {
             super(new BorderLayout());
 
         }
 
-        public void buildPlot() {
+        public void buildChart() {
 
             dataset1 = new DefaultValueDataset(0);
             dataset2 = new DefaultValueDataset(0);
@@ -219,12 +219,12 @@ public class PanamaHitek_DualDialPlot extends JPanel {
             dialvalueindicator1.setRadius(0.6D);
             dialvalueindicator1.setAngle(-77D);
             dialplot.addLayer(dialvalueindicator1);
-            StandardDialScale standarddialscale = new StandardDialScale(plotOuterBottonLimit, plotOuterTopLimit, -120D, -300D, outerMajorDivisions, outerMinorDivisions);
+            StandardDialScale standarddialscale = new StandardDialScale(chartOuterBottonLimit, chartOuterTopLimit, -120D, -300D, outerMajorDivisions, outerMinorDivisions);
             standarddialscale.setTickRadius(0.88D);
             standarddialscale.setTickLabelOffset(0.15D);
             standarddialscale.setTickLabelFont(new Font("Dialog", 0, 14));
             dialplot.addScale(0, standarddialscale);
-            StandardDialScale standarddialscale1 = new StandardDialScale(plotInnerBottonLimit, plotInnerTopLimit, -120D, -300D, innerMajorDivisions, innerMinorDivisions);
+            StandardDialScale standarddialscale1 = new StandardDialScale(chartInnerBottonLimit, chartInnerTopLimit, -120D, -300D, innerMajorDivisions, innerMinorDivisions);
             standarddialscale1.setTickRadius(0.5D);
             standarddialscale1.setTickLabelOffset(0.15D);
             standarddialscale1.setTickLabelFont(new Font("Dialog", 0, 12));
@@ -246,18 +246,14 @@ public class PanamaHitek_DualDialPlot extends JPanel {
             dialcap.setRadius(0.1D);
             dialplot.setCap(dialcap);
             JFreeChart jfreechart = new JFreeChart(dialplot);
-            jfreechart.setTitle(plotTitle);
+            jfreechart.setTitle(chartTitle);
             add(new ChartPanel(jfreechart));
-        }
-
-        public void buildPlot2() {
-
         }
 
     }
 
     private void build() {
-        PanamaHitek_DualDialPlot.plot.buildPlot();
+        this.chart.buildChart();
     }
 
     /**
@@ -265,9 +261,9 @@ public class PanamaHitek_DualDialPlot extends JPanel {
      *
      * @return Panel con grafico incrustado
      */
-    public JPanel getPlotPanel() {
+    public JPanel getChartPanel() {
         build();
-        return PanamaHitek_DualDialPlot.plot;
+        return this.chart;
     }
 
     /**
@@ -278,8 +274,8 @@ public class PanamaHitek_DualDialPlot extends JPanel {
      */
     public void insertToPanel(JPanel panel) {
         build();
-        PanamaHitek_DualDialPlot.plot.setBounds(0, 0, panel.getWidth(), panel.getHeight());
-        panel.add(plot);
+        this.chart.setBounds(0, 0, panel.getWidth(), panel.getHeight());
+        panel.add(chart);
     }
 
     /**
@@ -289,8 +285,8 @@ public class PanamaHitek_DualDialPlot extends JPanel {
      * @param value2 Valor de la aguja menor
      */
     public void setValue(double value1, double value2) {
-        PanamaHitek_DualDialPlot.plot.getDataset1().setValue(value1);
-        PanamaHitek_DualDialPlot.plot.getDataset2().setValue(value2);
+        this.chart.getDataset1().setValue(value1);
+        this.chart.getDataset2().setValue(value2);
     }
 
     /**
@@ -299,7 +295,7 @@ public class PanamaHitek_DualDialPlot extends JPanel {
      * @param title Titulo del grafico
      */
     public void setPlotTitle(String title) {
-        PanamaHitek_DualDialPlot.plot.setPlotTitle(title);
+        this.chart.setChartTitle(title);
     }
 
     /**
@@ -307,8 +303,8 @@ public class PanamaHitek_DualDialPlot extends JPanel {
      *
      * @param variableName Nombre de la variable
      */
-    public void setPlotVariableName(String variableName) {
-        PanamaHitek_DualDialPlot.plot.setVariableName(variableName);
+    public void setChartVariableName(String variableName) {
+        this.chart.setVariableName(variableName);
     }
 
     /**
@@ -317,9 +313,9 @@ public class PanamaHitek_DualDialPlot extends JPanel {
      * @param topValue1 Valor maximo de la grafica externa/izquierda
      * @param topValue2 Valor maximo de la grafica interna/derecha
      */
-    public void setPlotTopLimitValues(int topValue1, int topValue2) {
-        PanamaHitek_DualDialPlot.plot.setPlotOuterTopLimit(topValue1);
-        PanamaHitek_DualDialPlot.plot.setPlotInnerTopLimit(topValue2);
+    public void setChartTopLimitValues(int topValue1, int topValue2) {
+        this.chart.setChartOuterTopLimit(topValue1);
+        this.chart.setChartInnerTopLimit(topValue2);
     }
 
     /**
@@ -328,31 +324,31 @@ public class PanamaHitek_DualDialPlot extends JPanel {
      * @param topValue1 Valor maximo de la grafica externa/izquierda
      * @param topValue2 Valor maximo de la grafica interna/derecha
      */
-    public void setPlotBottonLimitValues(int topValue1, int topValue2) {
-        PanamaHitek_DualDialPlot.plot.setPlotOuterBottonLimit(topValue1);
-        PanamaHitek_DualDialPlot.plot.setPlotInnerBottonLimit(topValue2);
+    public void setChartBottonLimitValues(int topValue1, int topValue2) {
+        this.chart.setChartOuterBottonLimit(topValue1);
+        this.chart.setChartInnerBottonLimit(topValue2);
     }
 
     /**
      * Cantidad de divisiones primarias en el grafico
      *
-     * @param valuePlot1 Divisiones en el grafico exterior/izquierdo
-     * @param valuePlot2 Divisiones en el grafico interior/derecho
+     * @param valueChart1 Divisiones en el grafico exterior/izquierdo
+     * @param valueChart2 Divisiones en el grafico interior/derecho
      */
-    public void setPlotMajorDivisions(int valuePlot1, int valuePlot2) {
-        PanamaHitek_DualDialPlot.plot.setOuterMajorDivisions(valuePlot1);
-        PanamaHitek_DualDialPlot.plot.setInnerMajorDivisions(valuePlot2);
+    public void setChartMajorDivisions(int valueChart1, int valueChart2) {
+        this.chart.setOuterMajorDivisions(valueChart1);
+        this.chart.setInnerMajorDivisions(valueChart2);
     }
 
     /**
      * Cantidad de divisiones secundarias en el grafico
      *
-     * @param valuePlot1 Divisiones en el grafico exterior/izquierdo
-     * @param valuePlot2 Divisiones en el grafico interior/derecho
+     * @param valueChart1 Divisiones en el grafico exterior/izquierdo
+     * @param valueChart2 Divisiones en el grafico interior/derecho
      */
-    public void setPlotMinorDivisions(int valuePlot1, int valuePlot2) {
-        PanamaHitek_DualDialPlot.plot.setInnerMinorDivisions(valuePlot1);
-        PanamaHitek_DualDialPlot.plot.setOuterMinorDivisions(valuePlot2);
+    public void setChartMinorDivisions(int valueChart1, int valueChart2) {
+        this.chart.setInnerMinorDivisions(valueChart1);
+        this.chart.setOuterMinorDivisions(valueChart2);
     }
 
     /**
@@ -370,21 +366,21 @@ public class PanamaHitek_DualDialPlot extends JPanel {
      * @throws SerialPortException Posibles excepciones
      */
     public void createArduinoFollowUp(String PORT_NAME, int DATA_RATE) throws ArduinoException, SerialPortException {
-        PanamaHitek_DualDialPlot.ino = new PanamaHitek_Arduino();
+        this.ino = new PanamaHitek_Arduino();
         multi = new PanamaHitek_MultiMessage(2, ino);
         SerialPortEventListener listener;
         listener = (SerialPortEvent serialPortEvent) -> {
+
             try {
                 if (multi.dataReceptionCompleted()) {
                     setValue(Double.parseDouble(multi.getMessage(0)), Double.parseDouble(multi.getMessage(1)));
                     multi.flushBuffer();
                 }
-
-            } catch (SerialPortException | ArduinoException ex) {
-                Logger.getLogger(PanamaHitek_DualDialPlot.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ArduinoException | SerialPortException ex) {
+                Logger.getLogger(PanamaHitek_DualDialChart.class.getName()).log(Level.SEVERE, null, ex);
             }
         };
-        PanamaHitek_DualDialPlot.ino.arduinoRX(PORT_NAME, DATA_RATE, listener);
+        this.ino.arduinoRX(PORT_NAME, DATA_RATE, listener);
     }
 
     /**
@@ -402,33 +398,33 @@ public class PanamaHitek_DualDialPlot extends JPanel {
      * por defecto
      *
      */
-    public PanamaHitek_DualDialPlot() {
-        PanamaHitek_DualDialPlot.plot = new plotPanel();
+    public PanamaHitek_DualDialChart() {
+        this.chart = new chartPanel();
     }
 
     /**
-     * Constructor de la clase. Le asigna el valor del parametro plotTitle a la
+     * Constructor de la clase. Le asigna el valor del parametro chartTitle a la
      * grafica tipo reloj
      *
-     * @param plotTitle Titulo de la grafica
+     * @param chartTitle Titulo de la grafica
      */
-    public PanamaHitek_DualDialPlot(String plotTitle) {
-        PanamaHitek_DualDialPlot.plot = new plotPanel();
-        PanamaHitek_DualDialPlot.plot.setPlotTitle(plotTitle);
+    public PanamaHitek_DualDialChart(String chartTitle) {
+        this.chart = new chartPanel();
+        this.chart.setChartTitle(chartTitle);
     }
 
     /**
      * Constructor de la clase. Le asigna titulo y nombre a la grafica tipo
      * reloj
      *
-     * @param plotTitle Titulo de la grafica
+     * @param chartTitle Titulo de la grafica
      * @param variableName Nombre de la grafica
      *
      */
-    public PanamaHitek_DualDialPlot(String plotTitle, String variableName) {
-        PanamaHitek_DualDialPlot.plot = new plotPanel();
-        PanamaHitek_DualDialPlot.plot.setPlotTitle(plotTitle);
-        PanamaHitek_DualDialPlot.plot.setVariableName(variableName);
+    public PanamaHitek_DualDialChart(String chartTitle, String variableName) {
+        this.chart = new chartPanel();
+        this.chart.setChartTitle(chartTitle);
+        this.chart.setVariableName(variableName);
 
     }
 

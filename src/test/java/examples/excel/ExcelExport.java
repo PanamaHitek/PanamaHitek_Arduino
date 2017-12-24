@@ -1,3 +1,34 @@
+/**
+ * Este código ha sido construido por Antony García González y el Equipo
+ * Creativo de Panama Hitek.
+ *
+ * Está protegido bajo la licencia LGPL v 2.1, cuya copia se puede encontrar en
+ * el siguiente enlace: http://www.gnu.org/licenses/lgpl.txt
+ *
+ * Para su funcionamiento utiliza el código de la librería JSSC (anteriormente
+ * RXTX) que ha permanecido intacto sin modificación alguna de parte de nuestro
+ * equipo creativo. Agradecemos al creador de la librería JSSC, Alexey Sokolov
+ * por esta herramienta tan poderosa y eficaz que ha hecho posible el
+ * mejoramiento de nuestra librería.
+ *
+ * Esta librería es de código abierto y ha sido diseñada para que los usuarios,
+ * desde principiantes hasta expertos puedan contar con las herramientas
+ * apropiadas para el desarrollo de sus proyectos, de una forma sencilla y
+ * agradable.
+ *
+ * Se espera que se en cualquier uso de este código se reconozca su procedencia.
+ * Este algoritmo fue diseñado en la República de Panamá por Antony García
+ * Gónzález, estudiante de la Universidad de Panamá en la carrera de
+ * Licenciatura en Ingeniería Electromecánica, desde el año 2013 hasta el
+ * presente. Su diseñador forma parte del Equipo Creativo de Panama Hitek, una
+ * organización sin fines de lucro dedicada a la enseñanza del desarrollo de
+ * software y hardware a través de su sitio web oficial http://panamahitek.com
+ *
+ * Solamente deseamos que se reconozca esta compilación de código como un
+ * trabajo hecho por panameños para Panamá y el mundo.
+ *
+ * Si desea contactarnos escríbanos a creativeteam@panamahitek.com
+ */
 package examples.excel;
 
 import com.panamahitek.ArduinoException;
@@ -5,8 +36,6 @@ import com.panamahitek.PanamaHitek_Arduino;
 import com.panamahitek.PanamaHitek_DataBuffer;
 import com.panamahitek.PanamaHitek_MultiMessage;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,6 +44,13 @@ import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
 /**
+ * Este ejemplo permite conectarse con Arduino y empezar a recibir datos. Estos
+ * datos seran tabulados en un JTable y mostrados en pantalla. Al presionar el
+ * boton disponible en la interfaz, los datos tabulados seran exportados a un
+ * archivo en Excel.
+ *
+ * Para utilizar este ejemplo se requiere que en Arduino se haya subido el
+ * ejemplo double_data_send.ino
  *
  * @author Antony García González, de Proyecto Panama Hitek. Visita
  * http://panamahitek.com
@@ -36,7 +72,7 @@ public class ExcelExport extends javax.swing.JFrame {
          * posicion de la columna (0 es la más a la izquierda), el nombre de la
          * columna y el tipo de datos
          */
-        buffer.addColumn(0, "Tiempo", String.class);
+        buffer.addTimeColumn(0, "Tiempo");
         buffer.addColumn(1, "Temperatura", Double.class);
         buffer.addColumn(2, "Humedad", Double.class);
 
@@ -64,7 +100,7 @@ public class ExcelExport extends javax.swing.JFrame {
                          * "multi" para separar los datos recibidos desde
                          * Arduino, especificando el indice.
                          */
-                        buffer.addValue(0, new SimpleDateFormat("HH:mm:ss").format(new Date()));
+
                         buffer.addValue(1, Double.parseDouble(multi.getMessage(0)));
                         buffer.addValue(2, Double.parseDouble(multi.getMessage(1)));
 
@@ -89,7 +125,7 @@ public class ExcelExport extends javax.swing.JFrame {
 
         try {
             //Se inicia la conexion con el puerto COM21 a 9600 baudios
-            ino.arduinoRX("COM21", 9600, listener);
+            ino.arduinoRX("COM20", 9600, listener);
         } catch (ArduinoException | SerialPortException ex) {
             Logger.getLogger(ExcelExport.class.getName()).log(Level.SEVERE, null, ex);
         }
