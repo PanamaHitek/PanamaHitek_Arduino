@@ -5,8 +5,11 @@ Ingeniero Electromecánico e Investigador dentro de la Universidad Tecnológica 
 Fundador y Co-propietario del sitio web htp://panamahitek.com junto a Kiara Navarro y el Panama Hitek Creative Team
 
 email: antony.garcia.gonzalez@gmail.com
+
 whatsapp: +50767347398
+
 facebook: http://facebook.com/panamahitek
+
 twitter: @panamahitek
 
 La librería incluye tres clases, la clase PanamaHitek_Arduino, la clase PanamaHitek_MultiMessage y la nueva PanamaHitek_SpreadsheetHandler.
@@ -19,13 +22,6 @@ Hasta su versión 2.5.0, esta librería se conocía bajo el nombre de Librería 
 
 Desde la versión 2.8.0 se ha descontinuado el uso de RXTX en favor de Java Simple Serial Connector (Alexey Sokolov, 
 https://github.com/scream3r/java-simple-serial-connector)
-
-
-Versión 2.8.2
----------------------
-En la versión 2.8.3 se ha agregado nuevas funcionalidades a través de la clase PanamaHitek_SpreadsheetHandler que facilita el almacenamiento
-de datos y la exportación de informació en formato .xls (MS Excel)
-
 
 Versión 2.8.1
 ---------------------
