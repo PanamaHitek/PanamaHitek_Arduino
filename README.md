@@ -2,16 +2,15 @@ Librería PanamaHitek_Arduino, versión 3.0.0
 
 Por Antony García González
 
-Ingeniero Electromecánico e Investigador dentro de la Universidad Tecnológica de Panamá 
-Fundador y Co-propietario del sitio web htp://panamahitek.com junto a Kiara Navarro y el Panama Hitek Creative Team
+*Ingeniero Electromecánico e Investigador para la Universidad Tecnológica de Panamá. Fundador del sitio web htp://panamahitek.com junto al Panama Hitek Creative Team.*
 
-email: antony.garcia.gonzalez@gmail.com
+- **email:** antony.garcia.gonzalez@gmail.com
 
-whatsapp: +50767347398
+- **whatsapp:** +50767347398
 
-facebook: http://facebook.com/panamahitek
+- **facebook:** (http://facebook.com/panamahitek)
 
-twitter: @panamahitek
+- **twitter:** @panamahitek
 
 La librería incluye 3 clases principales. 
 - La clase **PanamaHitek_Arduino** es la encargada de manejar todas las conexiones y la comunicación con Arduino.
