@@ -5,11 +5,8 @@ Por Antony García González
 *Ingeniero Electromecánico e Investigador para la Universidad Tecnológica de Panamá. Fundador del sitio web htp://panamahitek.com junto al Panama Hitek Creative Team.*
 
 - **email:** antony.garcia.gonzalez@gmail.com
-
 - **whatsapp:** +50767347398
-
-- **facebook:** (http://facebook.com/panamahitek)
-
+- **facebook:** http://facebook.com/panamahitek
 - **twitter:** @panamahitek
 
 La librería incluye 3 clases principales. 
