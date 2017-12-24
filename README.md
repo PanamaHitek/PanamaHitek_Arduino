@@ -1,4 +1,4 @@
-Librería PanamaHitek_Arduino, versión 2.8.2
+Librería PanamaHitek_Arduino, versión 3.0.0
 
 Por Antony García González 
 Ingeniero Electromecánico e Investigador dentro de la Universidad Tecnológica de Panamá 
@@ -12,21 +12,27 @@ facebook: http://facebook.com/panamahitek
 
 twitter: @panamahitek
 
-La librería incluye tres clases, la clase PanamaHitek_Arduino, la clase PanamaHitek_MultiMessage y la nueva PanamaHitek_SpreadsheetHandler.
-La clase PanamaHitek_Arduino es la encargada de manejar todas las conexiones y la comunicación con Arduino.
-La clase PanamaHitek_MultiMessage incluye las herramientas necesarias para recibir múltiples mensajes de forma simultánea en Java.
-Con PanamaHitek_SpreadsheetHandler es posible exportar datos recibidos desde el Arduino a ficheros de Excel (.xls)
+La librería incluye 3 clases principales. 
+- La clase PanamaHitek_Arduino es la encargada de manejar todas las conexiones y la comunicación con Arduino.
+- La clase PanamaHitek_MultiMessage incluye las herramientas necesarias para recibir múltiples mensajes de forma simultánea en Java.
+- La clase PanamaHitek_DataBuffer almacena datos de forma ordenada, permite la visualización en una tabla y la exportación de datos a MS Excel (archivo .xlsx)
 
-También se incluyen las clases que pertenecen a la librería RXTX, sobre la cual está construida la librería PanamaHitek_Arduino.
-Hasta su versión 2.5.0, esta librería se conocía bajo el nombre de Librería Arduino para Java.
+Adicionalmente cuenta con 4 clases dedicadas a la gestión de gráficos en tiempo real, a través de la utilización de las dependencias de JFreeCharts.
+- PanamaHitek_DualDialChart permite hacer graficas tipo reloj analógico con dos agujas
+- PanamaHitek_SingleDialChart permite hacer graficas tipo reloj analógico con una aguja
+- PanamaHitek_ThermometerChart permite hacer graficas tipo termómetro
+- PanamaHitek_TimeLineChart permite hacer gráficas de línea de múltiples datos en función del tiempo
 
 Desde la versión 2.8.0 se ha descontinuado el uso de RXTX en favor de Java Simple Serial Connector (Alexey Sokolov, 
 https://github.com/scream3r/java-simple-serial-connector)
 
+Versión 3.0.0
+---------------------
+La nueva y mejorada version de la librería. Se ha agregado nuevos recursos que permiten almacenar datos recibidos y exportarlos en hojas de cálculo de MS Excel o graficarlos en tiempo real con la ayuda de las librerías POI y JFreeCharts.
+
 Versión 2.8.1
 ---------------------
 Se han corregido algunos bugs de la versión 2.8.0
-
 
 Versión 2.8.0
 ---------------------
