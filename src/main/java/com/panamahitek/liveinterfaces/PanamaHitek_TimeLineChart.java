@@ -84,7 +84,6 @@ public class PanamaHitek_TimeLineChart extends JPanel {
                         Integer.parseInt(new SimpleDateFormat("MM").format(new Date())),
                         Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()))),
                         Double.parseDouble(String.valueOf(buffer.getMainBuffer().get(index).get(buffer.getRowCount() - 1))));
-
             }
         }
     };
@@ -122,55 +121,54 @@ public class PanamaHitek_TimeLineChart extends JPanel {
 
             TimeSeriesCollection seriesCollector = new TimeSeriesCollection();
             if (itemCount > 0) {
-
                 dataSeries.forEach(i -> {
                     if (i != null) {
                         seriesCollector.addSeries(i);
                         i.setMaximumItemCount(itemCount);
                     }
                 });
-                jfreechart = ChartFactory.createTimeSeriesChart(chartTitle, xAxisName, yAxisName, seriesCollector, true, true, false);
-                xyplot = (XYPlot) jfreechart.getPlot();
-                xyplot.setDomainPannable(true);
-                xyplot.setRangePannable(false);
-                xyplot.setDomainCrosshairVisible(true);
-                xyplot.setRangeCrosshairVisible(true);
-                xyplot.setBackgroundPaint(backgroundColor);
-                xyplot.setRangeGridlinePaint(gridLineColor);
-                xyplot.setRangeGridlinesVisible(gridLines);
-
-                org.jfree.chart.renderer.xy.XYItemRenderer xyitemrenderer = xyplot.getRenderer();
-                if (xyitemrenderer instanceof XYLineAndShapeRenderer) {
-                    XYLineAndShapeRenderer xylineandshaperenderer = (XYLineAndShapeRenderer) xyitemrenderer;
-                    xylineandshaperenderer.setBaseShapesVisible(false);
-                }
-                dateaxis = (DateAxis) xyplot.getDomainAxis();
-                dateaxis.setDateFormatOverride(dateFormat);
-
-                //Marcas en los puntos-lineas
-                if (linesMarks) {
-                    xylineandshaperenderer = (XYLineAndShapeRenderer) xyplot.getRenderer();
-                    xylineandshaperenderer.setBaseShapesVisible(true);
-                    xylineandshaperenderer.setLegendItemToolTipGenerator(new StandardXYSeriesLabelGenerator("Tooltip {0}"));
-                }
-
-                XYItemRenderer xyir = this.jfreechart.getXYPlot().getRenderer();
-                int colorIndex = 0;
-                for (int i = 0; i < colorList.size(); i++) {
-                    if (colorList != null) {
-                        if (i == dateIndex) {
-                            colorIndex--;
-                        } else {
-                            xyir.setSeriesPaint(colorIndex, colorList.get(i));
-                            xyir.setSeriesStroke(colorIndex, strokeList.get(i));
-                        }
-                    }
-                    colorIndex++;
-                }
-                add(new ChartPanel(jfreechart));
             }
+            jfreechart = ChartFactory.createTimeSeriesChart(chartTitle, xAxisName, yAxisName, seriesCollector, true, true, false);
+            xyplot = (XYPlot) jfreechart.getPlot();
+            xyplot.setDomainPannable(true);
+            xyplot.setRangePannable(false);
+            xyplot.setDomainCrosshairVisible(true);
+            xyplot.setRangeCrosshairVisible(true);
+            xyplot.setBackgroundPaint(backgroundColor);
+            xyplot.setRangeGridlinePaint(gridLineColor);
+            xyplot.setRangeGridlinesVisible(gridLines);
+
+            org.jfree.chart.renderer.xy.XYItemRenderer xyitemrenderer = xyplot.getRenderer();
+            if (xyitemrenderer instanceof XYLineAndShapeRenderer) {
+                XYLineAndShapeRenderer xylineandshaperenderer = (XYLineAndShapeRenderer) xyitemrenderer;
+                xylineandshaperenderer.setBaseShapesVisible(false);
+            }
+            dateaxis = (DateAxis) xyplot.getDomainAxis();
+            dateaxis.setDateFormatOverride(dateFormat);
+
+            //Marcas en los puntos-lineas
+            if (linesMarks) {
+                xylineandshaperenderer = (XYLineAndShapeRenderer) xyplot.getRenderer();
+                xylineandshaperenderer.setBaseShapesVisible(true);
+                xylineandshaperenderer.setLegendItemToolTipGenerator(new StandardXYSeriesLabelGenerator("Tooltip {0}"));
+            }
+
+            XYItemRenderer xyir = this.jfreechart.getXYPlot().getRenderer();
+            int colorIndex = 0;
+            for (int i = 0; i < colorList.size(); i++) {
+                if (colorList != null) {
+                    if (i == dateIndex) {
+                        colorIndex--;
+                    } else {
+                        xyir.setSeriesPaint(colorIndex, colorList.get(i));
+                        xyir.setSeriesStroke(colorIndex, strokeList.get(i));
+                    }
+                }
+                colorIndex++;
+            }
+            add(new ChartPanel(jfreechart));
+
         }
-        
 
         public void buildChart() {
             createChart();

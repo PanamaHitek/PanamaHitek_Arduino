@@ -110,7 +110,7 @@ public class ManualTimeLine extends javax.swing.JFrame {
             chart.insertToPanel(jPanel1);
 
             //Se inicia la conexion con el Arduino
-            ino.arduinoRXTX("COM20", 9600, listener);
+          ino.arduinoRXTX("COM20", 9600, listener);
 
         } catch (Exception ex) {
             Logger.getLogger(ManualTimeLine.class.getName()).log(Level.SEVERE, null, ex);
