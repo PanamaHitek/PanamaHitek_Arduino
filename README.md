@@ -28,6 +28,9 @@ Versión 3.0.0
 La nueva y mejorada version de la librería. Se ha agregado nuevos recursos que permiten almacenar datos recibidos y exportarlos en hojas de cálculo de MS Excel o graficarlos en tiempo real con la ayuda de las librerías POI y JFreeCharts.
 También se ha agregado ejemplos de uso de las principales características de la librería.
 
+Video sobre utilización de la librería para tabulación de datos y exportar la información recibida a Excel:
+https://www.youtube.com/watch?v=wo4ts0osZV8
+
 Versión 2.8.1
 ---------------------
 Se han corregido algunos bugs de la versión 2.8.0
