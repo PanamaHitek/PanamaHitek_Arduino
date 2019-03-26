@@ -68,6 +68,7 @@ public class ManualTimeLine extends javax.swing.JFrame {
 
                             buffer.addValue(1, multi.getMessage(0));
                             buffer.addValue(2, multi.getMessage(1));
+                            buffer.addValue(3, 50);
                             //Se imprime una fila en el buffer de datos
                             buffer.printRow();
                             /**
@@ -91,6 +92,9 @@ public class ManualTimeLine extends javax.swing.JFrame {
             buffer.addTimeColumn(0, "Tiempo");
             buffer.addColumn(1, "Temperatura", Double.class);
             buffer.addColumn(2, "Humedad", Double.class);
+            buffer.addColumn(3, "LO QUE SEA", Double.class);
+            
+            buffer.insertToPanel(jPanel2);
 
             chart.setDataBuffer(buffer); //Se agrega el buffer a la grafica
             chart.setChartTitle("Temperatura y Humedad"); //Titulo de la grafica
@@ -99,9 +103,11 @@ public class ManualTimeLine extends javax.swing.JFrame {
             //Color de fondo
             chart.setBackgroundColor(Color.WHITE);
             //Color de la linea de temperatura (negro)
-            chart.setLineColor(1, Color.BLACK);
+            chart.setLineColor(1, Color.BLUE);
             //Color de la linea de humedad (rojo)
             chart.setLineColor(2, Color.RED);
+
+            chart.setLineColor(3, Color.GREEN);
             //Grosor de la linea de temperatura (3)
             chart.setLineThickness(1, 3);
             //Maxima cantidad de puntos en la grafica en un momento dado
@@ -110,7 +116,7 @@ public class ManualTimeLine extends javax.swing.JFrame {
             chart.insertToPanel(jPanel1);
 
             //Se inicia la conexion con el Arduino
-          ino.arduinoRXTX("COM20", 9600, listener);
+            ino.arduinoRXTX("COM21", 115200, listener);
 
         } catch (Exception ex) {
             Logger.getLogger(ManualTimeLine.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,6 +134,7 @@ public class ManualTimeLine extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,7 +148,18 @@ public class ManualTimeLine extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 474, Short.MAX_VALUE)
+            .addGap(0, 425, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 206, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,14 +168,18 @@ public class ManualTimeLine extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -204,5 +226,6 @@ public class ManualTimeLine extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

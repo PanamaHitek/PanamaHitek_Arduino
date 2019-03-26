@@ -29,8 +29,8 @@ public class AutomaticDualDialChart extends javax.swing.JFrame {
         dial.setChartBottonLimitValues(0, 0);
         dial.setChartTopLimitValues(100, 100);
         //Cantidad de divisiones (rayitas) de los graficos
-        dial.setChartMinorDivisions(10, 10);
-        dial.setChartMajorDivisions(20, 10);
+        dial.setChartMinorDivisions(5, 5);
+        dial.setChartMajorDivisions(10, 10);
         //Se agrega el grafico al panel insertado en el JFrame
         dial.insertToPanel(jPanel1);
 
@@ -39,7 +39,7 @@ public class AutomaticDualDialChart extends javax.swing.JFrame {
             Le damos "permiso" a la clase singleDialChart de manejar la conexion con el Arduino, 
             utilizando el puerto COM5 y una velocidad de transmision de datos de 115200 baudios
              */
-            dial.createArduinoFollowUp("COM5", 115200);
+            dial.createArduinoFollowUp("COM21", 115200);
         } catch (ArduinoException | SerialPortException ex) {
             Logger.getLogger(AutomaticDualDialChart.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -88,6 +88,7 @@ public class ManualDualDialChart extends javax.swing.JFrame {
                      */
                     dial.setValue(Double.parseDouble(multi.getMessage(0)),
                             Double.parseDouble(multi.getMessage(1)));
+                
                     //Se limpia el buffer
                     multi.flushBuffer();
                 }
@@ -98,7 +99,7 @@ public class ManualDualDialChart extends javax.swing.JFrame {
         };
         try {
             //Instruccion que crea la conexion con el Arduino en el puerto COM20
-            ino.arduinoRX("COM20", 9600, event);
+            ino.arduinoRX("COM21", 115200, event);
         } catch (ArduinoException | SerialPortException ex) {
             Logger.getLogger(ManualSingleDialChart.class.getName()).log(Level.SEVERE, null, ex);
         }

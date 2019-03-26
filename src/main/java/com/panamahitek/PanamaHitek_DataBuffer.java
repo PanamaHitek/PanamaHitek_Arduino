@@ -85,7 +85,6 @@ public class PanamaHitek_DataBuffer {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     private ArrayList listeners;
 
-
     TableModelListener tableModelListener = new TableModelListener() {
         @Override
         public void tableChanged(TableModelEvent tme) {
@@ -321,7 +320,7 @@ public class PanamaHitek_DataBuffer {
                     } else if ((value instanceof Float) || (value.equals(Float.class))) {
                         cell.setCellValue((Float) mainBuffer.get(j).get(i - 1));
                     } else if ((value instanceof Double) || (value.equals(Double.class))) {
-                        cell.setCellValue((Double) mainBuffer.get(j).get(i - 1));
+                                              cell.setCellValue((Double) mainBuffer.get(j).get(i - 1));
                     }
                 }
             }
@@ -336,13 +335,13 @@ public class PanamaHitek_DataBuffer {
      */
     public void insertToPanel(JPanel panel) {
         buildTable();
-        scroll = new javax.swing.JScrollPane();
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);;
         scroll.setViewportView(table);
         scroll.setVisible(true);
-        scroll.setBounds(0, 0, panel.getWidth(), panel.getHeight());
+        scroll.setBounds(0, 0, panel.getWidth(), panel.getHeight() - 25);
         tableFlag = true;
         panel.add(scroll);
-
     }
 
     /**
@@ -372,10 +371,9 @@ public class PanamaHitek_DataBuffer {
     private void buildTable() {
         if (!tableFlag) {
             table = new JTable();
-
+            table.setRowHeight(30);
             String[] headerTitles = new String[variableList.size()];
             Object[][] tableContent = new Object[mainBuffer.get(0).size()][variableList.size()];
-
             for (int i = 0; i < variableList.size(); i++) {
                 headerTitles[i] = variableList.get(i);
                 for (int j = 0; j < mainBuffer.get(i).size(); j++) {
@@ -450,6 +448,6 @@ public class PanamaHitek_DataBuffer {
      */
     public int getTimeColumn() {
         return timeColumn;
+    }    
+    
     }
-
-}
