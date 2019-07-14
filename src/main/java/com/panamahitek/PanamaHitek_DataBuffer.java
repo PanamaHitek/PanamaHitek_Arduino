@@ -249,6 +249,14 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
+     *
+     * @return Nombre de la hoja de Excel
+     */
+    public String getSheetName() {
+        return SHEET_NAME;
+    }
+
+    /**
      * Abre una ventana emergente para escoger la direccion en la cual se quiere
      * almacenar la hoja de datos de Excel
      */
@@ -320,7 +328,7 @@ public class PanamaHitek_DataBuffer {
                     } else if ((value instanceof Float) || (value.equals(Float.class))) {
                         cell.setCellValue((Float) mainBuffer.get(j).get(i - 1));
                     } else if ((value instanceof Double) || (value.equals(Double.class))) {
-                                              cell.setCellValue((Double) mainBuffer.get(j).get(i - 1));
+                        cell.setCellValue((Double) mainBuffer.get(j).get(i - 1));
                     }
                 }
             }
@@ -448,6 +456,6 @@ public class PanamaHitek_DataBuffer {
      */
     public int getTimeColumn() {
         return timeColumn;
-    }    
-    
     }
+
+}
