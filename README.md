@@ -1,4 +1,4 @@
-Librería PanamaHitek_Arduino, versión 3.0.1
+Librería PanamaHitek_Arduino, versión 3.0.2
 
 Por Antony García González
 
