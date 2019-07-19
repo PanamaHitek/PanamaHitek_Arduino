@@ -48,6 +48,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.StandardXYSeriesLabelGenerator;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
@@ -576,6 +577,30 @@ public class PanamaHitek_TimeLineChart extends JPanel {
      */
     public void setGridLinesVisible(boolean visible) {
         this.chart.setGridLinesVisible(visible);
+    }
+
+    /**
+     * Permite establecer los límites del eje horizontal
+     *
+     * @param lower Límite inferior
+     * @param upper Límite superior
+     * 
+     *@since 3.0.3
+     */
+    public void setHorizontalAxisRange(double lower, double upper) {
+        this.chart.getXyplot().getDomainAxis().setRange(lower, upper);
+    }
+
+    /**
+     * Permite establecer los límites del eje vertical
+     *
+     * @param lower Límite inferior
+     * @param upper Límite superior
+     * 
+     * @since 3.0.3
+     */
+    public void setVerticalAxisRange(double lower, double upper) {
+        this.chart.getXyplot().getRangeAxis().setRange(lower, upper);
     }
 
     /**

@@ -31,6 +31,8 @@
  */
 package com.panamahitek;
 
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
 import com.panamahitek.events.DataInsertionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,12 +56,23 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.panamahitek.events.DataInsertionListener;
+import java.awt.Component;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 
 /**
  * Esta clase ha sido diseñada para gestionar el almacenamiento de datos en
@@ -83,6 +96,7 @@ public class PanamaHitek_DataBuffer {
     private boolean timeFlag = false;
     private int timeColumn = 0;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+    private String dateStringFormat = "HH:mm:ss";
     private ArrayList listeners;
 
     TableModelListener tableModelListener = new TableModelListener() {
@@ -155,7 +169,21 @@ public class PanamaHitek_DataBuffer {
      *
      * @see SimpleDateFormat
      */
-    public void addDateFormat(SimpleDateFormat format) {
+    public void setDateFormat(String format) {
+        this.dateFormat = new SimpleDateFormat(format);
+        dateStringFormat = format;
+    }
+
+    /**
+     * Permite establecer el formato de la fecha. Por ejemplo, si se quiere que
+     * la fecha tenga el formato de hora, minutos y segundos, se debe enviar
+     * como parámetro new SimpleDateFormat("HH:mm:ss")
+     *
+     * @param format Formato que se desea establecer
+     *
+     * @see SimpleDateFormat
+     */
+    public void setDateFormat(SimpleDateFormat format) {
         this.dateFormat = format;
     }
 
@@ -220,7 +248,6 @@ public class PanamaHitek_DataBuffer {
             throw new Exception("El parametro 'column' no puede ser mayor a la "
                     + "cantidad de columnas declaradas");
         }
-
         mainBuffer.get(column).add(ROW_COUNT, value);
     }
 
@@ -262,16 +289,35 @@ public class PanamaHitek_DataBuffer {
      */
     public void exportExcelFile() throws FileNotFoundException, IOException {
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getDefaultDirectory());
-        int returnValue = jfc.showOpenDialog(null);
+        jfc.addChoosableFileFilter(new FileNameExtensionFilter("*.xlsx", "xlsx"));
+        jfc.addChoosableFileFilter(new FileNameExtensionFilter("*.json", "JSON"));
+        jfc.setDialogTitle("Especifique la ruta en la que desea guardar el archivo");
+        int returnValue = jfc.showSaveDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = jfc.getSelectedFile();
-            String path = selectedFile.getAbsolutePath();
-            if (!path.endsWith(".xlsx")) {
-                path += ".xlsx";
+            if (jfc.getFileFilter().getDescription().equals("*.json")) {
+                File selectedFile = jfc.getSelectedFile();
+                String path = selectedFile.getAbsolutePath();
+                if (!path.endsWith(".json")) {
+                    path += ".json";
+                }
+                BufferedWriter output = null;
+                File file = new File(path);
+                output = new BufferedWriter(new FileWriter(file));
+                output.write(buildJSON());
+                output.close();
+
+            } else {
+                File selectedFile = jfc.getSelectedFile();
+                String path = selectedFile.getAbsolutePath();
+                if (!path.endsWith(".xlsx")) {
+                    path += ".xlsx";
+                }
+                FileOutputStream outputStream = new FileOutputStream(path);
+                XSSFWorkbook workbook = buildSpreadsheet();
+                workbook.write(outputStream);
+                workbook.close();
             }
-            FileOutputStream outputStream = new FileOutputStream(path);
-            XSSFWorkbook workbook = buildSpreadsheet();
-            workbook.write(outputStream);
+
         }
 
     }
@@ -308,9 +354,7 @@ public class PanamaHitek_DataBuffer {
         for (int i = 0; i <= mainBuffer.get(0).size(); i++) {
             Row row = sheet.createRow(i);
             for (int j = 0; j < variableList.size(); j++) {
-
                 Cell cell = row.createCell(j);
-
                 if (i == 0) {
                     cell.setCellValue((String) variableList.get(j));
                 } else {
@@ -320,7 +364,14 @@ public class PanamaHitek_DataBuffer {
                     } else if ((value instanceof Boolean) || (value.equals(Boolean.class))) {
                         cell.setCellValue((Boolean) mainBuffer.get(j).get(i - 1));
                     } else if ((value instanceof Date) || (value.equals(Date.class))) {
-                        cell.setCellValue((String) mainBuffer.get(j).get(i - 1));
+
+                        CellStyle cellStyle = workbook.createCellStyle();
+                        CreationHelper createHelper = workbook.getCreationHelper();
+                        cellStyle.setDataFormat(
+                                createHelper.createDataFormat().getFormat(dateStringFormat));
+                        cell.setCellValue((Date) mainBuffer.get(j).get(i - 1));
+                        cell.setCellStyle(cellStyle);
+
                     } else if ((value instanceof Integer) || (value.equals(Integer.class))) {
                         cell.setCellValue((Integer) mainBuffer.get(j).get(i - 1));
                     } else if ((value instanceof Long) || (value.equals(Long.class))) {
@@ -334,6 +385,33 @@ public class PanamaHitek_DataBuffer {
             }
         }
         return workbook;
+    }
+
+    /**
+     * Construye la hoja de Excel
+     *
+     * @return Instancia de la clase XSSFWorkbook con los datos almacenados en
+     * el buffer de datos
+     */
+    private String buildJSON() {
+        JsonArray mainArray = new JsonArray();
+        for (int i = 0; i < mainBuffer.get(0).size(); i++) {
+            JsonArray array = new JsonArray();
+            for (int j = 0; j < variableList.size(); j++) {
+                Object value = mainBuffer.get(j).get(i);
+                if ((value instanceof Date) || (value.equals(Date.class))) {
+                    JsonObject cell = new JsonObject();
+                    cell.add(variableList.get(j), dateFormat.format(value));
+                    array.add(cell);
+                } else {
+                    JsonObject cell = new JsonObject();
+                    cell.add(variableList.get(j), String.valueOf(value));
+                    array.add(cell);
+                }
+            }
+            mainArray.add(array);
+        }
+        return String.valueOf(mainArray.asArray());
     }
 
     /**
@@ -388,12 +466,44 @@ public class PanamaHitek_DataBuffer {
                     tableContent[j][i] = mainBuffer.get(i).get(j);
                 }
             }
-            table.setModel(new DefaultTableModel(tableContent, headerTitles));
+            Class[] classes = new Class[classList.size()];
+            for (int i = 0; i < classList.size(); i++) {
+                classes[i] = classList.get(i).getClass();
+            }
+            table.setModel(new DefaultTableModel(tableContent, headerTitles) {
+                Class[] types = classes;
+
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                    return this.types[columnIndex];
+                }
+            });
             DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
             renderer.setHorizontalAlignment(0);
             table.getTableHeader().setReorderingAllowed(false);
             ((DefaultTableModel) table.getModel()).addTableModelListener(tableModelListener);
+
+            for (int i = 0; i < classList.size(); i++) {
+                if (classList.get(i) instanceof Date) {
+                    TableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
+                        SimpleDateFormat f = dateFormat;
+
+                        public Component getTableCellRendererComponent(JTable table,
+                                Object value, boolean isSelected, boolean hasFocus,
+                                int row, int column) {
+                            if (value instanceof Date) {
+                                value = f.format(value);
+                            }
+                            return super.getTableCellRendererComponent(table, value, isSelected,
+                                    hasFocus, row, column);
+                        }
+                    };
+                    table.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
+                }
+
+            }
         }
+
     }
 
     /**
@@ -451,11 +561,33 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     *
-     * @return Indice de la columna de tiwmpo
+     * @return Indice de la columna de tiempo
      */
     public int getTimeColumn() {
         return timeColumn;
+    }
+
+    /**
+     * Permite ordenar los datos en una columna de la tabla que genera la clase
+     *
+     * @param column La columna que se desea ordenar
+     * @param ascending si se desea un orden ascendente o descendente
+     * 
+     * @since 3.0.3
+     */
+    public void sortColumn(int column, boolean ascending) {
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+        table.setRowSorter(sorter);
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+
+        if (ascending) {
+            sortKeys.add(new RowSorter.SortKey(column, SortOrder.ASCENDING));
+        } else {
+            sortKeys.add(new RowSorter.SortKey(column, SortOrder.DESCENDING));
+        }
+
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
     }
 
 }
