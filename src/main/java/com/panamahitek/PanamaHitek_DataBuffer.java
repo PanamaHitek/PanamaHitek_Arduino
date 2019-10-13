@@ -59,6 +59,7 @@ import com.panamahitek.events.DataInsertionListener;
 import java.awt.Component;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -194,7 +195,11 @@ public class PanamaHitek_DataBuffer {
     public void printRow() {
 
         if (timeFlag) {
-            mainBuffer.get(timeColumn).add(ROW_COUNT, dateFormat.format(new Date()));
+            try {
+                mainBuffer.get(timeColumn).add(ROW_COUNT, dateFormat.parse(dateFormat.format(new Date())));
+            } catch (ParseException ex) {
+                Logger.getLogger(PanamaHitek_DataBuffer.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         ROW_COUNT++;
         for (int i = 0; i < mainBuffer.size(); i++) {
@@ -350,7 +355,8 @@ public class PanamaHitek_DataBuffer {
     private XSSFWorkbook buildSpreadsheet() {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet();
-
+        System.out.println("Building spreadsheet...");
+        System.out.println("Buffer size: " + mainBuffer.size());
         for (int i = 0; i <= mainBuffer.get(0).size(); i++) {
             Row row = sheet.createRow(i);
             for (int j = 0; j < variableList.size(); j++) {
@@ -572,7 +578,7 @@ public class PanamaHitek_DataBuffer {
      *
      * @param column La columna que se desea ordenar
      * @param ascending si se desea un orden ascendente o descendente
-     * 
+     *
      * @since 3.0.3
      */
     public void sortColumn(int column, boolean ascending) {

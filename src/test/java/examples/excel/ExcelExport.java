@@ -125,7 +125,7 @@ public class ExcelExport extends javax.swing.JFrame {
 
         try {
             //Se inicia la conexion con el puerto COM21 a 9600 baudios
-            ino.arduinoRX("COM20", 9600, listener);
+            ino.arduinoRX("COM28", 9600, listener);
         } catch (ArduinoException | SerialPortException ex) {
             Logger.getLogger(ExcelExport.class.getName()).log(Level.SEVERE, null, ex);
         }
