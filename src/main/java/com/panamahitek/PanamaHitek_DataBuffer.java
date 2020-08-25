@@ -132,6 +132,13 @@ public class PanamaHitek_DataBuffer {
         listeners = new ArrayList();
     }
 
+    public void clearBuffer() {
+        for (int i = 0; i < mainBuffer.size(); i++) {
+            mainBuffer.get(i).clear();
+            ROW_COUNT=0;
+        }
+    }
+
     /**
      * Permite agregar una columna al buffer de datos
      *
@@ -201,6 +208,7 @@ public class PanamaHitek_DataBuffer {
                 Logger.getLogger(PanamaHitek_DataBuffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
         ROW_COUNT++;
         for (int i = 0; i < mainBuffer.size(); i++) {
             if (mainBuffer.get(i).size() != ROW_COUNT) {
@@ -236,7 +244,6 @@ public class PanamaHitek_DataBuffer {
         if (listenerFlag) {
             triggerDataInsertionEvent();
         }
-
     }
 
     /**

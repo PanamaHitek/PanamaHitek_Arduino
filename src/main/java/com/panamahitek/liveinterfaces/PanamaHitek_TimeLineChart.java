@@ -73,21 +73,34 @@ public class PanamaHitek_TimeLineChart extends JPanel {
     private DataInsertionListener dataInsertionListener = new DataInsertionListener() {
         @Override
         public void onDataInsertion(DataInsertionEvent ev) {
+
             for (int i = 0; i < indexList.size(); i++) {
                 int index = indexList.get(i);
 
+                Date date = (Date) buffer.getMainBuffer().get(0).get(buffer.getRowCount() - 1);
+
                 chart.getDataSeriesList().get(index).add(new Millisecond(
-                        Integer.parseInt(new SimpleDateFormat("SSS").format(new Date())),
-                        Integer.parseInt(new SimpleDateFormat("ss").format(new Date())),
-                        Integer.parseInt(new SimpleDateFormat("mm").format(new Date())),
-                        Integer.parseInt(new SimpleDateFormat("hh").format(new Date())),
-                        Integer.parseInt(new SimpleDateFormat("dd").format(new Date())),
-                        Integer.parseInt(new SimpleDateFormat("MM").format(new Date())),
-                        Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()))),
+                        Integer.parseInt(new SimpleDateFormat("SSS").format(date)),
+                        Integer.parseInt(new SimpleDateFormat("ss").format(date)),
+                        Integer.parseInt(new SimpleDateFormat("mm").format(date)),
+                        Integer.parseInt(new SimpleDateFormat("HH").format(date)),
+                        Integer.parseInt(new SimpleDateFormat("dd").format(date)),
+                        Integer.parseInt(new SimpleDateFormat("MM").format(date)),
+                        Integer.parseInt(new SimpleDateFormat("yyyy").format(date))),
                         Double.parseDouble(String.valueOf(buffer.getMainBuffer().get(index).get(buffer.getRowCount() - 1))));
+
             }
         }
     };
+
+    public void cleanDataSeries() {
+
+     
+        for (int i = 1; i < chart.getDataSeriesList().size(); i++) {
+            chart.getDataSeriesList().get(i).clear();
+        }
+
+    }
 
     private class chartPanel extends JPanel {
 
@@ -110,6 +123,7 @@ public class PanamaHitek_TimeLineChart extends JPanel {
         private Color gridLineColor = Color.GRAY;
         private boolean gridLines = true;
         private boolean linesMarks = true;
+        private TimeSeriesCollection seriesCollector = new TimeSeriesCollection();
 
         public chartPanel() {
             super(new BorderLayout());
@@ -118,9 +132,16 @@ public class PanamaHitek_TimeLineChart extends JPanel {
             strokeList = new ArrayList<>();
         }
 
+        public TimeSeriesCollection getSeriesCollector() {
+            return seriesCollector;
+        }
+
+        public void setSeriesCollector(TimeSeriesCollection seriesCollector) {
+            this.seriesCollector = seriesCollector;
+        }
+
         private void createChart() {
 
-            TimeSeriesCollection seriesCollector = new TimeSeriesCollection();
             if (itemCount > 0) {
                 dataSeries.forEach(i -> {
                     if (i != null) {
@@ -129,6 +150,7 @@ public class PanamaHitek_TimeLineChart extends JPanel {
                     }
                 });
             }
+
             jfreechart = ChartFactory.createTimeSeriesChart(chartTitle, xAxisName, yAxisName, seriesCollector, true, true, false);
             xyplot = (XYPlot) jfreechart.getPlot();
             xyplot.setDomainPannable(true);
@@ -361,6 +383,7 @@ public class PanamaHitek_TimeLineChart extends JPanel {
         boolean dateFound = false;
 
         for (int i = 0; i < buffer.getClassList().size(); i++) {
+
             if (isDate(buffer.getClassList().get(i))) {
                 this.chart.setDateIndex(i);
                 if (!dateFound) {
@@ -385,7 +408,7 @@ public class PanamaHitek_TimeLineChart extends JPanel {
             chart.setSeriesColor(null);
             chart.setSeriesStroke(null);
         }
-
+        System.out.println("Size: " + chart.getDataSeriesList().size());
         buffer.addEventListener(dataInsertionListener);
     }
 
@@ -584,8 +607,8 @@ public class PanamaHitek_TimeLineChart extends JPanel {
      *
      * @param lower Límite inferior
      * @param upper Límite superior
-     * 
-     *@since 3.0.3
+     *
+     * @since 3.0.3
      */
     public void setHorizontalAxisRange(double lower, double upper) {
         this.chart.getXyplot().getDomainAxis().setRange(lower, upper);
@@ -596,7 +619,7 @@ public class PanamaHitek_TimeLineChart extends JPanel {
      *
      * @param lower Límite inferior
      * @param upper Límite superior
-     * 
+     *
      * @since 3.0.3
      */
     public void setVerticalAxisRange(double lower, double upper) {
