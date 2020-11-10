@@ -41,6 +41,7 @@ import javax.swing.*;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
+
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.dial.*;
@@ -365,7 +366,7 @@ public class PanamaHitek_DualDialChart extends JPanel {
      * @throws ArduinoException Posibles excepciones
      * @throws SerialPortException Posibles excepciones
      */
-    public void createArduinoFollowUp(String PORT_NAME, int DATA_RATE) throws ArduinoException, SerialPortException {
+    public void createArduinoFollowUp(String PORT_NAME, int DATA_RATE) throws ArduinoException, SerialPortException{
         this.ino = new PanamaHitek_Arduino();
         multi = new PanamaHitek_MultiMessage(2, ino);
         SerialPortEventListener listener;

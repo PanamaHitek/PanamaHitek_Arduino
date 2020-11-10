@@ -34,7 +34,7 @@ public class txExample extends javax.swing.JFrame {
          * a una velocidad de 9600 baudios
          */
         try {
-            ino.arduinoTX("COM20", 9600);
+            ino.arduinoTX("COM22", 9600);
         } catch (ArduinoException ex) {
             Logger.getLogger(txExample.class.getName()).log(Level.SEVERE, null, ex);
         }

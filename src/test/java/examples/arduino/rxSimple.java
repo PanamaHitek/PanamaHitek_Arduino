@@ -30,6 +30,7 @@ public class rxSimple {
                 de recibir el mensaje, el cual podra ser impreso a traves del metodo
                 printMessage()
                  */
+                System.out.println(ino.receiveData());
                 if (ino.isMessageAvailable()) {
                     //Se le asigna el mensaje recibido a la variable msg
                     String msg = ino.printMessage();
@@ -47,7 +48,7 @@ public class rxSimple {
     public static void main(String[] args) {
         try {
             //Se inicializa la conexion con el Arduino en el puerto COM5
-            ino.arduinoRX("COM5", 9600, listener);
+            ino.arduinoRX("COM5", 115200, listener);
         } catch (ArduinoException ex) {
             Logger.getLogger(rxSimple.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SerialPortException ex) {

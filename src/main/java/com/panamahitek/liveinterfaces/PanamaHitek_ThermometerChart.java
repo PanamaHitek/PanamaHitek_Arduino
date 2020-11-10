@@ -339,7 +339,7 @@ public class PanamaHitek_ThermometerChart extends JPanel {
      * @throws ArduinoException Posibles excepciones
      * @throws SerialPortException Posibles excepciones
      */
-    public void createArduinoFollowUp(String PORT_NAME, int DATA_RATE) throws ArduinoException, SerialPortException {
+    public void createArduinoFollowUp(String PORT_NAME, int DATA_RATE) throws ArduinoException, SerialPortException{
         this.ino = new PanamaHitek_Arduino();
         SerialPortEventListener listener;
         listener = (SerialPortEvent serialPortEvent) -> {
@@ -347,7 +347,9 @@ public class PanamaHitek_ThermometerChart extends JPanel {
                 if (ino.isMessageAvailable()) {
                     setValue(Double.parseDouble(ino.printMessage()));
                 }
-            } catch (SerialPortException | ArduinoException ex) {
+            } catch (ArduinoException ex) {
+                Logger.getLogger(PanamaHitek_ThermometerChart.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SerialPortException ex) {
                 Logger.getLogger(PanamaHitek_ThermometerChart.class.getName()).log(Level.SEVERE, null, ex);
             }
         };

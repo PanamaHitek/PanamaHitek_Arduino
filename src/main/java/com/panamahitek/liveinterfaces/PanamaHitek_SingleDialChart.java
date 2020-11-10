@@ -467,7 +467,7 @@ public class PanamaHitek_SingleDialChart extends JPanel {
      * @throws ArduinoException Posibles excepciones
      * @throws SerialPortException Posibles excepciones
      */
-    public void createArduinoFollowUp(String PORT_NAME, int DATA_RATE) throws ArduinoException, SerialPortException {
+    public void createArduinoFollowUp(String PORT_NAME, int DATA_RATE) throws ArduinoException, SerialPortException{
         this.ino = new PanamaHitek_Arduino();
         SerialPortEventListener listener;
         listener = (SerialPortEvent serialPortEvent) -> {
@@ -476,9 +476,9 @@ public class PanamaHitek_SingleDialChart extends JPanel {
                 if (ino.isMessageAvailable()) {
                     setValue(Double.parseDouble(ino.printMessage()));
                 }
-            } catch (SerialPortException ex) {
-                Logger.getLogger(PanamaHitek_SingleDialChart.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ArduinoException ex) {
+                Logger.getLogger(PanamaHitek_SingleDialChart.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SerialPortException ex) {
                 Logger.getLogger(PanamaHitek_SingleDialChart.class.getName()).log(Level.SEVERE, null, ex);
             }         
         };

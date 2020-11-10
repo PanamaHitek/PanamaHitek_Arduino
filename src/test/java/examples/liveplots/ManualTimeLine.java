@@ -21,20 +21,7 @@ import jssc.SerialPortEventListener;
  */
 public class ManualTimeLine extends javax.swing.JFrame {
 
-    /**
-     * Se crean los objetos que permiten llevar a cabo las distintas operaciones
-     * de recepcion, clasificacion, almacenamiento y grafica
-     *
-     * A continuacion la descripcion de los objetos:
-     *
-     * - ino: Objeto que permite la comunicacion entre Arduino y Java <br>
-     * - multi: Recibe los datos del Arduino y los clasifica en las dos
-     * variables requeridas<br>
-     * - buffer: Almacena los datos recibidos de forma ordenada<br>
-     * - chart: Grafica los datos almacenados en el buffer<br>
-     */
     PanamaHitek_Arduino ino;
-    PanamaHitek_MultiMessage multi;
     PanamaHitek_DataBuffer buffer;
     PanamaHitek_TimeLineChart chart;
 
@@ -42,40 +29,20 @@ public class ManualTimeLine extends javax.swing.JFrame {
         initComponents();
 
         try {
-            //Se inicializan las instancias de los objetos
             ino = new PanamaHitek_Arduino();
-            /**
-             * Se especifica que se van a recibir datos de 2 sensores
-             */
-            multi = new PanamaHitek_MultiMessage(2, ino);
             buffer = new PanamaHitek_DataBuffer();
             chart = new PanamaHitek_TimeLineChart();
 
-            /**
-             * Se crea un Event Listener para indicarle a Java cada vez que se
-             * reciba un dato desde Arduno
-             */
             SerialPortEventListener listener = new SerialPortEventListener() {
                 @Override
                 public void serialEvent(SerialPortEvent serialPortEvent) {
-
+          
                     try {
-                        /**
-                         * Se clasifican los datos y se insertan en el
-                         * DataBuffer
-                         */
-                        if (multi.dataReceptionCompleted()) {
-
-                            buffer.addValue(1, multi.getMessage(0));
-                            buffer.addValue(2, multi.getMessage(1));
-                            buffer.addValue(3, 50);
-                            //Se imprime una fila en el buffer de datos
+                        if (ino.isMessageAvailable()) {
+                   
+                            System.out.println(ino.printMessage());
                             buffer.printRow();
-                            /**
-                             * Se limpia el buffer de recepcion para recibir un
-                             * nuevo par de datos
-                             */
-                            multi.flushBuffer();
+
                         }
                     } catch (Exception ex) {
                         Logger.getLogger(ManualTimeLine.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,16 +51,9 @@ public class ManualTimeLine extends javax.swing.JFrame {
                 }
             };
 
-            /**
-             * Se establecen las columnas que formaran parte del buffer de datos
-             * El indice es la posicion de la columna, seguida del nombre que se
-             * le dara
-             */
-            buffer.addTimeColumn(0, "Tiempo");
+                     buffer.addTimeColumn(0, "Tiempo");
             buffer.addColumn(1, "Temperatura", Double.class);
-            buffer.addColumn(2, "Humedad", Double.class);
-            buffer.addColumn(3, "LO QUE SEA", Double.class);
-            
+
             buffer.insertToPanel(jPanel2);
 
             chart.setDataBuffer(buffer); //Se agrega el buffer a la grafica
@@ -104,19 +64,13 @@ public class ManualTimeLine extends javax.swing.JFrame {
             chart.setBackgroundColor(Color.WHITE);
             //Color de la linea de temperatura (negro)
             chart.setLineColor(1, Color.BLUE);
-            //Color de la linea de humedad (rojo)
-            chart.setLineColor(2, Color.RED);
 
-            chart.setLineColor(3, Color.GREEN);
-            //Grosor de la linea de temperatura (3)
-            chart.setLineThickness(1, 3);
-            //Maxima cantidad de puntos en la grafica en un momento dado
             chart.setMaximumItemCount(20);
             //Se inserta la grafica en el panel
             chart.insertToPanel(jPanel1);
 
             //Se inicia la conexion con el Arduino
-            ino.arduinoRXTX("COM21", 115200, listener);
+            ino.arduinoRXTX("COM5", 115200, listener);
 
         } catch (Exception ex) {
             Logger.getLogger(ManualTimeLine.class.getName()).log(Level.SEVERE, null, ex);

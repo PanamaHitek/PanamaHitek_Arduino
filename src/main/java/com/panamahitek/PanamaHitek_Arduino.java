@@ -64,12 +64,12 @@ public class PanamaHitek_Arduino {
      * Los créditos que se imprimen en cada ejecución de la libreria
      */
     private void PanamaHitek() {
-        System.out.println("PanamaHitek_Arduino Library, version 3.1.0");
+        System.out.println("PanamaHitek_Arduino Library, version 3.2.0");
         System.out.println("==============================================");
         System.out.println("Created by Antony Garcia Gonzalez");
         System.out.println("Electromechanical Engineer and creator of Project Panama Hitek");
-        System.out.println("This library has been created from Java Simple Serial Connector, by Alexey Sokolov");
-        System.out.println("You can find all the information about this library at http://panamahitek.com");
+        System.out.println("This library has been created from Java Simple Serial Connector (https://github.com/java-native/jssc)");
+        System.out.println("You can find all the information about this AP at https://github.com/PanamaHitek/PanamaHitek_Arduino");
     }
     
     /**
