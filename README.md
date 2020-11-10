@@ -1,4 +1,4 @@
-Librería PanamaHitek_Arduino, versión 3.1.0
+Librería PanamaHitek_Arduino, versión 3.2.0
 
 Por Antony García González
 
@@ -22,6 +22,10 @@ Adicionalmente cuenta con 4 clases dedicadas a la gestión de gráficos en tiemp
 
 Desde la versión 2.8.0 se ha descontinuado el uso de RXTX en favor de Java Simple Serial Connector (Alexey Sokolov, 
 https://github.com/scream3r/java-simple-serial-connector)
+
+Versión 3.2.0
+---------------------
+Se ha agregado soporte para el JDK11, lo cual finalmente permitirá a los usuarios utilizar este recurso en proyectos con JDK superio al 1.8. Hasta ahora esto no era posible, razón por la cual los usuarios debían restringirse al JDK 1.8. El update ha sido posible gracias al "fork" del JSSC disponible en este repositorio: https://github.com/java-native/jssc
 
 Versión 3.0.0
 ---------------------
