@@ -37,7 +37,7 @@ The library also includes four specialized classes for real-time graphical repre
 
 ### Prerequisites
 
-- JDK 8 or higher (including the latest JDK 23).
+- JDK 8 or higher (including JDK 21).
 - Arduino IDE installed (optional, but recommended for simplifying the setup).
 
 ### Installation via Maven
