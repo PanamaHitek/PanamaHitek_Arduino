@@ -1,176 +1,106 @@
-Librería PanamaHitek_Arduino, versión 3.2.0
+# Biblioteca PanamaHitek_Arduino - Versión 3.2.0
 
-Por Antony García González
+## Autor: Antony García González
+*Ingeniero Electromecánico, Docente e Investigador en la Universidad Tecnológica de Panamá. Fundador del proyecto [Panama Hitek](http://panamahitek.com) junto al equipo creativo de Panama Hitek.*
 
-*Ingeniero Electromecánico e Investigador para la Universidad Tecnológica de Panamá. Fundador del sitio web htp://panamahitek.com junto al Panama Hitek Creative Team.*
+- **Correo electrónico:** antony.garcia.gonzalez@gmail.com  
+- **Facebook:** [facebook.com/panamahitek](http://facebook.com/panamahitek)  
+- **Twitter:** [@panamahitek](http://twitter.com/panamahitek)
 
-- **email:** antony.garcia.gonzalez@gmail.com
-- **whatsapp:** +50767347398
-- **facebook:** http://facebook.com/panamahitek
-- **twitter:** @panamahitek
+---
 
-La librería incluye 3 clases principales. 
-- La clase **PanamaHitek_Arduino** es la encargada de manejar todas las conexiones y la comunicación con Arduino.
-- La clase **PanamaHitek_MultiMessage** incluye las herramientas necesarias para recibir múltiples mensajes de forma simultánea en Java.
-- La clase **PanamaHitek_DataBuffer** almacena datos de forma ordenada, permite la visualización en una tabla y la exportación de datos a MS Excel (archivo .xlsx)
+## Descripción general
 
-Adicionalmente cuenta con 4 clases dedicadas a la gestión de gráficos en tiempo real, a través de la utilización de las dependencias de JFreeCharts.
-- **PanamaHitek_DualDialChart** permite hacer graficas tipo reloj analógico con dos agujas
-- **PanamaHitek_SingleDialChart** permite hacer graficas tipo reloj analógico con una aguja
-- **PanamaHitek_ThermometerChart** permite hacer graficas tipo termómetro
-- **PanamaHitek_TimeLineChart** permite hacer gráficas de línea de múltiples datos en función del tiempo
+La biblioteca **PanamaHitek_Arduino** proporciona un marco robusto para manejar la comunicación serial entre aplicaciones Java y placas Arduino. Ofrece tres clases principales:
 
-Desde la versión 2.8.0 se ha descontinuado el uso de RXTX en favor de Java Simple Serial Connector (Alexey Sokolov, 
-https://github.com/scream3r/java-simple-serial-connector)
+- **`PanamaHitek_Arduino`** - Administra las conexiones y la comunicación con Arduino.
+- **`PanamaHitek_MultiMessage`** - Permite la recepción simultánea de múltiples mensajes en Java.
+- **`PanamaHitek_DataBuffer`** - Organiza datos, facilita la visualización en tabla y permite la exportación a MS Excel (.xlsx).
 
-Versión 3.2.0
----------------------
-Se ha agregado soporte para el JDK11, lo cual finalmente permitirá a los usuarios utilizar este recurso en proyectos con JDK superio al 1.8. Hasta ahora esto no era posible, razón por la cual los usuarios debían restringirse al JDK 1.8. El update ha sido posible gracias al "fork" del JSSC disponible en este repositorio: https://github.com/java-native/jssc
+### Características adicionales
 
-Versión 3.0.0
----------------------
-La nueva y mejorada version de la librería. Se ha agregado nuevos recursos que permiten almacenar datos recibidos y exportarlos en hojas de cálculo de MS Excel o graficarlos en tiempo real con la ayuda de las librerías POI y JFreeCharts.
-También se ha agregado ejemplos de uso de las principales características de la librería.
+La biblioteca también incluye cuatro clases especializadas para la representación gráfica en tiempo real utilizando la dependencia JFreeCharts:
 
-Video sobre utilización de la librería para tabulación de datos y exportar la información recibida a Excel:
-https://www.youtube.com/watch?v=wo4ts0osZV8
+- **`PanamaHitek_DualDialChart`** - Crea gráficos tipo reloj analógico con dos agujas.
+- **`PanamaHitek_SingleDialChart`** - Crea gráficos tipo reloj analógico con una aguja.
+- **`PanamaHitek_ThermometerChart`** - Genera gráficos tipo termómetro.
+- **`PanamaHitek_TimeLineChart`** - Genera gráficos de líneas múltiples en función del tiempo.
 
-Versión 2.8.1
----------------------
-Se han corregido algunos bugs de la versión 2.8.0
+---
 
-Versión 2.8.0
----------------------
-Con esta versión se produce un gran salto desde las versiones anteriores de esta librería. Hasta ahora se había utilizado la librería 
-RXTX (https://github.com/rxtx/rxtx/tree/development/rxtxSerial-java) como Core para la comunicación serial. Ahora hemos migrado a la librería
-Java Simple Serial Connector (JSSC) de Alexey Sokolov (https://github.com/scream3r/java-simple-serial-connector).
+## Instalación
 
-Este salto se ha producido debido a que esta compilación muestra un mejor desempeño que el Core anterior. Es por esta razón que otros proyectos
-como el propio Arduino IDE (escrito en Java) que antes utilizaban RXTX ahora han migrado a JSSC. El cambio de librería en el IDE de Arduino se produjo
-desde la versión 1.5.6 BETA, lanzada en Github el 20 de febrero de 2014.
+### Requisitos previos
 
-Con JSSC no es necesario instalar los drivers para la comunicación serial. Esto ya lo habíamos logrado nosotros desde la versión 2.7.2 de nuestra librería.
-La migración a JSSC nos ha permitido lograr que nuestra librería sea compatible con sistemas operativos Linux, Mac y Solaris, además de Windows.
+- JDK 8 o superior (JDK 11 recomendado).
+- Arduino IDE instalado (opcional, pero recomendado para simplificar la configuración).
 
-Cuando se ejecute un código que contenga esta librería, Java se encargará de buscar en la ruta C:/Users/nombre_de_usuario/.jssc/windows (en Windows) en donde 
-debe estar el fichero jSSC-2.8_x86_64.dll, necesario para la comunicación entre Java y el puerto serie. Si el archivo no se encuentra disponible, Java creará 
-la ruta y colocará el fichero necesario. Lo mismo aplica para otros sistemas operativos diferentes a Windows.
+### Instalación mediante Maven
 
-Si en el equipo en el cual utilizaremos esta librería se encuentra instalado el Arduino IDE, no será necesario que la librería instale el archivo, ya que el
-que el Arduino IDE utiliza esta misma técnica.
+Agrega las siguientes líneas a tu archivo `pom.xml`:
 
-
-Versión 2.7.3
----------------------
-Corregidos algunos bugs de la versión 2.7.2
-
-
-Versión 2.7.2
----------------------
-Se ha agregado la compatibilidad con Maven. Ahora se puede llamar a la librería PanamaHitek_Arduino agregando las sigueintes líneas al archivo POM:
-     
+```xml
 <dependencies>
-
-        <dependency>
-            <groupId>com.github.PanamaHitek</groupId>
-            <artifactId>PanamaHitek_Arduino</artifactId>
-            <version>2.7.2</version>
-        </dependency>
-    
+    <dependency>
+        <groupId>com.github.PanamaHitek</groupId>
+        <artifactId>PanamaHitek_Arduino</artifactId>
+        <version>2.7.2</version>
+    </dependency>
 </dependencies>
 
 <repositories>
-
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
 </repositories>
+```
 
-Versión 2.7.1
----------------------
-Se ha corregido algunos pequeños errores en la estructura interna de la librería.
+### Instalación manual
 
-Versión 2.7.0
----------------------
-Antes de esta versión era necesario tener instalados los drivers rxtxSerial.dll en la ruta de JAVA_HOME. 
-A partir de la versión 2.7.0, en cada ejecución la librería verifica si los drivers están instalados en la ruta C:/JavaRXTX.
-Si no existen dichos ficheros, la librería los crea. Si el directorio no existe, se encargar de armar la estructura para el almacenamiento
-de los archivos *.dll (Windows) necesarios para que el programa cargue sin problemas.
+1. Descarga la última versión de la biblioteca desde el [repositorio de GitHub](https://github.com/PanamaHitek/Arduino-JavaAPI).
+2. Extrae los archivos en un directorio de tu preferencia.
+3. Añade los archivos `.jar` al classpath de tu proyecto Java.
 
-Este feature SÓLO FUNCIONA EN WINDOWS. Invitamos a los usuarios de Linux a que nos ayuden a expandir estas capacidades a otras plataformas.
-Nuestro repositorio en GitHub contiene todos los archivos de esta librería: https://github.com/PanamaHitek/Arduino-JavaAPI
+---
 
+## Actualizaciones de versión
 
-Versión 2.6.0
----------------------
-Grandes cambios. La librería ya no se llama Arduino para Java, sino que la hemos renombrado PanamaHitek_Arduino.
-Se ha modificado algunos métodos. Procedo a detallar los cambios:
+### Versión 3.2.0
+- Se agregó soporte para JDK 11, lo que permite la compatibilidad más allá de JDK 1.8.
+- Esta actualización se realizó utilizando un fork de JSSC disponible en: [Repositorio GitHub](https://github.com/java-native/jssc).
 
-  -- Se ha aplicado el lower Camel Case a todos los métodos. Lo que antes llamábamos ArduinoRXTX ahora se cambió por arduinoRXTX.
-  -- Se ha despreciado el método NameSerialPortsAt(). Ahora se utiliza getSerialPorts().
-  -- Se ha despreciado el método SerialPortsAvailable(). Ahora se utiliza getPortsAvailable().
-  -- Se renombró el método MessageAvailable() a isMessageAvailable().
-  -- Se ha hecho innecesario el establecimiento del TimeOut como parámetro de entrada para los métodos ArduinoRX, ArduinoTX y ArduinoRXTX.
-  -- Se ha documentado todos los métodos y clases con el JavaDoc.
-  -- Se ha hecho público el código de la librería en nuestro repositorio de Github (https://github.com/PanamaHitek/Arduino-JavaAPI).
-  
+### Versión 3.0.0
+- Mejora en las capacidades de almacenamiento de datos.
+- Nueva funcionalidad para exportar datos a MS Excel y generación de gráficos en tiempo real utilizando POI y JFreeCharts.
+- Se agregaron ejemplos de uso detallados.
 
-Incluye los nuevos métodos en la clase PanamaHitek_Arduino:
-  -- List<String> getSerialPorts()
-     Devuelve una lista con los dispositivos conectados en el Puerto Serie.
-  -- int getPortsAvailable()
-     Devuelve la cantidad de dispositivos conectados en el Puerto Serie.
+**Video tutorial:** [Tabulación y exportación de datos a Excel](https://www.youtube.com/watch?v=wo4ts0osZV8)
 
-La clase PanamaHitek_MultiMessage incluye un nuevo método:
-  -- List<String> getMessageList()
-     Entrega los mensajes recibidos como una Lista.
+---
 
-Versión 2.5.0
----------------------
-Incluye los nuevos métodos en la clase Arduino:
-  -- void ShowMessageDialogs(boolean input)
-     Permite activar o desactivar las ventanas emergentes cuando se produce algún error en tiempo de ejecución
+## Métodos principales
 
-  -- void SendByte(int input)
-     Envía Bytes a Arduino por medio del puerto Serie.
+### Clase: `PanamaHitek_Arduino`
 
-Versiones Anteriores
----------------------
-Métodos incluidos en la librería, en la clase Arduino.
-  -- void ArduinoTX(String PORT_NAME, int TIME_OUT, int DATA_RATE)
-     Permite establecer una conexión entre Arduino y Java, donde sólo se puede enviar información de Java a Arduino
-     por medio de comunicación serial.
+- **`void ArduinoTX(String PORT_NAME, int TIME_OUT, int DATA_RATE)`**
+  - Establece una conexión para enviar datos de Java a Arduino.
+- **`void ArduinoRX(String PORT_NAME, int TIME_OUT, int DATA_RATE, SerialPortEventListener evento)`**
+  - Permite recibir datos de Arduino a Java.
+- **`void ArduinoRXTX(String PORT_NAME, int TIME_OUT, int DATA_RATE, SerialPortEventListener evento)`**
+  - Habilita la comunicación bidireccional.
+- **`void SendData(String data)`**
+  - Envía una cadena de caracteres a Arduino.
+- **`String ReceiveData()`**
+  - Recibe datos desde Arduino.
+- **`boolean isMessageAvailable()`**
+  - Verifica si un mensaje ha sido recibido.
+- **`void KillArduinoConnection()`**
+  - Finaliza la conexión.
 
-  -- void ArduinoRX(String PORT_NAME, int TIME_OUT, int DATA_RATE, SerialPortEventListener evento)
-     Permite establecer una conexión entre Arduino y Java, donde sólo se puede enviar información de Arduino a Java
-     por medio de comunicación serial. Se requiere instanciar la clase SerialPortEventListener, de la librería RXTX.
+---
 
-  -- void ArduinoRXTX(String PORT_NAME, int TIME_OUT, int DATA_RATE, SerialPortEventListener evento)
-     Permite establecer una conexión entre Arduino y Java, donde se puede enviar y recibir información entre Arduino y Java
-     por medio de comunicación serial. Se requiere instanciar la clase SerialPortEventListener, de la librería RXTX.
+## Documentación
 
-  -- void SendData(String data)
-     Permite enviar una cadena de caracteres desde Java hacia Arduino
-
-  -- String ReceiveData()
-     Permite recibir información directamente desde Arduino por medio de Comunicación Serial.
-
-  -- boolean MessageAvailable()
-     Devuelve true cuando se ha terminado de recibir un mensaje desde Arduino, utilizando Serial.println().
-  
-  -- String PrintMessage()
-     Devuelve un string con el mensaje que se haya enviado desde Arduino, solamente cuando MessageAvailable() devuelva true.
-
-  -- int SerialPortsAvailable()
-     Devielve la cantidad de puertos serie disponibles y activos en la computadora
-
-  -- String NameSerialPortAt(int index)
-     Nombra los puertos serie disponibles
-
-  -- void KillArduinoConnection()
-     Finaliza la conexión entre Arduino y Java.
-
-Para una documentación completa sobre este proyecto, visita:
-http://panamahitek.com/libreria-arduino-para-java/
+Para documentación completa y ejemplos de uso, visita:  
+[PanamaHitek Arduino Library](http://panamahitek.com/libreria-arduino-para-java/)
