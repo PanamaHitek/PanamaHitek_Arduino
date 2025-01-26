@@ -2,3 +2,6 @@
 /build/
 /nbproject/private/
 /target/
+nb-configuration.xml
+nbactions.xml
+PanamaHitek_Arduino.iml
