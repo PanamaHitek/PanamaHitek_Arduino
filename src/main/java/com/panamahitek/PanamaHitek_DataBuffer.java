@@ -107,12 +107,22 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 
 /**
- * Esta clase ha sido diseñada para gestionar el almacenamiento de datos en
- * hojas de cálculo de Excel de manera fácil y rápida
- *
- * @author Antony García González, de Proyecto Panama Hitek. Visita
- * http://panamahitek.com
- */
+* [ES] <br>
+* Esta clase ha sido diseñada para gestionar el almacenamiento de datos en
+* hojas de cálculo de Excel de manera fácil y rápida. <br>
+* Proporciona métodos para agregar columnas, insertar datos, exportar a
+* archivos Excel y JSON, y visualizar los datos en una tabla. <br>
+* Para más información, visita panamahitek.com. <br>
+* <br>
+* [EN] <br>
+* This class is designed to manage data storage in Excel spreadsheets easily
+* and quickly. <br>
+* It provides methods to add columns, insert data, export to Excel and JSON
+* files, and visualize the data in a table. <br>
+* For more information, visit panamahitek.com. <br>
+* <br>
+* @author Antony García González
+*/
 public class PanamaHitek_DataBuffer {
 
     private List<List<Object>> mainBuffer;
@@ -166,7 +176,7 @@ public class PanamaHitek_DataBuffer {
     public void clearBuffer() {
         for (int i = 0; i < mainBuffer.size(); i++) {
             mainBuffer.get(i).clear();
-            ROW_COUNT=0;
+            ROW_COUNT = 0;
         }
     }
 

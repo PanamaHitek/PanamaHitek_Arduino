@@ -60,7 +60,6 @@
  *
  * ========================================================================
  */
-
 package com.panamahitek;
 
 import java.util.ArrayList;
@@ -71,7 +70,19 @@ import static jssc.SerialPort.PURGE_RXCLEAR;
 import static jssc.SerialPort.PURGE_TXCLEAR;
 
 /**
- * @author Antony García González, de Proyecto Panama Hitek. Visita http://panamahitek.com
+ * [ES] <br>
+ * Esta clase proporciona métodos para establecer y gestionar la comunicación serie con un dispositivo Arduino
+ * utilizando la biblioteca JSSC. Permite enviar y recibir datos, así como configurar parámetros de conexión
+ * como la paridad, el tamaño de byte, los bits de parada y el tiempo de espera. Para más información sobre la biblioteca,
+ * visite: https://panamahitek.com
+ * <br>
+ * <br>
+ * [EN] <br>
+ * This class provides methods to establish and manage serial communication with an Arduino device
+ * using the JSSC library. It allows sending and receiving data, as well as configuring connection parameters
+ * such as parity, byte size, stop bits, and timeout. For mor information about the library, visit: https://panamahitek.com
+ * <br>
+ * @author Antony García González
  */
 public class PanamaHitek_Arduino {
 
@@ -88,47 +99,33 @@ public class PanamaHitek_Arduino {
     private boolean availableInUse = false;
 
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
-     *
-     * Constructor de la clase PanamaHitek_Arduino.
-     *
-     * Este constructor inicializa un objeto de la clase PanamaHitek_Arduino llamando al método `PanamaHitek()`,
-     * el cual muestra los créditos e información relacionada con la librería.
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Constructor for the PanamaHitek_Arduino class.
-     *
-     * This constructor initializes a PanamaHitek_Arduino object by calling the `PanamaHitek()` method,
-     * which displays the credits and information about the library.
+     * [ES] <br>
+     * Constructor de la clase PanamaHitek_Arduino. Este constructor inicializa
+     * un objeto de la clase PanamaHitek_Arduino llamando al método
+     * <code>PanamaHitek()</code>, el cual muestra los créditos y la información
+     * relacionada con la librería. <br>
+     * <br>
+     * [EN] <br>
+     * Constructor for the PanamaHitek_Arduino class. This constructor
+     * initializes a PanamaHitek_Arduino object by calling the
+     * <code>PanamaHitek()</code> method, which displays the credits and
+     * information about the library.
      */
     public PanamaHitek_Arduino() {
         PanamaHitek();
+
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
-     *
-     * Muestra los créditos de la librería PanamaHitek_Arduino.
-     *
-     * Este método imprime en la consola información sobre la versión de la librería,
-     * el creador y los recursos relacionados con el proyecto Panama Hitek.
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Displays the credits of the PanamaHitek_Arduino library.
-     *
-     * This method prints to the console information about the library version,
-     * the creator, and related resources for the Panama Hitek project.
+     * [ES] <br>
+     * Muestra los créditos de la librería PanamaHitek_Arduino. Este método
+     * imprime en la consola información sobre la versión de la librería, el
+     * creador y los recursos relacionados con el proyecto Panama Hitek. <br>
+     * <br>
+     * [EN] <br>
+     * Displays the credits of the PanamaHitek_Arduino library. This method
+     * prints to the console information about the library version, the creator,
+     * and related resources for the Panama Hitek project.<br>
      */
     private void PanamaHitek() {
         System.out.println("PanamaHitek_Arduino Library, version 3.3.0");
@@ -137,51 +134,49 @@ public class PanamaHitek_Arduino {
         System.out.println("Electromechanical Engineer and creator of Project Panama Hitek");
         System.out.println("This library has been created from Java Simple Serial Connector (https://github.com/java-native/jssc)");
         System.out.println("You can find all the information about this AP at https://github.com/PanamaHitek/PanamaHitek_Arduino");
+
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Establece la paridad en la conexión con el puerto serie. <br>
+     * Este método configura el tipo de paridad utilizado en la conexión
+     * serie.<br>
+     * La paridad es un mecanismo de detección de errores en la transmisión de
+     * datos.<br>
+     * Si se proporciona un valor fuera del rango permitido, se establecerá la
+     * paridad por defecto: "Sin Paridad" (valor 0). <br>
+     * <br>
+     * [EN] <br>
+     * Sets the parity for the serial port connection. <br>
+     * This method configures the type of parity used in the serial
+     * connection.<br>
+     * Parity is an error detection mechanism in data transmission.<br>
+     * If a value outside the allowed range is provided, the default parity "No
+     * Parity" (value 0) will be set. <br>
+     * <br>
      *
-     * Establece la paridad en la conexión con el puerto serie.
-     *
-     * Este método configura el tipo de paridad utilizado en la conexión serie.
-     * La paridad es un mecanismo de detección de errores en la transmisión de datos.
-     * Si se proporciona un valor fuera del rango permitido, se establecerá
-     * la paridad por defecto: "Sin Paridad" (valor 0).
-     *
-     * @param input_Parity Valor entero que define el tipo de paridad a establecer:
-     * <br>0 = Sin Paridad
-     * <br>1 = Paridad Impar
-     * <br>2 = Paridad Par
-     * <br>3 = Paridad Marcada
-     * <br>4 = Paridad Espaciada
-     *
-     * Si se ingresa un valor fuera de este rango, se establecerá el valor por defecto de "Sin Paridad".
-     *
-     * @since v2.6.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Sets the parity for the serial port connection.
-     *
-     * This method configures the type of parity used in the serial connection.
-     * Parity is an error detection mechanism in data transmission.
-     * If a value outside the allowed range is provided, the default
-     * parity "No Parity" (value 0) will be set.
-     *
-     * @param input_Parity Integer value that defines the type of parity to set:
-     * <br>0 = No Parity
-     * <br>1 = Odd Parity
-     * <br>2 = Even Parity
-     * <br>3 = Mark Parity
-     * <br>4 = Space Parity
-     *
-     * If an out-of-range value is provided, the default "No Parity" value will be set.
+     * @param input_Parity [ES] <br>
+     * Valor entero que define el tipo de paridad a establecer:<br>
+     * 0 = Sin Paridad<br>
+     * 1 = Paridad Impar<br>
+     * 2 = Paridad Par<br>
+     * 3 = Paridad Marcada<br>
+     * 4 = Paridad Espaciada<br>
+     * <br>
+     * Si se ingresa un valor fuera de este rango, se establecerá el valor por
+     * defecto de "Sin Paridad".<br>
+     * <br>
+     * [EN] <br>
+     * Integer value that defines the type of parity to set:<br>
+     * 0 = No Parity<br>
+     * 1 = Odd Parity<br>
+     * 2 = Even Parity<br>
+     * 3 = Mark Parity<br>
+     * 4 = Space Parity<br>
+     * <br>
+     * If an out-of-range value is provided, the default "No Parity" value will
+     * be set.<br>
      *
      * @since v2.6.0
      */
@@ -198,40 +193,35 @@ public class PanamaHitek_Arduino {
                     + "4 = Paridad Espaciada\n"
                     + "Se conserva la paridad por defecto (0- Sin Paridad)");
         }
+
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
-     *
-     * Establece el tamaño de byte (ByteSize) para la conexión serie.
-     *
-     * Este método configura el número de bits de datos por cada byte transmitido
-     * a través del puerto serie. Se aceptan valores entre 5 y 8.
-     *
-     * @param Bytes Valor entero que define el tamaño de byte permitido (entre 5 y 8).
-     *
-     * Si se proporciona un valor fuera del rango permitido, se establecerá el valor
-     * por defecto de 8 bytes y se mostrará un mensaje informativo en la consola.
-     *
-     * @since v2.6.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Sets the byte size (ByteSize) for the serial connection.
-     *
+     * [ES] <br>
+     * Establece el tamaño de byte (ByteSize) para la conexión serie. <br>
+     * Este método configura el número de bits de datos por cada byte
+     * transmitido a través del puerto serie. Se aceptan valores entre 5 y 8.
+     * <br>
+     * <br>
+     * [EN] <br>
+     * Sets the byte size (ByteSize) for the serial connection. <br>
      * This method configures the number of data bits per transmitted byte
-     * through the serial port. Accepted values range from 5 to 8.
+     * through the serial port. Accepted values range from 5 to 8. <br>
+     * <br>
      *
-     * @param Bytes Integer value that defines the allowed byte size (between 5 and 8).
-     *
-     * If a value outside the allowed range is provided, the default value of
-     * 8 bytes will be set, and an informative message will be displayed on the console.
-     *
+     * @param Bytes <br>
+     * [ES] Valor entero que define el tamaño de byte permitido (entre 5 y
+     * 8).<br>
+     * Si se proporciona un valor fuera del rango permitido, se establecerá el
+     * valor por defecto de 8 bytes y se mostrará un mensaje informativo en la
+     * consola.<br>
+     * <br>
+     * [EN] Integer value that defines the allowed byte size (between 5 and
+     * 8).<br>
+     * If a value outside the allowed range is provided, the default value of 8
+     * bytes will be set, and an informative message will be displayed on the
+     * console.<br>
+     * <br>
      * @since v2.6.0
      */
     public void setByteSize(int Bytes) {
@@ -244,48 +234,33 @@ public class PanamaHitek_Arduino {
         }
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Establece el número de bits de parada (StopBits) para la conexión serie.
+     * <br>
+     * Este método configura el número de bits de parada utilizados en la
+     * transmisión de datos a través del puerto serie. Se aceptan valores entre
+     * 1 y 3. <br>
+     * <br>
+     * [EN] <br>
+     * Sets the number of stop bits (StopBits) for the serial connection. <br>
+     * This method configures the number of stop bits used in data transmission
+     * through the serial port. Accepted values range from 1 to 3. <br>
+     * <br>
      *
-     * Establece la cantidad de StopBits para la conexión serie.
-     *
-     * Este método configura el número de StopBits utilizados en la conexión
-     * del puerto serie. Los StopBits son necesarios para definir el final de
-     * una transmisión de datos.
-     *
-     * @param Bits Valor entero que define la cantidad de StopBits:
-     * <br>1 = 1 StopBit
-     * <br>2 = 2 StopBits
-     * <br>3 = 1.5 StopBits
-     *
-     * Si se proporciona un valor fuera del rango permitido (1-3),
-     * se establecerá el valor por defecto de 1 StopBit y se mostrará
-     * un mensaje informativo en la consola.
-     *
-     * @since v2.6.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Sets the number of StopBits for the serial connection.
-     *
-     * This method configures the number of StopBits used in the serial
-     * port connection. StopBits are required to indicate the end of a
-     * data transmission.
-     *
-     * @param Bits Integer value defining the number of StopBits:
-     * <br>1 = 1 StopBit
-     * <br>2 = 2 StopBits
-     * <br>3 = 1.5 StopBits
-     *
-     * If a value outside the allowed range (1-3) is provided,
-     * the default value of 1 StopBit will be set, and an
-     * informative message will be displayed on the console.
-     *
+     * @param Bits <br>
+     * [ES] Valor entero que define el número de bits de parada permitidos
+     * (entre 1 y 3).<br>
+     * Si se proporciona un valor fuera del rango permitido, se establecerá el
+     * valor por defecto de 1 bit y se mostrará un mensaje informativo en la
+     * consola.<br>
+     * <br>
+     * [EN] Integer value that defines the allowed number of stop bits (between
+     * 1 and 3).<br>
+     * If a value outside the allowed range is provided, the default value of 1
+     * bit will be set, and an informative message will be displayed on the
+     * console.<br>
+     * <br>
      * @since v2.6.0
      */
     public void setStopBits(int Bits) {
@@ -298,81 +273,74 @@ public class PanamaHitek_Arduino {
         }
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Establece el tiempo de espera para la conexión serie. <br>
+     * Este método configura el tiempo de espera en milisegundos para la
+     * comunicación serie. El tiempo de espera es el tiempo máximo que se
+     * esperará para recibir una respuesta del dispositivo conectado. <br>
+     * <br>
+     * [EN] <br>
+     * Sets the timeout for the serial connection. <br>
+     * This method configures the timeout in milliseconds for serial
+     * communication. The timeout is the maximum time that will be waited to
+     * receive a response from the connected device. <br>
+     * <br>
      *
-     * Establece el tiempo de espera (timeout) para la conexión serie.
-     *
-     * Este método configura el valor del tiempo de espera para la conexión
-     * con el puerto serie, definido en milisegundos. El tiempo de espera determina
-     * cuánto tiempo la aplicación esperará por una respuesta antes de considerar
-     * que la operación ha fallado.
-     *
-     * @param time Un valor entero que representa el tiempo de espera en milisegundos.
-     *
-     * @since v2.6.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Sets the timeout value for the serial connection.
-     *
-     * This method configures the timeout value for the connection with the serial port,
-     * defined in milliseconds. The timeout determines how long the application will wait
-     * for a response before considering the operation as failed.
-     *
-     * @param time An integer value representing the timeout in milliseconds.
-     *
+     * @param time <br>
+     * [ES] Valor entero que define el tiempo de espera en milisegundos.<br>
+     * Si se proporciona un valor negativo, se establecerá el valor por defecto
+     * de 2000 ms y se mostrará un mensaje informativo en la consola.<br>
+     * <br>
+     * [EN] Integer value that defines the timeout in milliseconds.<br>
+     * If a negative value is provided, the default value of 2000 ms will be
+     * set, and an informative message will be displayed on the console.<br>
+     * <br>
      * @since v2.6.0
      */
     public void setTimeOut(int time) {
         this.TIMEOUT = time;
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Inicia la conexión con Arduino solo para la transmisión de datos a través
+     * del puerto serie. <br>
+     * Este método establece una conexión con Arduino que permite la transmisión
+     * de información desde la computadora hacia el dispositivo a través del
+     * puerto serie. <br>
+     * <br>
+     * [EN] <br>
+     * Initializes the connection with Arduino only for data transmission via
+     * the serial port. <br>
+     * This method establishes a connection with Arduino, allowing the
+     * transmission of information from the computer to the device through the
+     * serial port. <br>
+     * <br>
      *
-     * Inicia la conexión con Arduino solo para la transmisión de datos a través del puerto serie.
-     *
-     * Este método establece una conexión con Arduino que permite la transmisión de información
-     * desde la computadora hacia el dispositivo a través del puerto serie.
-     *
-     * @param PORT_NAME El nombre del puerto al que está conectado el Arduino.
-     * @param DATA_RATE La velocidad de transmisión de datos en baudios por segundo.
-     *
-     * @throws ArduinoException Puede producirse uno de los siguientes errores:
-     * <br>- Si se intenta iniciar la comunicación con Arduino más de una vez.
-     * <br>- Si no se encuentra ningún dispositivo conectado al puerto serie.
-     * <br>- Si el dispositivo conectado no es un Arduino.
-     * <br>- Si el puerto seleccionado está siendo utilizado por otra aplicación.
-     *
-     * @since v1.0.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Initializes the connection with Arduino only for data transmission via the serial port.
-     *
-     * This method establishes a connection with Arduino, allowing the transmission of information
-     * from the computer to the device through the serial port.
-     *
-     * @param PORT_NAME The name of the port to which the Arduino is connected.
-     * @param DATA_RATE The data transmission speed in baud per second.
-     *
-     * @throws ArduinoException The following errors may occur:
-     * <br>- If an attempt is made to start communication with Arduino more than once.
-     * <br>- If no device is found connected to the serial port.
-     * <br>- If the connected device is not an Arduino.
-     * <br>- If the selected port is being used by another application.
-     *
+     * @param PORT_NAME <br>
+     * [ES] El nombre del puerto al que está conectado el Arduino.<br>
+     * [EN] The name of the port to which the Arduino is connected.<br>
+     * <br>
+     * @param DATA_RATE <br>
+     * [ES] La velocidad de transmisión de datos en baudios por segundo.<br>
+     * [EN] The data transmission speed in baud per second.<br>
+     * <br>
+     * @throws ArduinoException <br>
+     * [ES] Puede producirse uno de los siguientes errores:<br>
+     * - Si se intenta iniciar la comunicación con Arduino más de una vez.<br>
+     * - Si no se encuentra ningún dispositivo conectado al puerto serie.<br>
+     * - Si el dispositivo conectado no es un Arduino.<br>
+     * - Si el puerto seleccionado está siendo utilizado por otra
+     * aplicación.<br>
+     * <br>
+     * [EN] The following errors may occur:<br>
+     * - If an attempt is made to start communication with Arduino more than
+     * once.<br>
+     * - If no device is found connected to the serial port.<br>
+     * - If the connected device is not an Arduino.<br>
+     * - If the selected port is being used by another application.<br>
+     * <br>
      * @since v1.0.0
      */
     public void arduinoTX(String PORT_NAME, int DATA_RATE) throws ArduinoException {
@@ -393,50 +361,51 @@ public class PanamaHitek_Arduino {
         }
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Inicia la conexión con Arduino para el envío y recepción de datos a
+     * través del puerto serie. <br>
+     * Este método establece una conexión bidireccional con Arduino, permitiendo
+     * el envío y recepción de información desde y hacia la computadora a través
+     * del puerto serie. <br>
+     * <br>
+     * [EN] <br>
+     * Initializes the connection with Arduino for both sending and receiving
+     * data via the serial port. <br>
+     * This method establishes a bidirectional connection with Arduino, enabling
+     * both data transmission and reception between the computer and the device
+     * through the serial port. <br>
+     * <br>
      *
-     * Inicia la conexión con Arduino para el envío y recepción de datos a través del puerto serie.
-     *
-     * Este método establece una conexión bidireccional con Arduino, permitiendo el envío y
-     * recepción de información desde y hacia la computadora a través del puerto serie.
-     *
-     * @param PORT_NAME El nombre del puerto al que está conectado el Arduino.
-     * @param DATA_RATE La velocidad de transmisión de datos en baudios por segundo.
-     * @param events    Una instancia de la clase `SerialPortEventListener` para detectar
-     *                  la recepción de información en el puerto serie.
-     *
-     * @throws ArduinoException Se pueden presentar las siguientes excepciones:
-     * <br> - Si se intenta iniciar la comunicación con Arduino más de una vez.
-     * <br> - Si no se encuentra ningún dispositivo conectado al puerto serie.
-     * <br> - Si el dispositivo conectado no es un Arduino.
-     * <br> - Si el puerto seleccionado está siendo utilizado por otra aplicación.
-     *
-     * @since v1.0.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Initializes the connection with Arduino for both sending and receiving data via the serial port.
-     *
-     * This method establishes a bidirectional connection with Arduino, enabling both data
-     * transmission and reception between the computer and the device through the serial port.
-     *
-     * @param PORT_NAME The name of the port to which the Arduino is connected.
-     * @param DATA_RATE The data transmission rate in baud per second.
-     * @param events    An instance of the `SerialPortEventListener` class to detect
-     *                  incoming information on the serial port.
-     *
-     * @throws ArduinoException The following exceptions may occur:
-     * <br> - If an attempt is made to initiate communication with Arduino more than once.
-     * <br> - If no device is found connected to the serial port.
-     * <br> - If the connected device is not an Arduino.
-     * <br> - If the selected port is being used by another application.
-     *
+     * @param PORT_NAME <br>
+     * [ES] El nombre del puerto al que está conectado el Arduino.<br>
+     * [EN] The name of the port to which the Arduino is connected.<br>
+     * <br>
+     * @param DATA_RATE <br>
+     * [ES] La velocidad de transmisión de datos en baudios por segundo.<br>
+     * [EN] The data transmission rate in baud per second.<br>
+     * <br>
+     * @param events <br>
+     * [ES] Una instancia de la clase <code>SerialPortEventListener</code> para
+     * detectar la recepción de información en el puerto serie.<br>
+     * [EN] An instance of the <code>SerialPortEventListener</code> class to
+     * detect incoming information on the serial port.<br>
+     * <br>
+     * @throws ArduinoException <br>
+     * [ES] Se pueden presentar las siguientes excepciones:<br>
+     * - Si se intenta iniciar la comunicación con Arduino más de una vez.<br>
+     * - Si no se encuentra ningún dispositivo conectado al puerto serie.<br>
+     * - Si el dispositivo conectado no es un Arduino.<br>
+     * - Si el puerto seleccionado está siendo utilizado por otra
+     * aplicación.<br>
+     * <br>
+     * [EN] The following exceptions may occur:<br>
+     * - If an attempt is made to initiate communication with Arduino more than
+     * once.<br>
+     * - If no device is found connected to the serial port.<br>
+     * - If the connected device is not an Arduino.<br>
+     * - If the selected port is being used by another application.<br>
+     * <br>
      * @since v1.0.0
      */
     public void arduinoRXTX(String PORT_NAME, int DATA_RATE, SerialPortEventListener events) throws ArduinoException {
@@ -457,54 +426,53 @@ public class PanamaHitek_Arduino {
         }
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Inicia la conexión con Arduino solo para la recepción de datos desde el
+     * puerto serie. <br>
+     * Este método establece una conexión con Arduino para recibir información
+     * enviada desde el dispositivo hacia la computadora a través del puerto
+     * serie. <br>
+     * <br>
+     * [EN] <br>
+     * Initiates the connection with Arduino only for data reception via the
+     * serial port. <br>
+     * This method establishes a connection with Arduino to receive information
+     * sent from the device to the computer through the serial port. <br>
+     * <br>
      *
-     * Inicia la conexión con Arduino solo para la recepción de datos desde el puerto serie.
-     *
-     * Este método establece una conexión con Arduino para recibir información enviada
-     * desde el dispositivo hacia la computadora a través del puerto serie.
-     *
-     * @param PORT_NAME El nombre del puerto al que está conectado el Arduino.
-     * @param DATA_RATE La velocidad de transmisión de datos en baudios por segundo.
-     * @param events    Una instancia de la clase `SerialPortEventListener` para detectar
-     *                  la recepción de información en el puerto serie.
-     *
-     * @throws ArduinoException Se lanza una excepción si se intenta iniciar la comunicación
-     *                          con Arduino más de una vez.
-     *
-     * @throws SerialPortException Se pueden presentar tres errores:
-     * <br>- Si no se encuentra ningún dispositivo conectado al puerto serie.
-     * <br>- Si el dispositivo conectado no es un Arduino.
-     * <br>- Si el puerto seleccionado está siendo utilizado por otra aplicación.
-     *
-     * @since v1.0.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Initiates the connection with Arduino only for data reception via the serial port.
-     *
-     * This method establishes a connection with Arduino to receive information sent
-     * from the device to the computer through the serial port.
-     *
-     * @param PORT_NAME The name of the port to which the Arduino is connected.
-     * @param DATA_RATE The data transmission rate in baud per second.
-     * @param events    An instance of the `SerialPortEventListener` class to detect
-     *                  when information is received on the serial port.
-     *
-     * @throws ArduinoException An exception is thrown if an attempt is made to start
-     *                          communication with Arduino more than once.
-     *
-     * @throws SerialPortException Three types of errors may occur:
-     * <br>- If no device is found connected to the serial port.
-     * <br>- If the connected device is not an Arduino.
-     * <br>- If the selected port is being used by another application.
-     *
+     * @param PORT_NAME <br>
+     * [ES] El nombre del puerto al que está conectado el Arduino.<br>
+     * [EN] The name of the port to which the Arduino is connected.<br>
+     * <br>
+     * @param DATA_RATE <br>
+     * [ES] La velocidad de transmisión de datos en baudios por segundo.<br>
+     * [EN] The data transmission rate in baud per second.<br>
+     * <br>
+     * @param events <br>
+     * [ES] Una instancia de la clase <code>SerialPortEventListener</code> para
+     * detectar la recepción de información en el puerto serie.<br>
+     * [EN] An instance of the <code>SerialPortEventListener</code> class to
+     * detect when information is received on the serial port.<br>
+     * <br>
+     * @throws ArduinoException <br>
+     * [ES] Se lanza una excepción si se intenta iniciar la comunicación con
+     * Arduino más de una vez.<br>
+     * [EN] An exception is thrown if an attempt is made to start communication
+     * with Arduino more than once.<br>
+     * <br>
+     * @throws SerialPortException <br>
+     * [ES] Se pueden presentar tres errores:<br>
+     * - Si no se encuentra ningún dispositivo conectado al puerto serie.<br>
+     * - Si el dispositivo conectado no es un Arduino.<br>
+     * - Si el puerto seleccionado está siendo utilizado por otra
+     * aplicación.<br>
+     * <br>
+     * [EN] Three types of errors may occur:<br>
+     * - If no device is found connected to the serial port.<br>
+     * - If the connected device is not an Arduino.<br>
+     * - If the selected port is being used by another application.<br>
+     * <br>
      * @since v1.0.0
      */
     public void arduinoRX(String PORT_NAME, int DATA_RATE, SerialPortEventListener events) throws ArduinoException, SerialPortException {
@@ -524,48 +492,43 @@ public class PanamaHitek_Arduino {
         } catch (SerialPortException ex) {
             throw new ArduinoException(portName, "arduinoRX()", ArduinoException.TYPE_PORT_NOT_OPENED);
         }
+
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Envía una cadena de texto desde Java hacia Arduino a través del puerto
+     * serie. <br>
+     * Este método permite enviar datos en forma de cadena de caracteres
+     * (<code>String</code>) desde la aplicación Java hacia un dispositivo
+     * Arduino a través del puerto serie. <br>
+     * <br>
+     * [EN] <br>
+     * Sends a string of text from Java to Arduino via the serial port. <br>
+     * This method allows sending data in the form of a string
+     * (<code>String</code>) from the Java application to an Arduino device
+     * through the serial port. <br>
+     * <br>
      *
-     * Envía una cadena de texto desde Java hacia Arduino a través del puerto serie.
-     *
-     * Este método permite enviar datos en forma de cadena de caracteres (`String`)
-     * desde la aplicación Java hacia un dispositivo Arduino a través del puerto serie.
-     *
-     * @param data Una cadena de caracteres (`String`) que contiene los datos a enviar.
-     *
-     * @throws ArduinoException Se lanza una excepción si la conexión se ha establecido
-     *                          en modo recepción utilizando `ArduinoRX()`, ya que en
-     *                          este modo no se permite el envío de datos.
-     *
-     * @throws SerialPortException Se lanza una excepción si no se ha establecido
-     *                             una conexión con Arduino.
-     *
-     * @since v1.0.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Sends a string of text from Java to Arduino via the serial port.
-     *
-     * This method allows sending data in the form of a string (`String`) from
-     * the Java application to an Arduino device through the serial port.
-     *
-     * @param data A string containing the data to be sent.
-     *
-     * @throws ArduinoException An exception is thrown if the connection has been
-     *                          established in receive mode using `ArduinoRX()`,
-     *                          as data transmission is not allowed in this mode.
-     *
-     * @throws SerialPortException An exception is thrown if the connection
-     *                             with Arduino has not been established.
-     *
+     * @param data <br>
+     * [ES] Una cadena de caracteres (<code>String</code>) que contiene los
+     * datos a enviar.<br>
+     * [EN] A string (<code>String</code>) containing the data to be sent.<br>
+     * <br>
+     * @throws ArduinoException <br>
+     * [ES] Se lanza una excepción si la conexión se ha establecido en modo
+     * recepción utilizando <code>ArduinoRX()</code>, ya que en este modo no se
+     * permite el envío de datos.<br>
+     * [EN] An exception is thrown if the connection has been established in
+     * receive mode using <code>ArduinoRX()</code>, as data transmission is not
+     * allowed in this mode.<br>
+     * <br>
+     * @throws SerialPortException <br>
+     * [ES] Se lanza una excepción si no se ha establecido una conexión con
+     * Arduino.<br>
+     * [EN] An exception is thrown if the connection with Arduino has not been
+     * established.<br>
+     * <br>
      * @since v1.0.0
      */
     public void sendData(String data) throws ArduinoException, SerialPortException {
@@ -578,49 +541,41 @@ public class PanamaHitek_Arduino {
         }
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
-     *
-     * Envía un byte de datos desde Java hacia Arduino a través del puerto serie.
-     *
-     * Este método envía un valor en forma de byte (entre 0 y 255) a Arduino.
-     * A diferencia del método `sendData(String data)`, donde la información se
-     * envía como una cadena de caracteres (`String`), en este caso se envía
-     * directamente como un byte.
-     *
-     * @param data El byte que se desea enviar (un valor entre 0 y 255).
-     *
-     * @throws ArduinoException Se lanza una excepción si la conexión ha sido
-     *                          establecida en modo recepción (`ArduinoRX()`),
-     *                          ya que en este modo no se permite el envío de datos.
-     *
-     * @throws SerialPortException Se lanza una excepción si no se ha iniciado
-     *                             una conexión con Arduino.
-     *
-     * @since v2.6.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Sends a byte of data from Java to Arduino via the serial port.
-     *
+     * [ES] <br>
+     * Envía un byte de datos desde Java hacia Arduino a través del puerto
+     * serie. <br>
+     * Este método envía un valor en forma de byte (entre 0 y 255) a Arduino. A
+     * diferencia del método <code>sendData(String data)</code>, donde la
+     * información se envía como una cadena de caracteres (<code>String</code>),
+     * en este caso se envía directamente como un byte. <br>
+     * <br>
+     * [EN] <br>
+     * Sends a byte of data from Java to Arduino via the serial port. <br>
      * This method sends a value as a byte (between 0 and 255) to Arduino.
-     * Unlike the `sendData(String data)` method, where the information is sent
-     * as a string, in this case, it is sent directly as a byte.
+     * Unlike the <code>sendData(String data)</code> method, where the
+     * information is sent as a string (<code>String</code>), in this case, it
+     * is sent directly as a byte. <br>
+     * <br>
      *
-     * @param data The byte to be sent (a value between 0 and 255).
-     *
-     * @throws ArduinoException An exception is thrown if the connection was
-     *                          established in receive mode (`ArduinoRX()`),
-     *                          as data transmission is not allowed in this mode.
-     *
-     * @throws SerialPortException An exception is thrown if the connection
-     *                             with Arduino has not been established.
-     *
+     * @param data <br>
+     * [ES] El byte que se desea enviar (un valor entre 0 y 255).<br>
+     * [EN] The byte to be sent (a value between 0 and 255).<br>
+     * <br>
+     * @throws ArduinoException <br>
+     * [ES] Se lanza una excepción si la conexión ha sido establecida en modo
+     * recepción (<code>ArduinoRX()</code>), ya que en este modo no se permite
+     * el envío de datos.<br>
+     * [EN] An exception is thrown if the connection was established in receive
+     * mode (<code>ArduinoRX()</code>), as data transmission is not allowed in
+     * this mode.<br>
+     * <br>
+     * @throws SerialPortException <br>
+     * [ES] Se lanza una excepción si no se ha iniciado una conexión con
+     * Arduino.<br>
+     * [EN] An exception is thrown if the connection with Arduino has not been
+     * established.<br>
+     * <br>
      * @since v2.6.0
      */
     public void sendByte(int data) throws ArduinoException, SerialPortException {
@@ -634,46 +589,37 @@ public class PanamaHitek_Arduino {
         }
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
-     *
-     * Recibe datos enviados desde Arduino a través del puerto serie.
-     *
+     * [ES] <br>
+     * Recibe datos enviados desde Arduino a través del puerto serie. <br>
      * Este método recibe los datos exactamente como son enviados desde Arduino,
-     * caracter por caracter, y los devuelve en un arreglo de bytes.
+     * caracter por caracter, y los devuelve en un arreglo de bytes. <br>
+     * <br>
+     * [EN] <br>
+     * Receives data sent from Arduino via the serial port. <br>
+     * This method receives data exactly as it is sent from Arduino, character
+     * by character, and returns it as a byte array. <br>
+     * <br>
      *
-     * @return Un arreglo de bytes con los datos recibidos desde el puerto serie.
-     *
-     * @throws ArduinoException Se lanza una excepción si la conexión ha sido iniciada
-     *                          utilizando el método `ArduinoTX()`, ya que este método
-     *                          no permite la recepción de datos.
-     *
-     * @throws SerialPortException Se lanza una excepción si no se ha establecido
-     *                             una conexión con Arduino.
-     *
-     * @since v2.8.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Receives data sent from Arduino via the serial port.
-     *
-     * This method receives data exactly as it is sent from Arduino,
-     * character by character, and returns it as a byte array.
-     *
-     * @return A byte array containing the data received from the serial port.
-     *
-     * @throws ArduinoException An exception is thrown if the connection was initiated
-     *                          using the `ArduinoTX()` method, as this method does not
-     *                          allow data reception.
-     *
-     * @throws SerialPortException An exception is thrown if the connection
-     *                             with Arduino has not been established.
-     *
+     * @return <br>
+     * [ES] Un arreglo de bytes con los datos recibidos desde el puerto
+     * serie.<br>
+     * [EN] A byte array containing the data received from the serial port.<br>
+     * <br>
+     * @throws ArduinoException <br>
+     * [ES] Se lanza una excepción si la conexión ha sido iniciada utilizando el
+     * método <code>ArduinoTX()</code>, ya que este método no permite la
+     * recepción de datos.<br>
+     * [EN] An exception is thrown if the connection was initiated using the
+     * <code>ArduinoTX()</code> method, as this method does not allow data
+     * reception.<br>
+     * <br>
+     * @throws SerialPortException <br>
+     * [ES] Se lanza una excepción si no se ha establecido una conexión con
+     * Arduino.<br>
+     * [EN] An exception is thrown if the connection with Arduino has not been
+     * established.<br>
+     * <br>
      * @since v2.8.0
      */
     public byte[] receiveData() throws ArduinoException, SerialPortException {
@@ -686,53 +632,53 @@ public class PanamaHitek_Arduino {
         }
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Verifica la disponibilidad de un mensaje recibido desde Arduino. <br>
+     * Este método devuelve un valor `TRUE` cuando se detecta un salto de línea
+     * (`\n`) en la transmisión de datos desde Arduino hacia la computadora.
+     * <br>
+     * La separación entre mensajes depende del uso del método
+     * `Serial.println()` en el código de Arduino, ya que esta función busca
+     * saltos de línea para identificar mensajes completos. <br>
+     * Si se utiliza `Serial.print()`, la librería no reconocerá los mensajes
+     * enviados. <br>
+     * <br>
+     * [EN] <br>
+     * Checks for the availability of a received message from Arduino. <br>
+     * This method returns `TRUE` when a newline character (`\n`) is detected in
+     * the data transmission from Arduino to the computer. <br>
+     * The separation between messages depends on the use of the
+     * `Serial.println()` method in the Arduino code, as this function searches
+     * for newline characters to identify complete messages. <br>
+     * If `Serial.print()` is used, the library will not recognize the sent
+     * messages. <br>
+     * <br>
      *
-     * Verifica la disponibilidad de un mensaje recibido desde Arduino.
+     * @return <br>
+     * [ES] Un valor booleano que será `TRUE` cuando se reciba un salto de línea
+     * en la transmisión de datos desde Arduino; de lo contrario, devuelve
+     * `FALSE`. <br>
      *
-     * Este método devuelve un valor `TRUE` cuando se detecta un salto de línea (`\n`)
-     * en la transmisión de datos desde Arduino hacia la computadora. La separación entre
-     * mensajes depende del uso del método `Serial.println()` en el código de Arduino,
-     * ya que esta función busca saltos de línea para identificar mensajes completos.
-     * Si se utiliza `Serial.print()`, la librería no reconocerá los mensajes enviados.
+     * [EN] A boolean value that will be `TRUE` when a newline character is
+     * received in the data transmission from Arduino; otherwise, it returns
+     * `FALSE`. <br>
      *
-     * @return Un valor booleano que será `TRUE` cuando se reciba un salto de línea
-     *         en la transmisión de datos desde Arduino; de lo contrario, devuelve `FALSE`.
+     * @throws ArduinoException <br>
+     * [ES] Se lanza una excepción si la conexión con Arduino no ha sido
+     * iniciada o si se ha establecido utilizando el método `ArduinoTX()`, el
+     * cual no permite recibir datos. <br>
      *
-     * @throws ArduinoException Se lanza una excepción si la conexión con Arduino
-     *                          no ha sido iniciada o si se ha establecido utilizando
-     *                          el método `ArduinoTX()`, el cual no permite recibir datos.
+     * [EN] An exception is thrown if the connection with Arduino has not been
+     * established or if it was initiated using the `ArduinoTX()` method, which
+     * does not allow data reception. <br>
      *
-     * @throws SerialPortException Se lanza una excepción si no se ha iniciado
-     *                             una conexión con Arduino.
+     * @throws SerialPortException <br>
+     * [ES] Se lanza una excepción si no se ha iniciado una conexión con
+     * Arduino. <br>
      *
-     * @since v2.6.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Checks for the availability of a received message from Arduino.
-     *
-     * This method returns `TRUE` when a newline character (`\n`) is detected in the
-     * data transmission from Arduino to the computer. The separation between messages
-     * depends on the use of the `Serial.println()` method in the Arduino code, as this
-     * function searches for newline characters to identify complete messages.
-     * If `Serial.print()` is used, the library will not recognize the sent messages.
-     *
-     * @return A boolean value that will be `TRUE` when a newline character is received
-     *         in the data transmission from Arduino; otherwise, it returns `FALSE`.
-     *
-     * @throws ArduinoException An exception is thrown if the connection with Arduino
-     *                          has not been established or if it was initiated using
-     *                          the `ArduinoTX()` method, which does not allow data reception.
-     *
-     * @throws SerialPortException An exception is thrown if the connection with Arduino
-     *                             has not been established.
+     * [EN] An exception is thrown if the connection with Arduino has not been
+     * established. <br>
      *
      * @since v2.6.0
      */
@@ -742,43 +688,37 @@ public class PanamaHitek_Arduino {
         return messageAvailable;
     }
 
-
-/**
- * ===================================================
- * Documentación en Español
- * ===================================================
- *
- * Realiza la lectura de datos enviados desde Arduino mediante `Serial.println()`.
- *
- * Este método recibe y procesa los datos enviados desde Arduino. Detecta la presencia
- * de un salto de línea (`\n`), momento en el cual se considera que el mensaje está completo
- * y se marca como disponible para su posterior procesamiento.
- *
- * @throws ArduinoException Se lanza una excepción si la conexión con Arduino
- *                          no ha sido iniciada o si la conexión se ha establecido
- *                          utilizando el método `ArduinoTX()`, el cual no permite
- *                          recibir datos.
- *
- * @throws SerialPortException Se lanza una excepción si no se ha iniciado
- *                             una conexión con Arduino.
- *
- * ===================================================
- * Documentation in English
- * ===================================================
- *
- * Reads data sent from Arduino using `Serial.println()`.
- *
- * This method receives and processes the data sent from Arduino. It detects the presence
- * of a newline character (`\n`), at which point the message is considered complete
- * and marked as available for further processing.
- *
- * @throws ArduinoException An exception is thrown if the connection with Arduino
- *                          has not been established or if the connection was initiated
- *                          using the `ArduinoTX()` method, which does not allow receiving data.
- *
- * @throws SerialPortException An exception is thrown if the connection with Arduino
- *                             has not been established.
- */
+    /**
+     * [ES] <br>
+     * Realiza la lectura de datos enviados desde Arduino mediante
+     * `Serial.println()`. <br>
+     * Este método recibe y procesa los datos enviados desde Arduino. <br>
+     * Detecta la presencia de un salto de línea (`\n`), momento en el cual se
+     * considera que el mensaje está completo y se marca como disponible para su
+     * posterior procesamiento. <br>
+     * <br>
+     * [EN] <br>
+     * Reads data sent from Arduino using `Serial.println()`. <br>
+     * This method receives and processes the data sent from Arduino. <br>
+     * It detects the presence of a newline character (`\n`), at which point the
+     * message is considered complete and marked as available for further
+     * processing. <br>
+     * <br>
+     *
+     * @throws ArduinoException <br>
+     * [ES] Se lanza una excepción si la conexión con Arduino no ha sido
+     * iniciada o si la conexión se ha establecido utilizando el método
+     * `ArduinoTX()`, el cual no permite recibir datos. <br>
+     * [EN] An exception is thrown if the connection with Arduino has not been
+     * established or if the connection was initiated using the `ArduinoTX()`
+     * method, which does not allow receiving data. <br>
+     * <br>
+     * @throws SerialPortException <br>
+     * [ES] Se lanza una excepción si no se ha iniciado una conexión con
+     * Arduino. <br>
+     * [EN] An exception is thrown if the connection with Arduino has not been
+     * established. <br>
+     */
     private void serialRead() throws ArduinoException, SerialPortException {
         int inputByte;
         byte[] buffer = receiveData();
@@ -802,51 +742,42 @@ public class PanamaHitek_Arduino {
     }
 
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Imprime el mensaje almacenado en el buffer del puerto serie. <br>
+     * Este método debe utilizarse dentro de una estructura condicional. <br>
+     * Cuando el método `isMessageAvailable()` devuelve un valor `true`, este
+     * método obtiene e imprime el mensaje almacenado en el buffer del puerto
+     * serie. <br>
+     * <br>
+     * [EN] <br>
+     * Prints the message stored in the serial port buffer. <br>
+     * This method should be used within a conditional structure. <br>
+     * When the method `isMessageAvailable()` returns a `true` value, this
+     * method retrieves and prints the message stored in the serial port buffer.
+     * <br>
+     * <br>
      *
-     * Imprime el mensaje almacenado en el buffer del puerto serie.
-     *
-     * Este método debe utilizarse dentro de una estructura condicional. Cuando el
-     * método `isMessageAvailable()` devuelve un valor `true`, este método obtiene
-     * e imprime el mensaje almacenado en el buffer del puerto serie.
-     *
-     * @return Una cadena de texto (`String`) con el mensaje recibido. Si no hay
-     *         datos disponibles, se devuelve el mensaje predeterminado:
-     *         "No hay datos disponibles".
-     *
-     * @throws ArduinoException Se lanza una excepción si la conexión con Arduino
-     *                          no ha sido iniciada o si la conexión se ha establecido
-     *                          utilizando el método `ArduinoTX()`, que no permite
-     *                          recibir datos.
-     *
-     * @throws SerialPortException Se lanza una excepción si no se ha iniciado
-     *                             una conexión con Arduino.
-     *
-     * @since v2.0.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Prints the message stored in the serial port buffer.
-     *
-     * This method should be used within a conditional structure. When the method
-     * `isMessageAvailable()` returns a `true` value, this method retrieves and prints
-     * the message stored in the serial port buffer.
-     *
-     * @return A string containing the received message. If no data is available,
-     *         the default message "No hay datos disponibles" is returned.
-     *
-     * @throws ArduinoException An exception is thrown if the connection with Arduino
-     *                          has not been established or if the connection was
-     *                          initiated using the `ArduinoTX()` method, which does
-     *                          not allow receiving data.
-     *
-     * @throws SerialPortException An exception is thrown if the connection with Arduino
-     *                             has not been established.
-     *
+     * @return <br>
+     * [ES] Una cadena de texto (`String`) con el mensaje recibido. Si no hay
+     * datos disponibles, se devuelve el mensaje predeterminado: "No hay datos
+     * disponibles". <br>
+     * [EN] A string containing the received message. If no data is available,
+     * the default message "No hay datos disponibles" is returned. <br>
+     * <br>
+     * @throws ArduinoException <br>
+     * [ES] Se lanza una excepción si la conexión con Arduino no ha sido
+     * iniciada o si la conexión se ha establecido utilizando el método
+     * `ArduinoTX()`, que no permite recibir datos. <br>
+     * [EN] An exception is thrown if the connection with Arduino has not been
+     * established or if the connection was initiated using the `ArduinoTX()`
+     * method, which does not allow receiving data. <br>
+     * <br>
+     * @throws SerialPortException <br>
+     * [ES] Se lanza una excepción si no se ha iniciado una conexión con
+     * Arduino. <br>
+     * [EN] An exception is thrown if the connection with Arduino has not been
+     * established. <br>
+     * <br>
      * @since v2.0.0
      */
     public String printMessage() throws SerialPortException, ArduinoException {
@@ -862,68 +793,54 @@ public class PanamaHitek_Arduino {
         return output;
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
-     *
-     * Devuelve la cantidad de puertos serie activos en el sistema.
-     *
+     * [ES] <br>
+     * Devuelve la cantidad de puertos serie activos en el sistema. <br>
      * Este método determina y devuelve el número de puertos serie activos
-     * detectados en la computadora. La cantidad de puertos disponibles
-     * dependerá de los dispositivos conectados a través del puerto serie.
-     *
-     * @return Un número entero positivo mayor o igual a cero que indica
-     *         la cantidad de puertos serie disponibles.
-     *
-     * @since v2.6.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Returns the number of active serial ports in the system.
-     *
+     * detectados en la computadora. <br>
+     * La cantidad de puertos disponibles dependerá de los dispositivos
+     * conectados a través del puerto serie. <br>
+     * <br>
+     * [EN] <br>
+     * Returns the number of active serial ports in the system. <br>
      * This method determines and returns the number of active serial ports
-     * detected on the computer. The number of available ports depends on
-     * the devices connected through the serial port.
+     * detected on the computer. <br>
+     * The number of available ports depends on the devices connected through
+     * the serial port. <br>
+     * <br>
      *
-     * @return A positive integer greater than or equal to zero indicating
-     *         the number of available serial ports.
-     *
+     * @return <br>
+     * [ES] Un número entero positivo mayor o igual a cero que indica la
+     * cantidad de puertos serie disponibles. <br>
+     * [EN] A positive integer greater than or equal to zero indicating the
+     * number of available serial ports. <br>
+     * <br>
      * @since v2.6.0
      */
     public int getPortsAvailable() {
         return SerialPortList.getPortNames().length;
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Obtiene una lista de los puertos serie disponibles en el sistema. <br>
+     * Este método recupera y devuelve una lista con los nombres de todos los
+     * puertos serie disponibles en el sistema, que pueden ser utilizados para
+     * la comunicación. <br>
+     * <br>
+     * [EN] <br>
+     * Retrieves a list of available serial ports in the system. <br>
+     * This method fetches and returns a list containing the names of all
+     * available serial ports in the system, which can be used for
+     * communication. <br>
+     * <br>
      *
-     * Obtiene una lista de los puertos serie disponibles en el sistema.
-     *
-     * Este método recupera y devuelve una lista con los nombres de todos los puertos
-     * serie disponibles en el sistema, que pueden ser utilizados para la comunicación.
-     *
-     * @return Una lista de cadenas de texto con los nombres de los puertos serie disponibles.
-     *
-     * @since v2.6.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Retrieves a list of available serial ports in the system.
-     *
-     * This method fetches and returns a list containing the names of all available
-     * serial ports in the system, which can be used for communication.
-     *
-     * @return A list of strings containing the names of the available serial ports.
-     *
+     * @return <br>
+     * [ES] Una lista de cadenas de texto con los nombres de los puertos serie
+     * disponibles. <br>
+     * [EN] A list of strings containing the names of the available serial
+     * ports. <br>
+     * <br>
      * @since v2.6.0
      */
     public List<String> getSerialPorts() {
@@ -933,34 +850,26 @@ public class PanamaHitek_Arduino {
         return ports;
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Finaliza la conexión con Arduino en el puerto serie. <br>
+     * Este método cierra la conexión con Arduino establecida en el puerto
+     * serie. Si no se ha iniciado una conexión previamente, se lanzará una
+     * excepción. <br>
+     * <br>
+     * [EN] <br>
+     * Terminates the connection with Arduino on the serial port. <br>
+     * This method closes the established connection with Arduino on the serial
+     * port. If no connection has been previously initiated, an exception will
+     * be thrown. <br>
+     * <br>
      *
-     * Finaliza la conexión con Arduino en el puerto serie.
-     *
-     * Este método cierra la conexión con Arduino establecida en el puerto serie.
-     * Si no se ha iniciado una conexión previamente, se lanzará una excepción.
-     *
-     * @throws ArduinoException Se lanza una excepción si se intenta cerrar
-     *                          la conexión sin haberla iniciado previamente.
-     *
-     * @since v2.0.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Terminates the connection with Arduino on the serial port.
-     *
-     * This method closes the established connection with Arduino on the serial port.
-     * If no connection has been previously initiated, an exception will be thrown.
-     *
-     * @throws ArduinoException An exception is thrown if an attempt is made to
-     *                          close the connection without it being previously initiated.
-     *
+     * @throws ArduinoException <br>
+     * [ES] Se lanza una excepción si se intenta cerrar la conexión sin haberla
+     * iniciado previamente. <br>
+     * [EN] An exception is thrown if an attempt is made to close the connection
+     * without it being previously initiated. <br>
+     * <br>
      * @since v2.0.0
      */
     public void killArduinoConnection() throws ArduinoException {
@@ -977,36 +886,54 @@ public class PanamaHitek_Arduino {
         }
     }
 
+    /**
+     * [ES] <br>
+     * Devuelve la cantidad de bytes disponibles para ser leídos en el buffer de
+     * entrada del puerto serie. <br>
+     * <br>
+     * [EN] <br>
+     * Returns the number of bytes available to be read in the serial port's
+     * input buffer. <br>
+     * <br>
+     *
+     * @return <br>
+     * [ES] Cantidad de bytes disponibles para ser leídos en el buffer de
+     * entrada del puerto serie. <br>
+     * [EN] Number of bytes available to be read in the serial port's input
+     * buffer. <br>
+     * <br>
+     * @throws SerialPortException <br>
+     * [ES] Puede producirse un error si no se ha iniciado una conexión con el
+     * puerto serie. <br>
+     * [EN] An error may occur if a connection to the serial port has not been
+     * established. <br>
+     * <br>
+     * @since 2.8.0
+     */
+    public int getInputBytesAvailable() throws SerialPortException {
+        return serialPort.getInputBufferBytesCount();
+    }
 
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
-     *
-     * Limpia los buffers de entrada y salida del puerto serie.
-     *
+     * [ES] <br>
+     * Limpia los buffers de entrada y salida del puerto serie. <br>
      * Este método elimina los datos almacenados en los buffers de entrada y
-     * salida del puerto serie, garantizando que no haya datos residuales
-     * en futuras transmisiones.
+     * salida del puerto serie, garantizando que no haya datos residuales en
+     * futuras transmisiones. <br>
+     * <br>
+     * [EN] <br>
+     * Clears the input and output buffers of the serial port. <br>
+     * This method removes any data stored in the serial port's input and output
+     * buffers, ensuring that no residual data remains for future transmissions.
+     * <br>
+     * <br>
      *
-     * @throws SerialPortException Se lanza una excepción si no se ha
-     *                            establecido una conexión con el puerto serie.
-     *
-     * @since 2.8.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Clears the input and output buffers of the serial port.
-     *
-     * This method removes any data stored in the serial port's input
-     * and output buffers, ensuring that no residual data remains for
-     * future transmissions.
-     *
-     * @throws SerialPortException An exception is thrown if a connection
-     *                            to the serial port has not been established.
-     *
+     * @throws SerialPortException <br>
+     * [ES] Se lanza una excepción si no se ha establecido una conexión con el
+     * puerto serie. <br>
+     * [EN] An exception is thrown if a connection to the serial port has not
+     * been established. <br>
+     * <br>
      * @since 2.8.0
      */
     public void flushSerialPort() throws SerialPortException {
@@ -1014,70 +941,30 @@ public class PanamaHitek_Arduino {
         serialPort.purgePort(PURGE_TXCLEAR);
     }
 
-
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Obtiene el event listener asociado al puerto serial. <br>
+     * Este método devuelve el event listener que se agrega al puerto serial
+     * (`serialPort`) cuando se implementan los métodos `arduinoRX()` y
+     * `arduinoRXTX()`. <br>
+     * <br>
+     * [EN] <br>
+     * Retrieves the event listener associated with the serial port. <br>
+     * This method returns the event listener added to the serial port
+     * (`serialPort`) when the methods `arduinoRX()` and `arduinoRXTX()` are
+     * implemented. <br>
+     * <br>
      *
-     * Obtiene la cantidad de bytes disponibles para ser leídos en el buffer de entrada del puerto serie.
-     *
-     * @return La cantidad de bytes disponibles en el buffer de entrada del puerto serie.
-     *
-     * @throws SerialPortException Se lanza una excepción si no se ha establecido
-     *                            una conexión con el puerto serie.
-     *
-     * @since 2.8.0
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Retrieves the number of bytes available to be read from the serial port's input buffer.
-     *
-     * @return The number of bytes available in the serial port's input buffer.
-     *
-     * @throws SerialPortException An exception is thrown if a connection to
-     *                            the serial port has not been established.
-     *
-     * @since 2.8.0
-     */
-    public int getInputBytesAvailable() throws SerialPortException {
-        return serialPort.getInputBufferBytesCount();
-    }
-
-
-    /**
-     * ===============================================
-     * Documentación en Español
-     * ===============================================
-     *
-     * Obtiene el event listener asociado al puerto serial.
-     *
-     * Este método devuelve el event listener que se agrega al puerto serial (`serialPort`)
-     * cuando se implementan los métodos `arduinoRX()` y `arduinoRXTX()`.
-     *
-     * @return El event listener registrado para el puerto serial.
-     *
-     * @throws ArduinoException Se lanza una excepción si se invoca este método
-     *                          sin haber agregado previamente un `EventListener`.
-     *
-     * @since 2.8.0
-     *
-     * ===============================================
-     * Documentation in English
-     * ===============================================
-     *
-     * Retrieves the event listener associated with the serial port.
-     *
-     * This method returns the event listener added to the serial port (`serialPort`)
-     * when the methods `arduinoRX()` and `arduinoRXTX()` are implemented.
-     *
-     * @return The event listener registered for the serial port.
-     *
-     * @throws ArduinoException An exception is thrown if this method is called
-     *                          without having previously added an `EventListener`.
-     *
+     * @return <br>
+     * [ES] El event listener registrado para el puerto serial. <br>
+     * [EN] The event listener registered for the serial port. <br>
+     * <br>
+     * @throws ArduinoException <br>
+     * [ES] Se lanza una excepción si se invoca este método sin haber agregado
+     * previamente un `EventListener`. <br>
+     * [EN] An exception is thrown if this method is called without having
+     * previously added an `EventListener`. <br>
+     * <br>
      * @since 2.8.0
      */
     public SerialPortEventListener getEventListener() throws ArduinoException {
@@ -1087,5 +974,4 @@ public class PanamaHitek_Arduino {
             throw new ArduinoException(portName, "getEventListener()", ArduinoException.TYPE_NO_EVENT_LISTENER);
         }
     }
-
 }

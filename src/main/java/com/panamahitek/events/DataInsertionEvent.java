@@ -66,77 +66,51 @@ import com.panamahitek.PanamaHitek_DataBuffer;
 import java.util.EventObject;
 
 /**
- * ===================================================
- * Documentación en Español
- * ===================================================
- *
- * Clase `DataInsertionEvent`.
- *
+ * [ES] <br>
  * Esta clase representa un evento que se dispara cuando se insertan nuevos
- * datos en el buffer de datos `PanamaHitek_DataBuffer`. Extiende de la clase
- * `EventObject`, lo que permite la gestión de eventos relacionados con la
- * recepción de datos en aplicaciones que utilizan la biblioteca PanamaHitek.
- *
+ * datos en el buffer de datos `PanamaHitek_DataBuffer`. <br>
+ * Extiende de la clase `EventObject`, lo que permite la gestión de eventos
+ * relacionados con la recepción de datos en aplicaciones que utilizan la
+ * biblioteca PanamaHitek. <br>
+ * <br>
  * La clase almacena una referencia al buffer de datos asociado con el evento,
- * proporcionando acceso a la información recién agregada.
- *
- * Uso típico:
- * <pre>
- * {@code
- * PanamaHitek_DataBuffer buffer = new PanamaHitek_DataBuffer();
- * DataInsertionEvent event = new DataInsertionEvent(this, buffer);
- * }
- * </pre>
- *
- * ===================================================
- * Documentation in English
- * ===================================================
- *
- * Class `DataInsertionEvent`.
- *
+ * proporcionando acceso a la información recién agregada. <br>
+ * <br>
+ * [EN] <br>
  * This class represents an event that is triggered when new data is inserted
- * into the `PanamaHitek_DataBuffer`. It extends the `EventObject` class,
- * enabling the management of data reception events in applications using
- * the PanamaHitek library.
- *
+ * into the `PanamaHitek_DataBuffer`. <br>
+ * It extends the `EventObject` class, enabling the management of data reception
+ * events in applications using the PanamaHitek library. <br>
+ * <br>
  * The class stores a reference to the data buffer associated with the event,
- * providing access to the newly added information.
+ * providing access to the newly added information. <br>
+ * <br>
  *
- * Typical usage:
- * <pre>
- * {@code
- * PanamaHitek_DataBuffer buffer = new PanamaHitek_DataBuffer();
- * DataInsertionEvent event = new DataInsertionEvent(this, buffer);
- * }
- * </pre>
+ * @autor Antony García González
  */
 public class DataInsertionEvent extends EventObject {
+
     PanamaHitek_DataBuffer buffer;
 
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Constructor de la clase `DataInsertionEvent`. <br>
+     * Inicializa un nuevo evento de inserción de datos, que se dispara cuando
+     * se agregan datos al buffer de datos `PanamaHitek_DataBuffer`. <br>
+     * <br>
+     * [EN] <br>
+     * Constructor of the `DataInsertionEvent` class. <br>
+     * Initializes a new data insertion event, which is triggered when data is
+     * added to the `PanamaHitek_DataBuffer`. <br>
+     * <br>
      *
-     * Constructor de la clase `DataInsertionEvent`.
-     *
-     * Inicializa un nuevo evento de inserción de datos, que se dispara cuando se
-     * agregan datos al buffer de datos `PanamaHitek_DataBuffer`.
-     *
-     * @param source El objeto fuente que generó el evento.
-     * @param buffer El buffer de datos que contiene la información insertada.
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Constructor of the `DataInsertionEvent` class.
-     *
-     * Initializes a new data insertion event, which is triggered when
-     * data is added to the `PanamaHitek_DataBuffer`.
-     *
-     * @param source The source object that generated the event.
-     * @param buffer The data buffer containing the inserted information.
+     * @param source <br>
+     * [ES] El objeto fuente que generó el evento. <br>
+     * [EN] The source object that generated the event. <br>
+     * <br>
+     * @param buffer <br>
+     * [ES] El buffer de datos que contiene la información insertada. <br>
+     * [EN] The data buffer containing the inserted information. <br>
      */
     public DataInsertionEvent(Object source, PanamaHitek_DataBuffer buffer) {
         super(source);
@@ -144,21 +118,18 @@ public class DataInsertionEvent extends EventObject {
     }
 
     /**
-     * ===================================================
-     * Documentación en Español
-     * ===================================================
+     * [ES] <br>
+     * Obtiene el buffer de datos asociado a este evento. <br>
+     * <br>
+     * [EN] <br>
+     * Gets the data buffer associated with this event. <br>
+     * <br>
      *
-     * Obtiene el buffer de datos asociado a este evento.
-     *
-     * @return Una instancia de `PanamaHitek_DataBuffer` con la información recibida.
-     *
-     * ===================================================
-     * Documentation in English
-     * ===================================================
-     *
-     * Gets the data buffer associated with this event.
-     *
-     * @return An instance of `PanamaHitek_DataBuffer` containing the received information.
+     * @return <br>
+     * [ES] Una instancia de `PanamaHitek_DataBuffer` con la información
+     * recibida. <br>
+     * [EN] An instance of `PanamaHitek_DataBuffer` containing the received
+     * information. <br>
      */
     public PanamaHitek_DataBuffer getBuffer() {
         return buffer;
