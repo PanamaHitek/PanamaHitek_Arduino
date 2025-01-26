@@ -133,27 +133,6 @@ Agrega las siguientes líneas a tu archivo `pom.xml`:
 
 ---
 
-## Métodos principales
-
-### Clase: `PanamaHitek_Arduino`
-
-- **`void ArduinoTX(String PORT_NAME, int TIME_OUT, int DATA_RATE)`**
-  - Establece una conexión para enviar datos de Java a Arduino.
-- **`void ArduinoRX(String PORT_NAME, int TIME_OUT, int DATA_RATE, SerialPortEventListener evento)`**
-  - Permite recibir datos de Arduino a Java.
-- **`void ArduinoRXTX(String PORT_NAME, int TIME_OUT, int DATA_RATE, SerialPortEventListener evento)`**
-  - Habilita la comunicación bidireccional.
-- **`void SendData(String data)`**
-  - Envía una cadena de caracteres a Arduino.
-- **`String ReceiveData()`**
-  - Recibe datos desde Arduino.
-- **`boolean isMessageAvailable()`**
-  - Verifica si un mensaje ha sido recibido.
-- **`void KillArduinoConnection()`**
-  - Finaliza la conexión.
-
----
-
 ## Documentación
 
 Para documentación completa y ejemplos de uso, visita:  
