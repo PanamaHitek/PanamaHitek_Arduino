@@ -86,7 +86,7 @@ import java.util.EventObject;
  * providing access to the newly added information. <br>
  * <br>
  *
- * @autor Antony García González
+ * @author Antony García González
  */
 public class DataInsertionEvent extends EventObject {
 
