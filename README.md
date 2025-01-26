@@ -1,4 +1,4 @@
-# PanamaHitek_Arduino Library - Version 3.2.0
+# PanamaHitek_Arduino Library - Version 3.2.1
 
 ### Author: Antony García González
 *Electromechanical Engineer, Teacher, and Researcher at the Technological University of Panama. Founder of the [Panama Hitek](http://panamahitek.com) project along with the creative team of Panama Hitek.*
@@ -49,7 +49,7 @@ Add the following lines to your `pom.xml` file:
     <dependency>
         <groupId>com.github.PanamaHitek</groupId>
         <artifactId>PanamaHitek_Arduino</artifactId>
-        <version>2.7.2</version>
+        <version>3.2.1</version>
     </dependency>
 </dependencies>
 
@@ -71,7 +71,7 @@ Add the following lines to your `pom.xml` file:
 
 ## Version Updates
 
-### Version 3.3.0
+### Version 3.2.1
 - Added support for the latest JSSC version to date (2.9.6), enabling compatibility with JDK 23, the most recent Java release.
 - Expanded method-level documentation to include English alongside the existing Spanish documentation.
 - The repository now officially supports bilingual documentation in both English and Spanish.

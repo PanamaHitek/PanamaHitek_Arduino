@@ -1,4 +1,4 @@
-# Biblioteca PanamaHitek_Arduino - Versión 3.2.0
+# Biblioteca PanamaHitek_Arduino - Versión 3.2.1
 
 ### Autor: Antony García González
 *Ingeniero Electromecánico, Docente e Investigador en la Universidad Tecnológica de Panamá. Fundador del proyecto [Panama Hitek](http://panamahitek.com) junto con el equipo creativo de Panama Hitek.*
@@ -37,7 +37,7 @@ La biblioteca también incluye cuatro clases especializadas para la representaci
 
 ### Requisitos previos
 
-- JDK 8 o superior (incluyendo la última versión JDK 23).
+- JDK 8 o superior (incluyendo la versión JDK 21).
 - Arduino IDE instalado (opcional, pero recomendado para simplificar la configuración).
 
 ### Instalación mediante Maven
@@ -49,7 +49,7 @@ Agrega las siguientes líneas a tu archivo `pom.xml`:
     <dependency>
         <groupId>com.github.PanamaHitek</groupId>
         <artifactId>PanamaHitek_Arduino</artifactId>
-        <version>2.7.2</version>
+        <version>3.2.1</version>
     </dependency>
 </dependencies>
 
@@ -61,6 +61,8 @@ Agrega las siguientes líneas a tu archivo `pom.xml`:
 </repositories>
 ```
 
+[![](https://jitpack.io/v/PanamaHitek/PanamaHitek_Arduino.svg)](https://jitpack.io/#PanamaHitek/PanamaHitek_Arduino)
+
 ### Instalación manual
 
 1. Descarga la última versión de la biblioteca desde el [repositorio de GitHub](https://github.com/PanamaHitek/Arduino-JavaAPI).
@@ -71,7 +73,7 @@ Agrega las siguientes líneas a tu archivo `pom.xml`:
 
 ## Actualizaciones de versión
 
-### Versión 3.3.0
+### Versión 3.2.1
 - Se agregó soporte para la última versión de JSSC hasta la fecha (2.9.6), permitiendo la compatibilidad con JDK 23, la versión más reciente de Java.
 - Se amplió la documentación a nivel de métodos para incluir inglés junto con la documentación existente en español.
 - El repositorio ahora admite oficialmente documentación bilingüe en inglés y español.
