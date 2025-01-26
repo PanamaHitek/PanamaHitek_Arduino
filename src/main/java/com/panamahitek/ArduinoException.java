@@ -32,8 +32,7 @@
 package com.panamahitek;
 
 /**
- * @author Antony García González, de Proyecto Panama Hitek. Visita
- * http://panamahitek.com
+ * @author Antony García González, de Proyecto Panama Hitek. Visita http://panamahitek.com
  */
 public class ArduinoException extends Exception {
 
@@ -74,57 +73,162 @@ public class ArduinoException extends Exception {
     }
 
     /**
-     * Get the value of exceptionType
+     * ===================================================
+     * Documentación en Español
+     * ===================================================
      *
-     * @return the value of exceptionType
+     * Obtiene el valor de `exceptionType`.
+     *
+     * Este método devuelve el tipo de excepción registrada en la clase,
+     * proporcionando información sobre la naturaleza del error ocurrido.
+     *
+     * @return El valor actual de `exceptionType`.
+     *
+     * ===================================================
+     * Documentation in English
+     * ===================================================
+     *
+     * Gets the value of `exceptionType`.
+     *
+     * This method returns the type of exception recorded in the class,
+     * providing information about the nature of the occurred error.
+     *
+     * @return The current value of `exceptionType`.
      */
     public static String getExceptionType() {
         return exceptionType;
     }
 
     /**
-     * Set the value of exceptionType
+     * ===================================================
+     * Documentación en Español
+     * ===================================================
      *
-     * @param exceptionType new value of exceptionType
+     * Establece el valor de `exceptionType`.
+     *
+     * Este método asigna un nuevo valor al tipo de excepción,
+     * permitiendo registrar información sobre un error específico.
+     *
+     * @param exceptionType Nuevo valor de `exceptionType`.
+     *
+     * ===================================================
+     * Documentation in English
+     * ===================================================
+     *
+     * Sets the value of `exceptionType`.
+     *
+     * This method assigns a new value to the exception type,
+     * allowing the recording of information about a specific error.
+     *
+     * @param exceptionType New value of `exceptionType`.
      */
     public static void setExceptionType(String exceptionType) {
         ArduinoException.exceptionType = exceptionType;
     }
 
     /**
-     * Get the value of methodName
+     * ===================================================
+     * Documentación en Español
+     * ===================================================
      *
-     * @return the value of methodName
+     * Obtiene el valor de `methodName`.
+     *
+     * Este método devuelve el nombre del método en el que ocurrió la excepción.
+     *
+     * @return El valor actual de `methodName`.
+     *
+     * ===================================================
+     * Documentation in English
+     * ===================================================
+     *
+     * Gets the value of `methodName`.
+     *
+     * This method returns the name of the method where the exception occurred.
+     *
+     * @return The current value of `methodName`.
      */
     public static String getMethodName() {
         return methodName;
     }
 
     /**
-     * Set the value of methodName
+     * ===================================================
+     * Documentación en Español
+     * ===================================================
      *
-     * @param methodName new value of methodName
+     * Establece el valor de `methodName`.
+     *
+     * Este método asigna un nuevo valor al nombre del método en el cual
+     * ocurrió la excepción.
+     *
+     * @param methodName Nuevo valor de `methodName`.
+     *
+     * ===================================================
+     * Documentation in English
+     * ===================================================
+     *
+     * Sets the value of `methodName`.
+     *
+     * This method assigns a new value to the name of the method where
+     * the exception occurred.
+     *
+     * @param methodName New value of `methodName`.
      */
     public static void setMethodName(String methodName) {
         ArduinoException.methodName = methodName;
     }
 
     /**
-     * Get the value of portName
+     * ===================================================
+     * Documentación en Español
+     * ===================================================
      *
-     * @return the value of portName
+     * Obtiene el valor de `portName`.
+     *
+     * Este método devuelve el nombre del puerto en el que ocurrió la excepción.
+     *
+     * @return El valor actual de `portName`.
+     *
+     * ===================================================
+     * Documentation in English
+     * ===================================================
+     *
+     * Gets the value of `portName`.
+     *
+     * This method returns the name of the port where the exception occurred.
+     *
+     * @return The current value of `portName`.
      */
     public static String getPortName() {
         return portName;
     }
 
     /**
-     * Set the value of portName
+     * ===================================================
+     * Documentación en Español
+     * ===================================================
      *
-     * @param portName new value of portName
+     * Establece el valor de `portName`.
+     *
+     * Este método asigna un nuevo valor al nombre del puerto en el cual
+     * ocurrió la excepción.
+     *
+     * @param portName Nuevo valor de `portName`.
+     *
+     * ===================================================
+     * Documentation in English
+     * ===================================================
+     *
+     * Sets the value of `portName`.
+     *
+     * This method assigns a new value to the name of the port where
+     * the exception occurred.
+     *
+     * @param portName New value of `portName`.
      */
     public static void setPortName(String portName) {
         ArduinoException.portName = portName;
     }
+
 
 }

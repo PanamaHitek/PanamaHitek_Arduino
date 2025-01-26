@@ -10,7 +10,7 @@ import jssc.SerialPortException;
 
 /**
  * @author Antony Garcia Gonzalez
- * <br>Un codigo que permite recibir datos desde el Arduino. Debe ser utilizado
+ * Un codigo que permite recibir datos desde el Arduino. Debe ser utilizado
  * con el codigo single_data_send.ino corriendo en el Arduino
  */
 public class rxSimple {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package examples.arduino;
 
 import com.panamahitek.ArduinoException;
@@ -17,7 +12,7 @@ import jssc.SerialPortException;
  *
  * @author Antony Garcia Gonzalez
  *
- * <br> Ejemplo de transmision-recepcion de datos entre Java y Arduino. Se
+ * Ejemplo de transmision-recepcion de datos entre Java y Arduino. Se
  * introduce un numero por teclado y se envia a Arduino, donde es recibido y
  * transformado en double. Se calcula su raiz cuadrada y se reimprime el valor
  * en el puerto serie. Java lo recibe y se lo muestra al usuario.
@@ -53,7 +48,7 @@ public class rxtxExample extends javax.swing.JFrame {
         initComponents();
         //Se inicia la conexion con el puerto serie COM20 a 9600 baudios
         try {
-            ino.arduinoRXTX("COM20", 9600, listener);
+            ino.arduinoRXTX("COM5", 9600, listener);
         } catch (ArduinoException ex) {
             Logger.getLogger(rxtxExample.class.getName()).log(Level.SEVERE, null, ex);
         }
