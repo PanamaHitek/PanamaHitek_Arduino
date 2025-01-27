@@ -1,7 +1,7 @@
 # Biblioteca PanamaHitek_Arduino - Versión 3.2.1
 
 ### Autor: Antony García González
-*Ingeniero Electromecánico, Docente e Investigador en la Universidad Tecnológica de Panamá. Fundador del proyecto [Panama Hitek](http://panamahitek.com) junto con el equipo creativo de Panama Hitek.*
+*Ingeniero Electromecánico, Docente e Investigador en la Universidad Tecnológica de Panamá. Fundador del proyecto [Panama Hitek](http://panamahitek.com) junto con el Panama Hitek Creative Team.*
 
 - **Email:** [antony.garcia.gonzalez@gmail.com](mailto:antony.garcia.gonzalez@gmail.com), [creativeteam@panamahitek.com](mailto:creativeteam@panamahitek.com)
 - **Facebook:** [facebook.com/panamahitek](http://facebook.com/panamahitek)
@@ -60,6 +60,7 @@ Agrega las siguientes líneas a tu archivo `pom.xml`:
     </repository>
 </repositories>
 ```
+### Versión más reciente
 
 [![](https://jitpack.io/v/PanamaHitek/PanamaHitek_Arduino.svg)](https://jitpack.io/#PanamaHitek/PanamaHitek_Arduino)
 
@@ -68,6 +69,36 @@ Agrega las siguientes líneas a tu archivo `pom.xml`:
 1. Descarga la última versión de la biblioteca desde el [repositorio de GitHub](https://github.com/PanamaHitek/Arduino-JavaAPI).
 2. Extrae los archivos en un directorio de tu preferencia.
 3. Añade los archivos `.jar` al classpath de tu proyecto Java.
+
+---
+
+## Uso
+
+Para utilizar la biblioteca de manera efectiva, asegúrate de que la placa Arduino esté conectada a la computadora a través de USB. Además, la placa Arduino debe tener un sketch apropiado cargado para facilitar la comunicación serial. La configuración implica ejecutar un sketch de Arduino en la placa mientras un programa Java correspondiente opera en la computadora.
+
+La documentación incluye varios sketches de Arduino emparejados con programas Java que se pueden usar para probar la funcionalidad de la biblioteca. Puedes realizar las siguientes pruebas:
+
+- **Enviar datos de Java a Arduino**
+  - Sketch de Arduino: [`tx_example.ino`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino_sketches/tx_example.ino)
+  - Programa Java: [`txExample.java`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino/txExample.java)  
+    _Este programa Java proporciona una GUI de Swing con botones para interactuar con el Arduino a través de la comunicación serial._
+
+- **Recibir datos de Arduino a Java**
+  - Sketch de Arduino: [`single_data_send.ino`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino_sketches/single_data_send.ino)
+  - Programa Java: [`rxExample.java`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino/rxExample.java)  
+    _Este script Java se ejecuta en la consola e imprime los datos recibidos._
+
+- **Comunicación bidireccional entre Java y Arduino**
+  - Sketch de Arduino: [`rxtx_example.ino`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino_sketches/rxtx_example.ino)
+  - Programa Java: [`rxtxExample.java`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino/rxtxExample.java)  
+    _Este programa Java proporciona una GUI de Swing con botones para interactuar con el Arduino a través de la comunicación serial._
+
+- **Enviar múltiples valores de datos de Arduino a Java**
+  - Sketch de Arduino: [`multiple_data_send.ino`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino_sketches/multiple_data_send.ino)
+  - Programa Java: [`rxMultiple.java`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino/rxMultiple.java)  
+    _Este script Java se ejecuta en la consola e imprime múltiples valores de datos recibidos._
+
+Para información detallada sobre cada ejemplo, por favor consulta la [carpeta arduino_sketches en el repositorio](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino_sketches/README_es.md).
 
 ---
 

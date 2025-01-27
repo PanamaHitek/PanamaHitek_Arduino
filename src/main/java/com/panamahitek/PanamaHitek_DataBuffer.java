@@ -107,22 +107,23 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 
 /**
-* [ES] <br>
-* Esta clase ha sido diseñada para gestionar el almacenamiento de datos en
-* hojas de cálculo de Excel de manera fácil y rápida. <br>
-* Proporciona métodos para agregar columnas, insertar datos, exportar a
-* archivos Excel y JSON, y visualizar los datos en una tabla. <br>
-* Para más información, visita panamahitek.com. <br>
-* <br>
-* [EN] <br>
-* This class is designed to manage data storage in Excel spreadsheets easily
-* and quickly. <br>
-* It provides methods to add columns, insert data, export to Excel and JSON
-* files, and visualize the data in a table. <br>
-* For more information, visit panamahitek.com. <br>
-* <br>
-* @author Antony García González
-*/
+ * [ES] <br>
+ * Esta clase ha sido diseñada para gestionar el almacenamiento de datos en
+ * hojas de cálculo de Excel de manera fácil y rápida. <br>
+ * Proporciona métodos para agregar columnas, insertar datos, exportar a
+ * archivos Excel y JSON, y visualizar los datos en una tabla. <br>
+ * Para más información, visita panamahitek.com. <br>
+ * <br>
+ * [EN] <br>
+ * This class is designed to manage data storage in Excel spreadsheets easily
+ * and quickly. <br>
+ * It provides methods to add columns, insert data, export to Excel and JSON
+ * files, and visualize the data in a table. <br>
+ * For more information, visit panamahitek.com. <br>
+ * <br>
+ *
+ * @author Antony García González
+ */
 public class PanamaHitek_DataBuffer {
 
     private List<List<Object>> mainBuffer;
@@ -141,6 +142,17 @@ public class PanamaHitek_DataBuffer {
     private String dateStringFormat = "HH:mm:ss";
     private ArrayList listeners;
 
+    /**
+     * [ES] <br>
+     * Listener para cambios en el modelo de la tabla. <br>
+     * Este listener se encarga de actualizar la visualización de la tabla
+     * cuando se detectan cambios en el modelo de datos. <br>
+     * <br>
+     * [EN] <br>
+     * Listener for table model changes. <br>
+     * This listener updates the table view when changes in the data model are
+     * detected. <br>
+     */
     TableModelListener tableModelListener = new TableModelListener() {
         @Override
         public void tableChanged(TableModelEvent tme) {
@@ -164,28 +176,64 @@ public class PanamaHitek_DataBuffer {
     };
 
     /**
-     * Constructor de la clase
+     * [ES] <br>
+     * Constructor de la clase `PanamaHitek_DataBuffer`. <br>
+     * Este constructor inicializa las listas principales que se utilizarán para
+     * almacenar los datos, las variables y los oyentes de eventos. <br>
+     * <br>
+     * [EN] <br>
+     * Constructor of the `PanamaHitek_DataBuffer` class. <br>
+     * This constructor initializes the main lists that will be used to store
+     * data, variables, and event listeners. <br>
      */
     public PanamaHitek_DataBuffer() {
         mainBuffer = new ArrayList<>();
         variableList = new ArrayList<>();
         classList = new ArrayList<>();
-        listeners = new ArrayList();
-    }
-
-    public void clearBuffer() {
-        for (int i = 0; i < mainBuffer.size(); i++) {
-            mainBuffer.get(i).clear();
-            ROW_COUNT = 0;
-        }
+        listeners = new ArrayList<>();
     }
 
     /**
-     * Permite agregar una columna al buffer de datos
+     * [ES] <br>
+     * Limpia el buffer de datos. <br>
+     * Este método elimina todos los datos almacenados en el buffer y reinicia
+     * el contador de filas. <br>
+     * <br>
+     * [EN] <br>
+     * Clears the data buffer. <br>
+     * This method removes all data stored in the buffer and resets the row
+     * count. <br>
+     */
+    public void clearBuffer() {
+        for (int i = 0; i < mainBuffer.size(); i++) {
+            mainBuffer.get(i).clear();
+        }
+        ROW_COUNT = 0;
+    }
+
+    /**
+     * [ES] <br>
+     * Permite agregar una columna al buffer de datos. <br>
+     * Este método añade una nueva columna al buffer, especificando su índice,
+     * nombre y tipo de datos. <br>
+     * <br>
+     * [EN] <br>
+     * Adds a column to the data buffer. <br>
+     * This method adds a new column to the buffer, specifying its index, name,
+     * and data type. <br>
+     * <br>
      *
-     * @param index El índice (posicion) de la columna
-     * @param variableName El nombre que se desea asignar a la variable
-     * @param dataType Tipo de datos a guardar en la columna
+     * @param index <br>
+     * [ES] El índice (posición) de la columna. <br>
+     * [EN] The index (position) of the column. <br>
+     * <br>
+     * @param variableName <br>
+     * [ES] El nombre que se desea asignar a la variable. <br>
+     * [EN] The name to be assigned to the variable. <br>
+     * <br>
+     * @param dataType <br>
+     * [ES] Tipo de datos a guardar en la columna. <br>
+     * [EN] Data type to be stored in the column. <br>
      */
     public void addColumn(int index, String variableName, Object dataType) {
         variableList.add(index, variableName);
@@ -195,10 +243,24 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Permite agregar una columna de registro de tiempo al buffer de datos
+     * [ES] <br>
+     * Agrega una columna de registro de tiempo al buffer de datos. <br>
+     * Este método permite almacenar registros de tiempo en una columna
+     * específica del buffer. <br>
+     * <br>
+     * [EN] <br>
+     * Adds a time log column to the data buffer. <br>
+     * This method allows storing time logs in a specific column of the buffer.
+     * <br>
+     * <br>
      *
-     * @param index El índice (posicion) de la columna de tiempo
-     * @param variableName El nombre que se desea asignar a la variable
+     * @param index <br>
+     * [ES] El índice (posición) de la columna de tiempo. <br>
+     * [EN] The index (position) of the time column. <br>
+     * <br>
+     * @param variableName <br>
+     * [ES] El nombre que se desea asignar a la variable. <br>
+     * [EN] The name to be assigned to the variable. <br>
      */
     public void addTimeColumn(int index, String variableName) {
         variableList.add(index, variableName);
@@ -210,12 +272,21 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Permite establecer el formato de la fecha. Por ejemplo, si se quiere que
-     * la fecha tenga el formato de hora, minutos y segundos, se debe enviar
-     * como parámetro new SimpleDateFormat("HH:mm:ss")
+     * [ES] <br>
+     * Establece el formato de la fecha. Por ejemplo, si se desea que la fecha
+     * tenga el formato de horas, minutos y segundos, se debe enviar como
+     * parámetro `new SimpleDateFormat("HH:mm:ss")`. <br>
+     * <br>
+     * [EN] <br>
+     * Sets the date format. For example, if you want the date to have the
+     * format of hours, minutes, and seconds, you should pass `new
+     * SimpleDateFormat("HH:mm:ss")` as a parameter. <br>
+     * <br>
      *
-     * @param format Formato que se desea establecer
-     *
+     * @param format <br>
+     * [ES] Formato que se desea establecer. <br>
+     * [EN] Format to be set. <br>
+     * <br>
      * @see SimpleDateFormat
      */
     public void setDateFormat(String format) {
@@ -224,12 +295,21 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Permite establecer el formato de la fecha. Por ejemplo, si se quiere que
-     * la fecha tenga el formato de hora, minutos y segundos, se debe enviar
-     * como parámetro new SimpleDateFormat("HH:mm:ss")
+     * [ES] <br>
+     * Establece el formato de la fecha. Por ejemplo, si se desea que la fecha
+     * tenga el formato de horas, minutos y segundos, se debe enviar como
+     * parámetro `new SimpleDateFormat("HH:mm:ss")`. <br>
+     * <br>
+     * [EN] <br>
+     * Sets the date format. For example, if you want the date to have the
+     * format of hours, minutes, and seconds, you should pass `new
+     * SimpleDateFormat("HH:mm:ss")` as a parameter. <br>
+     * <br>
      *
-     * @param format Formato que se desea establecer
-     *
+     * @param format <br>
+     * [ES] Formato que se desea establecer. <br>
+     * [EN] Format to be set. <br>
+     * <br>
      * @see SimpleDateFormat
      */
     public void setDateFormat(SimpleDateFormat format) {
@@ -288,57 +368,108 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Agrega nuevos valores al buffer de datos
+     * [ES] <br>
+     * Agrega un nuevo valor al buffer de datos. <br>
+     * Este método permite almacenar un valor en una columna específica del
+     * buffer. <br>
+     * <br>
+     * [EN] <br>
+     * Adds a new value to the data buffer. <br>
+     * This method allows storing a value in a specific column of the buffer.
+     * <br>
+     * <br>
      *
-     * @param column Columna en la que se desea almacenar el valor
-     * @param value Valor a almacenar
-     * @throws Exception Se produce si se escoje una columna que no ha sido
-     * definida o si se intenta guardar un valor diferente al del tipo de datos
-     * establecidos para la columna
+     * @param column <br>
+     * [ES] Columna en la que se desea almacenar el valor. <br>
+     * [EN] Column where the value will be stored. <br>
+     * <br>
+     * @param value <br>
+     * [ES] Valor a almacenar. <br>
+     * [EN] Value to be stored. <br>
+     * <br>
+     * @throws Exception <br>
+     * [ES] Se lanza si se selecciona una columna que no ha sido definida o si
+     * se intenta guardar un valor de un tipo diferente al establecido para la
+     * columna. <br>
+     * [EN] Thrown if a column that has not been defined is selected or if an
+     * attempt is made to store a value of a different type than the one
+     * established for the column. <br>
      */
     public void addValue(int column, Object value) throws Exception {
         if (column > variableList.size()) {
-            throw new Exception("El parametro 'column' no puede ser mayor a la "
-                    + "cantidad de columnas declaradas");
+            throw new Exception("El parámetro 'column' no puede ser mayor a la cantidad de columnas declaradas.");
         }
         mainBuffer.get(column).add(ROW_COUNT, value);
     }
 
     /**
+     * [ES] <br>
+     * Devuelve la cantidad de filas almacenadas en el buffer. <br>
+     * <br>
+     * [EN] <br>
+     * Returns the number of rows stored in the buffer. <br>
      *
-     * @return Cantidad de filas almacenadas en el buffer
+     * @return <br>
+     * [ES] La cantidad de filas almacenadas en el buffer. <br>
+     * [EN] The number of rows stored in the buffer. <br>
      */
     public int getRowCount() {
         return ROW_COUNT;
     }
 
     /**
+     * [ES] <br>
+     * Devuelve la cantidad de columnas del buffer. <br>
+     * <br>
+     * [EN] <br>
+     * Returns the number of columns in the buffer. <br>
      *
-     * @return Cantidad de columnas del buffer
+     * @return <br>
+     * [ES] La cantidad de columnas del buffer. <br>
+     * [EN] The number of columns in the buffer. <br>
      */
     public int getColumnCount() {
         return variableList.size();
     }
 
     /**
+     * [ES] <br>
+     * Establece el nombre de la hoja en el libro de Excel. <br>
+     * <br>
+     * [EN] <br>
+     * Sets the name of the sheet in the Excel workbook. <br>
      *
-     * @param sheetName Nombre de la hoja en el libro de Excel
+     * @param sheetName <br>
+     * [ES] El nombre de la hoja en el libro de Excel. <br>
+     * [EN] The name of the sheet in the Excel workbook. <br>
      */
     public void setSheetName(String sheetName) {
         this.SHEET_NAME = sheetName;
     }
 
     /**
+     * [ES] <br>
+     * Obtiene el nombre de la hoja de Excel. <br>
+     * <br>
+     * [EN] <br>
+     * Gets the name of the Excel sheet. <br>
      *
-     * @return Nombre de la hoja de Excel
+     * @return <br>
+     * [ES] El nombre de la hoja de Excel. <br>
+     * [EN] The name of the Excel sheet. <br>
      */
     public String getSheetName() {
         return SHEET_NAME;
     }
 
     /**
-     * Abre una ventana emergente para escoger la direccion en la cual se quiere
-     * almacenar la hoja de datos de Excel
+     * [ES] <br>
+     * Abre una ventana emergente para seleccionar la ubicación donde se desea
+     * guardar la hoja de datos de Excel. <br>
+     * <br>
+     * [EN] <br>
+     * Opens a dialog window to select the location where the Excel data sheet
+     * will be saved. <br>
      */
     public void exportExcelFile() throws FileNotFoundException, IOException {
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getDefaultDirectory());
@@ -376,10 +507,18 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Crea y almacena la hoja de Excel con los datos del buffer en una
-     * ubicacion específica
+     * [ES] <br>
+     * Crea y guarda la hoja de Excel con los datos del buffer en una ubicación
+     * específica. <br>
+     * <br>
+     * [EN] <br>
+     * Creates and saves the Excel sheet with the data from the buffer to a
+     * specific location. <br>
+     * <br>
      *
-     * @param path Ubicacion en la que se desea almacenar el fichero
+     * @param path <br>
+     * [ES] Ubicación donde se desea guardar el archivo. <br>
+     * [EN] Location where the file should be saved. <br>
      */
     public void exportExcelFile(String path) {
         try {
@@ -395,10 +534,18 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Construye la hoja de Excel
+     * [ES] <br>
+     * Construye la hoja de Excel con los datos almacenados en el buffer. <br>
+     * <br>
+     * [EN] <br>
+     * Builds the Excel sheet with the data stored in the buffer. <br>
+     * <br>
      *
-     * @return Instancia de la clase XSSFWorkbook con los datos almacenados en
-     * el buffer de datos
+     * @return <br>
+     * [ES] Instancia de la clase XSSFWorkbook con los datos almacenados en el
+     * buffer. <br>
+     * [EN] Instance of the XSSFWorkbook class with the data stored in the
+     * buffer. <br>
      */
     private XSSFWorkbook buildSpreadsheet() {
         XSSFWorkbook workbook = new XSSFWorkbook();
@@ -442,10 +589,18 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Construye la hoja de Excel
+     * [ES] <br>
+     * Construye la hoja de Excel con los datos almacenados en el buffer. <br>
+     * <br>
+     * [EN] <br>
+     * Builds the Excel sheet with the data stored in the buffer. <br>
+     * <br>
      *
-     * @return Instancia de la clase XSSFWorkbook con los datos almacenados en
-     * el buffer de datos
+     * @return <br>
+     * [ES] Instancia de la clase XSSFWorkbook con los datos almacenados en el
+     * buffer. <br>
+     * [EN] Instance of the XSSFWorkbook class with the data stored in the
+     * buffer. <br>
      */
     private String buildJSON() {
         JsonArray mainArray = new JsonArray();
@@ -469,9 +624,16 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Construye un JTable y la inserta dentro de un JPanel
+     * [ES] <br>
+     * Construye un `JTable` y lo inserta dentro de un `JPanel`. <br>
+     * <br>
+     * [EN] <br>
+     * Builds a `JTable` and inserts it into a `JPanel`. <br>
+     * <br>
      *
-     * @param panel JPanel donde se desea insertar la tabla
+     * @param panel <br>
+     * [ES] `JPanel` donde se desea insertar la tabla. <br>
+     * [EN] `JPanel` where the table will be inserted. <br>
      */
     public void insertToPanel(JPanel panel) {
         buildTable();
@@ -485,8 +647,11 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     *
-     * @return JTable creado dentro de la clase
+     * [ES] <br>
+     * Devuelve la instancia de `JTable` creada dentro de la clase. <br>
+     * <br>
+     * [EN] <br>
+     * Returns the instance of `JTable` created within the class. <br>
      */
     public JTable getTable() {
         buildTable();
@@ -494,8 +659,11 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     *
-     * @return JScrollPane con la tabla de datos contenida en su interior
+     * [ES] <br>
+     * Devuelve un JScrollPane que contiene la tabla de datos. <br>
+     * <br>
+     * [EN] <br>
+     * Returns a JScrollPane containing the data table. <br>
      */
     public JScrollPane getScrollPane() {
         buildTable();
@@ -506,7 +674,17 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Construye la JTable donde se almacenan los datos
+     * [ES] <br>
+     * Construye una JTable de Swing donde se almacenan los datos. <br>
+     * Este método configura la tabla con el modelo de datos, establece el
+     * renderizador de celdas y ajusta las propiedades de la tabla para su
+     * correcta visualización. <br>
+     * <br>
+     * [EN] <br>
+     * Builds a Swing JTable where the data is stored. <br>
+     * This method sets up the table with the data model, configures the cell
+     * renderer, and adjusts the table properties for proper display. <br>
+     *
      */
     private void buildTable() {
         if (!tableFlag) {
@@ -561,9 +739,16 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Agrega el evento DataInsertionListener
+     * [ES] <br>
+     * Agrega el evento DataInsertionListener. <br>
+     * <br>
+     * [EN] <br>
+     * Adds the DataInsertionListener event. <br>
+     * <br>
      *
-     * @param listener Instancia de la clase DataInsertionListener
+     * @param listener <br>
+     * [ES] Instancia de la clase DataInsertionListener. <br>
+     * [EN] Instance of the DataInsertionListener class. <br>
      */
     public void addEventListener(DataInsertionListener listener) {
         listeners.add(listener);
@@ -571,7 +756,11 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Elimina el eventListener
+     * [ES] <br>
+     * Elimina el eventListener. <br>
+     * <br>
+     * [EN] <br>
+     * Removes the eventListener. <br>
      */
     public void removeEventListener() {
         listeners.remove(listeners.size() - 1);
@@ -579,7 +768,15 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
-     * Disparador de evento onDataInsertion
+     * [ES] <br>
+     * Disparador de evento onDataInsertion. <br>
+     * Este método se encarga de notificar a todos los listeners registrados
+     * cuando se inserta un nuevo dato en el buffer. <br>
+     * <br>
+     * [EN] <br>
+     * onDataInsertion event trigger. <br>
+     * This method is responsible for notifying all registered listeners when a
+     * new data is inserted into the buffer. <br>
      */
     private void triggerDataInsertionEvent() {
         ListIterator li = listeners.listIterator();
@@ -591,41 +788,70 @@ public class PanamaHitek_DataBuffer {
     }
 
     /**
+     * [ES] <br>
      *
-     * @return Lista de clases almacenadas en las columnas del databuffer
+     * @return Lista de clases almacenadas en las columnas del databuffer. <br>
+     * <br>
+     * [EN] <br>
+     * @return List of classes stored in the databuffer columns.
      */
     public List<Object> getClassList() {
         return classList;
     }
 
     /**
+     * [ES] <br>
      *
-     * @return Lista de los nombres de las columnas declaradas
+     * @return Lista de los nombres de las columnas declaradas. <br>
+     * <br>
+     * [EN] <br>
+     * @return List of declared column names.
      */
     public List<String> getVariableList() {
         return variableList;
     }
 
     /**
+     * [ES] <br>
+     * Obtiene el buffer de datos. <br>
+     * <br>
+     * [EN] <br>
+     * Gets the data buffer. <br>
+     * <br>
      *
-     * @return Buffer de datos
+     * @return <br>
+     * [ES] El buffer de datos. <br>
+     * [EN] The data buffer. <br>
      */
     public List<List<Object>> getMainBuffer() {
         return mainBuffer;
     }
 
     /**
-     * @return Indice de la columna de tiempo
+     * [ES] <br>
+     *
+     * @return Índice de la columna de tiempo. <br>
+     * <br>
+     * [EN] <br>
+     * @return Index of the time column.
      */
     public int getTimeColumn() {
         return timeColumn;
     }
 
     /**
-     * Permite ordenar los datos en una columna de la tabla que genera la clase
+     * [ES] <br>
+     * Ordena los datos en una columna específica de la tabla generada por esta
+     * clase. <br>
+     * <br>
+     * [EN] <br>
+     * Sorts the data in a specific column of the table generated by this class.
      *
-     * @param column La columna que se desea ordenar
-     * @param ascending si se desea un orden ascendente o descendente
+     * @param column [ES] La columna a ordenar. <br>
+     * [EN] The column to sort.
+     * @param ascending [ES] Indica si el orden debe ser ascendente o
+     * descendente. <br>
+     * [EN] Indicates whether the order should be ascending or descending.
      *
      * @since 3.0.3
      */
