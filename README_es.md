@@ -85,7 +85,7 @@ La documentación incluye varios sketches de Arduino emparejados con programas J
 
 - **Recibir datos de Arduino a Java**
   - Sketch de Arduino: [`single_data_send.ino`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino_sketches/single_data_send.ino)
-  - Programa Java: [`rxExample.java`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino/rxExample.java)  
+  - Programa Java: [`rxExample.java`](https://github.com/PanamaHitek/PanamaHitek_Arduino/blob/master/src/test/java/examples/arduino/rxSimple.java)  
     _Este script Java se ejecuta en la consola e imprime los datos recibidos._
 
 - **Comunicación bidireccional entre Java y Arduino**
