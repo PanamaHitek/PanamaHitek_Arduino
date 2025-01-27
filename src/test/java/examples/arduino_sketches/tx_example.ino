@@ -1,22 +1,30 @@
+/**
+ * [ES]
+ * Configuración inicial del programa. Configura la velocidad de comunicación serial y el pin 13 como salida.
+ *
+ * [EN]
+ * Initial setup of the program. Sets the serial communication speed and configures pin 13 as output.
+ */
 void setup() {
-  //Se inicia la comunicacion serial
   Serial.begin(9600);
-  //Se declara el pin 13 como salida de voltaje
   pinMode(13, OUTPUT);
 }
 
+/**
+ * [ES]
+ * Bucle principal del programa. Lee los datos disponibles en el puerto serie y controla el LED en el pin 13
+ * según el mensaje recibido ("on" para encender, "off" para apagar).
+ *
+ * [EN]
+ * Main program loop. Reads available data from the serial port and controls the LED on pin 13
+ * based on the received message ("on" to turn on, "off" to turn off).
+ */
 void loop() {
-  //Cuando haya datos disponibles para leer...
   if (Serial.available() > 0) {
-    //Se leen los datos y se guardan en el String str
     String str = Serial.readString();
-    //Si el mensaje recibido es "on"...
     if (str == "on") {
-      //Se enciende el LED en el pin 13
       digitalWrite(13, HIGH);
-      //Si el mensaje recibido es "off"...
     } else if (str == "off") {
-      //Se apaga el LED en el pin 13
       digitalWrite(13, LOW);
     }
   }

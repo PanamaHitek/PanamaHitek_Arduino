@@ -1,16 +1,23 @@
 void setup() {
-  //Se inicia la comunicacion serial
   Serial.begin(9600);
 }
 
+/**
+ * [ES]
+ * Bucle principal del programa. Lee los datos disponibles en el puerto serie,
+ * los convierte a un número de punto flotante, calcula su raíz cuadrada y
+ * envía el resultado de vuelta al puerto serie.
+ *
+ * [EN]
+ * Main program loop. Reads available data from the serial port, converts it
+ * to a floating-point number, calculates its square root, and sends the
+ * result back to the serial port.
+ */
+
 void loop() {
-  //Cuando haya datos disponibles para leer...
   if (Serial.available() > 0) {
-    //Se leen los datos y se guardan en el String str
     String str = Serial.readString();
-    //Se transforma str a double y se calcula su raiz cuadrada
     double root = sqrt(str.toDouble());
-    //Se imprime el resultado de la raiz cuadrada en el puerto serie
     Serial.println(root);
   }
 }
